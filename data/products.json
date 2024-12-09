@@ -1,0 +1,373 @@
+[
+    {
+      "id": "1",
+      "title": "Wireless Bluetooth Headphones",
+      "description": "High-quality over-ear headphones with noise cancellation and long battery life.",
+      "price": 120.99,
+      "discountPrice": 10,
+      "category": "Electronics",
+      "brand": "SoundPro",
+      "images": [
+        "https://example.com/images/headphones1.jpg",
+        "https://example.com/images/headphones2.jpg"
+      ],
+      "stock": 45,
+      "colors": ["Black", "White"],
+      "sizes": [],
+      "rating": 4.5,
+      "reviewCount": 320,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "2",
+      "title": "Smart Fitness Watch",
+      "description": "Track your steps, monitor your heart rate, and stay connected with this sleek smartwatch.",
+      "price": 79.99,
+      "category": "Wearables",
+      "brand": "FitTrack",
+      "images": [
+        "https://example.com/images/watch1.jpg",
+        "https://example.com/images/watch2.jpg"
+      ],
+      "stock": 30,
+      "colors": ["Black", "Silver", "Rose Gold"],
+      "rating": 4.2,
+      "reviewCount": 210,
+      "isFeatured": true,
+      "isNewArrival": true
+    },
+    {
+      "id": "3",
+      "title": "Ergonomic Office Chair",
+      "description": "Comfortable office chair with lumbar support and adjustable height.",
+      "price": 199.99,
+      "discountPrice": 30,
+      "category": "Furniture",
+      "brand": "OfficeComfort",
+      "images": [
+        "https://example.com/images/chair1.jpg",
+        "https://example.com/images/chair2.jpg"
+      ],
+      "stock": 12,
+      "colors": ["Black", "Gray"],
+      "rating": 4.8,
+      "reviewCount": 110,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "4",
+      "title": "Gaming Laptop",
+      "description": "Powerful gaming laptop with a high refresh rate display and advanced cooling system.",
+      "price": 1599.99,
+      "category": "Computers",
+      "brand": "GameMax",
+      "images": [
+        "https://example.com/images/laptop1.jpg",
+        "https://example.com/images/laptop2.jpg"
+      ],
+      "stock": 8,
+      "colors": ["Black"],
+      "rating": 4.7,
+      "reviewCount": 85,
+      "isFeatured": true,
+      "isNewArrival": true
+    },
+    {
+      "id": "5",
+      "title": "4K Ultra HD Smart TV",
+      "description": "A stunning 55-inch 4K Smart TV with built-in streaming apps and voice control.",
+      "price": 899.99,
+      "category": "Electronics",
+      "brand": "VisionX",
+      "images": [
+        "https://example.com/images/tv1.jpg",
+        "https://example.com/images/tv2.jpg"
+      ],
+      "stock": 20,
+      "colors": ["Black"],
+      "rating": 4.6,
+      "reviewCount": 250,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "6",
+      "title": "Women's Casual Sneakers",
+      "description": "Lightweight and comfortable sneakers perfect for everyday wear.",
+      "price": 59.99,
+      "discountPrice": 50,
+      "category": "Fashion",
+      "brand": "TrendStep",
+      "images": [
+        "https://example.com/images/sneakers1.jpg",
+        "https://example.com/images/sneakers2.jpg"
+      ],
+      "stock": 60,
+      "colors": ["White", "Pink", "Gray"],
+      "sizes": ["6", "7", "8", "9", "10"],
+      "rating": 4.3,
+      "reviewCount": 150,
+      "isFeatured": false,
+      "isNewArrival": true
+    },
+    {
+      "id": "7",
+      "title": "Electric Stand Mixer",
+      "description": "A powerful stand mixer with multiple speed settings and a stainless steel bowl.",
+      "price": 129.99,
+      "category": "Home Appliances",
+      "brand": "KitchenPro",
+      "images": [
+        "https://example.com/images/mixer1.jpg",
+        "https://example.com/images/mixer2.jpg"
+      ],
+      "stock": 25,
+      "colors": ["White", "Red"],
+      "rating": 4.4,
+      "reviewCount": 180,
+      "isFeatured": false,
+      "isNewArrival": false
+    },
+    {
+      "id": "8",
+      "title": "Men's Leather Wallet",
+      "description": "Premium leather wallet with multiple compartments for cards and cash.",
+      "price": 39.99,
+      "category": "Accessories",
+      "brand": "LuxStyle",
+      "images": [
+        "https://example.com/images/wallet1.jpg",
+        "https://example.com/images/wallet2.jpg"
+      ],
+      "stock": 100,
+      "colors": ["Black", "Brown"],
+      "rating": 4.7,
+      "reviewCount": 220,
+      "isFeatured": false,
+      "isNewArrival": true
+    },
+    {
+      "id": "9",
+      "title": "Stainless Steel Water Bottle",
+      "description": "Keep your drinks hot or cold for hours with this vacuum-insulated bottle.",
+      "price": 24.99,
+      "category": "Outdoor",
+      "brand": "EcoHydrate",
+      "images": [
+        "https://example.com/images/bottle1.jpg",
+        "https://example.com/images/bottle2.jpg"
+      ],
+      "stock": 150,
+      "colors": ["Blue", "Silver", "Black"],
+      "rating": 4.5,
+      "reviewCount": 300,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "10",
+      "title": "Portable Bluetooth Speaker",
+      "description": "Compact and waterproof speaker with powerful sound and long battery life.",
+      "price": 49.99,
+      "category": "Electronics",
+      "brand": "SoundMax",
+      "images": [
+        "https://example.com/images/speaker1.jpg",
+        "https://example.com/images/speaker2.jpg"
+      ],
+      "stock": 40,
+      "colors": ["Black", "Blue", "Red"],
+      "rating": 4.8,
+      "reviewCount": 400,
+      "isFeatured": true,
+      "isNewArrival": true
+    },
+    {
+      "id": "1",
+      "title": "Wireless Bluetooth Headphones",
+      "description": "High-quality over-ear headphones with noise cancellation and long battery life.",
+      "price": 120.99,
+      "discountPrice": 10,
+      "category": "Electronics",
+      "brand": "SoundPro",
+      "images": [
+        "https://example.com/images/headphones1.jpg",
+        "https://example.com/images/headphones2.jpg"
+      ],
+      "stock": 45,
+      "colors": ["Black", "White"],
+      "sizes": [],
+      "rating": 4.5,
+      "reviewCount": 320,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "2",
+      "title": "Smart Fitness Watch",
+      "description": "Track your steps, monitor your heart rate, and stay connected with this sleek smartwatch.",
+      "price": 79.99,
+      "category": "Wearables",
+      "brand": "FitTrack",
+      "images": [
+        "https://example.com/images/watch1.jpg",
+        "https://example.com/images/watch2.jpg"
+      ],
+      "stock": 30,
+      "colors": ["Black", "Silver", "Rose Gold"],
+      "rating": 4.2,
+      "reviewCount": 210,
+      "isFeatured": true,
+      "isNewArrival": true
+    },
+    {
+      "id": "3",
+      "title": "Ergonomic Office Chair",
+      "description": "Comfortable office chair with lumbar support and adjustable height.",
+      "price": 199.99,
+      "discountPrice": 30,
+      "category": "Furniture",
+      "brand": "OfficeComfort",
+      "images": [
+        "https://example.com/images/chair1.jpg",
+        "https://example.com/images/chair2.jpg"
+      ],
+      "stock": 12,
+      "colors": ["Black", "Gray"],
+      "rating": 4.8,
+      "reviewCount": 110,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "4",
+      "title": "Gaming Laptop",
+      "description": "Powerful gaming laptop with a high refresh rate display and advanced cooling system.",
+      "price": 1599.99,
+      "category": "Computers",
+      "brand": "GameMax",
+      "images": [
+        "https://example.com/images/laptop1.jpg",
+        "https://example.com/images/laptop2.jpg"
+      ],
+      "stock": 8,
+      "colors": ["Black"],
+      "rating": 4.7,
+      "reviewCount": 85,
+      "isFeatured": true,
+      "isNewArrival": true
+    },
+    {
+      "id": "5",
+      "title": "4K Ultra HD Smart TV",
+      "description": "A stunning 55-inch 4K Smart TV with built-in streaming apps and voice control.",
+      "price": 899.99,
+      "category": "Electronics",
+      "brand": "VisionX",
+      "images": [
+        "https://example.com/images/tv1.jpg",
+        "https://example.com/images/tv2.jpg"
+      ],
+      "stock": 20,
+      "colors": ["Black"],
+      "rating": 4.6,
+      "reviewCount": 250,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "6",
+      "title": "Women's Casual Sneakers",
+      "description": "Lightweight and comfortable sneakers perfect for everyday wear.",
+      "price": 59.99,
+      "discountPrice": 50,
+      "category": "Fashion",
+      "brand": "TrendStep",
+      "images": [
+        "https://example.com/images/sneakers1.jpg",
+        "https://example.com/images/sneakers2.jpg"
+      ],
+      "stock": 60,
+      "colors": ["White", "Pink", "Gray"],
+      "sizes": ["6", "7", "8", "9", "10"],
+      "rating": 4.3,
+      "reviewCount": 150,
+      "isFeatured": false,
+      "isNewArrival": true
+    },
+    {
+      "id": "7",
+      "title": "Electric Stand Mixer",
+      "description": "A powerful stand mixer with multiple speed settings and a stainless steel bowl.",
+      "price": 129.99,
+      "category": "Home Appliances",
+      "brand": "KitchenPro",
+      "images": [
+        "https://example.com/images/mixer1.jpg",
+        "https://example.com/images/mixer2.jpg"
+      ],
+      "stock": 25,
+      "colors": ["White", "Red"],
+      "rating": 4.4,
+      "reviewCount": 180,
+      "isFeatured": false,
+      "isNewArrival": false
+    },
+    {
+      "id": "8",
+      "title": "Men's Leather Wallet",
+      "description": "Premium leather wallet with multiple compartments for cards and cash.",
+      "price": 39.99,
+      "category": "Accessories",
+      "brand": "LuxStyle",
+      "images": [
+        "https://example.com/images/wallet1.jpg",
+        "https://example.com/images/wallet2.jpg"
+      ],
+      "stock": 100,
+      "colors": ["Black", "Brown"],
+      "rating": 4.7,
+      "reviewCount": 220,
+      "isFeatured": false,
+      "isNewArrival": true
+    },
+    {
+      "id": "9",
+      "title": "Stainless Steel Water Bottle",
+      "description": "Keep your drinks hot or cold for hours with this vacuum-insulated bottle.",
+      "price": 24.99,
+      "category": "Outdoor",
+      "brand": "EcoHydrate",
+      "images": [
+        "https://example.com/images/bottle1.jpg",
+        "https://example.com/images/bottle2.jpg"
+      ],
+      "stock": 150,
+      "colors": ["Blue", "Silver", "Black"],
+      "rating": 4.5,
+      "reviewCount": 300,
+      "isFeatured": true,
+      "isNewArrival": false
+    },
+    {
+      "id": "10",
+      "title": "Portable Bluetooth Speaker",
+      "description": "Compact and waterproof speaker with powerful sound and long battery life.",
+      "price": 49.99,
+      "category": "Electronics",
+      "brand": "SoundMax",
+      "images": [
+        "https://example.com/images/speaker1.jpg",
+        "https://example.com/images/speaker2.jpg"
+      ],
+      "stock": 40,
+      "colors": ["Black", "Blue", "Red"],
+      "rating": 4.8,
+      "reviewCount": 400,
+      "isFeatured": true,
+      "isNewArrival": true
+    }
+  ]
+  
