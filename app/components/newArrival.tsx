@@ -30,7 +30,7 @@ const NewArrivals = () => {
        <Button cta="View All " link="/shop/newarrival"/>
 
           </div>
-        <div className="grid gap-2 auto-rows-auto justify-items-center justify-center" style={{gridTemplateColumns:" repeat(auto-fill, minmax(200px,250px)) "}}>
+        <div className="grid gap-2 auto-rows-auto justify-items-center justify-center grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] " >
           {newArrivals.map((item) => (
             <ProductCard product={item} key={item.id} />
           ))}

@@ -7,10 +7,10 @@ type box={
 }
 const Box:React.FC<box>=({title,subtitle,icon})=>{
     return(
-        <div className='w-full rounded-sm text-center flex flex-col justify-center items-center max-w-[300px] justify-items-center p-4 py-8'>
-            <div><i className={`fas ${icon} p-3`}></i></div>
+        <div className='w-full rounded-sm text-xs md:text-base text-center flex flex-col justify-center items-center max-w-[300px] justify-items-center p-4 py-8'>
+            <div><i className={`fas ${icon} p-3 text-2xl md:text-4xl`}></i></div>
             <div className='uppercase font-bold '>{title}</div>
-            <div className='font-thin text-gray-500 capitalize text-sm'>{subtitle}</div>
+            <div className='font-thin text-gray-500 capitalize text-xs'>{subtitle}</div>
         </div>
     )
 }

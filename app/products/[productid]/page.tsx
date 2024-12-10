@@ -1,6 +1,6 @@
 
 "use client"
-import React, { useState } from 'react'
+import React, { MouseEvent, useState } from 'react'
 import Rating from '../../components/rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faNairaSign } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +11,7 @@ import { useAccount } from '@/app/layout'
 import toast from 'react-hot-toast'
 import { Product } from '@/app/types/product'
 import getProducts from '@/app/controller/products'
+import confetti from 'canvas-confetti'
 
 const foryou:Product[] = await getProducts()
 
@@ -36,8 +37,17 @@ const changeQuantity=(e:any)=>{
 }
  
  
-    const addToCart=()=>{
-        if(product){
+    const addToCart:any= (e: MouseEvent<HTMLDivElement>) => {
+        confetti({
+          particleCount: 100,
+          spread: 10,
+          origin: {
+            y: e.clientY / window.innerHeight,
+            x: e.clientX / window.innerWidth,
+          },
+          startVelocity: 30,
+          shapes: ["star"],
+        }); if(product){
 
             dispatch({type:"ADD_TO_CART",payload:{
                 id:product?.id,
@@ -64,19 +74,19 @@ const changeQuantity=(e:any)=>{
         <>
         {product ?
 
-        <div className='flex flex-col g-8 px-8'>
-            <div className='flex p-8 gap-4'>
-                <div className="w-full grid grid-cols-3  gap-2 p-8 ">
-                    <div className="col-span-1 flex flex-col gap-4 w-full max-h-[500px] h-full">
+        <div className='flex flex-col g-8 p-2 md:px-8'>
+            <div className='flex md:flex-row flex-col md:p-8 pt-4 gap-4'>
+                <div className="w-full grid md:grid-cols-3  gap-2 md:p-8 ">
+                    <div className="md:col-span-1 flex md:flex-col order-2 md:order-1 gap-4 w-full max-h-[500px] h-full justify-center md:justify-start">
                         {product.images.map((img,_) =>
 
-                            <div key={_} onClick={()=>setimage(img)} className={' max-w-[150px] hover:scale-110  bg-slate-500 h-full max-h-[150px] ' + (image==img ? ' scale-110':'')} ><img src={img} alt="" /></div>
+                            <div key={_} onClick={()=>setimage(img)} className={'w-[50px] md:w-[150px] overflow-hidden border border-slate-500  hover:scale-110  bg-slate-500 h-full md:max-h-[150px] max-h-[50px] ' + (image==img ? ' scale-110':'')} ><img src={img} className='object-fill h-[150px] w-full' alt="" /></div>
                         )
 
                         }
                     </div>
-                    <div className=" w-full col-span-2 ">
-                        <div className='min-w-[150px] aspect-square h-full min-h-80 bg-slate-500'><img src={image} alt="" /></div>
+                    <div className=" w-full md:col-span-2 ">
+                        <div className='min-w-[150px] border m-auto border-slate-500 overflow-hidden aspect-square  md:min-h-80 md:h-[400px] h-[300px] bg-slate-500'><img src={image} className='object-fill w-full h-[300px] md:h-[400px]' alt="" /></div>
                     </div>
                 </div>
                 <div className='flex flex-col gap-4 p-8 '>
@@ -109,7 +119,7 @@ const changeQuantity=(e:any)=>{
                              } </div>
 
                     </div>}
-                    <div className='flex w-full justify-between gap-6 '>
+                    <div className='flex w-full justify-between md:gap-6 gap-2 items-center '>
                         <div className='flex border-slate-500 font-semibold border-[1px] text-center text-xl rounded'>
                             <button onClick={reduceQuantity} className='w-full px-4  rounded-s-sm hover:text-white  hover:bg-red-500  text-4xl flex justify-center items-center  text-center '>
                                 -
@@ -119,18 +129,18 @@ const changeQuantity=(e:any)=>{
                                 +
                             </button>
                         </div>
-                        <button onClick={addToCart} className='w-full bg-red-500 rounded-sm text-white font-bold capitalize '>buy now</button>
-                        <div onClick={addToWishlist} className='cursor-pointer p-4 border-[1px] hover:bg-red-500 hover:text-white hover:border-red-500 border-slate-500 rounded-sm'>
+                        <button onClick={addToCart} className='h-[40px] w-full bg-red-500 rounded-sm text-white font-bold capitalize '>buy now</button>
+                        <div onClick={addToWishlist} className='h-fit cursor-pointer md:p-4 p-1 flex justify-center items-center border-[1px] hover:bg-red-500 hover:text-white hover:border-red-500 border-slate-500 rounded'>
                             <i className='fas fa-heart'></i>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div className='w-full my-24 mx-6'>
+            <div className='w-full my-24 md:mx-6'>
 
                 <SectionHeader title='Related products' />
-                <div className='grid row-auto w-full col-auto grid-cols-[repeat(auto-fit,minmax(230px,1fr))] mb-16  m-auto gap-3 justify-center'>
+                <div className='grid row-auto w-full col-auto md:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] mb-16  m-auto gap-3 justify-center'>
                     {foryou.filter(c=>c.category==product.category).slice(0,4).map(product => (
 
                         <ProductCard key={product.id} product={product} />

@@ -23,11 +23,12 @@ interface sidebar {
     shopProducts: Product[]
     ,
     categories: string[],
+    mobile?:boolean
 }
-const SideBar: React.FC<sidebar> = ({ priceRange, setPriceRange, activeCategory, filterByCategory, shopProducts, categories }) => {
+const SideBar: React.FC<sidebar> = ({ mobile, priceRange, setPriceRange, activeCategory, filterByCategory, shopProducts, categories }) => {
     return (
 
-        <div className="col-span-1 bg-white w-full text-sm border-2 rounded-md shadow-md">
+        <div className={`${!mobile &&" col-span-1 hidden"} md:block bg-white w-full text-sm border-2 rounded-md shadow-md`}>
             <div>
                 {/* <h2 className="text-lg font-bold mb-4">Search Products</h2> */}
                 {/* <div className="flex items-center bg-gray-100 p-2 rounded">
@@ -228,13 +229,13 @@ if(productname !=prev){
         <>
             {/* <Seo title="Shop" />
       <Title name="Shop" link="HOME /SHOP" /> */}
-            <div className="grid grid-cols-5 gap-4 mt-12 px-12 justify-center">
+            <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
                 <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory} priceRange={priceRange} setPriceRange={setPriceRange} shopProducts={shopProducts} />
                 {/* Product Listing */}
-                <div className="col-span-4 bg-white border-2 p-4 rounded shadow-xl">
+                <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
                     <div className="flex justify-between items-center mb-6">
-                        <p className="font-semibold">
-                            High Quality products <span className="text-xs opacity-80 italic">({products.length} Products availaible)</span>
+                        <p className="font-semibold capitalize">
+                            {activeCategory}<span className="text-[10px] opacity-80 italic">({products.length} Products availaible)</span>
                         </p>
                         <select onChange={(e) => handleSort(e.target.value)} value={sortType} className="border-2 p-2 rounded-md">
                             <option value="default">Default</option>
@@ -251,12 +252,12 @@ if(productname !=prev){
                             {data.length>0 ?
                             data.map((product) => (
                                 // <Card dispatch={() => { }} key={product.id} product={product} selectedColor={selectedColor} selectedSize={selectedSize} />
-                                <ProductCard product={product} />
+                                <ProductCard key={product.id} product={product} />
                             )): <div className="text-3xl font-semibold capitalize text-center">No Product Available</div>}
                         </CardHolder>
 
                     </div>
-                    <div className="flex justify-between mt-8 aria-hidden:hidden" aria-hidden={data.length<productsPerPage}>
+                    <div className="flex justify-between mt-8 aria-hidden:hidden" aria-hidden={products.length<productsPerPage}>
                         <button onClick={prevBatch} disabled={batch === 1} className="bg-slate-800 text-white p-2 rounded disabled:bg-gray-500 hover:scale-105">
                             <FontAwesomeIcon icon={faArrowLeft} /> Previous
                         </button>
@@ -268,6 +269,8 @@ if(productname !=prev){
                         </button>
                     </div>
                 </div>
+                <SideBar mobile activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory} priceRange={priceRange} setPriceRange={setPriceRange} shopProducts={shopProducts} />
+
             </div>
         </>
     );

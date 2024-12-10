@@ -26,7 +26,7 @@ const HomeCategories = () => {
       <div className="w-full mx-auto">
         <SectionHeader title="Categories" />
         <h2 className="text-2xl font-bold mb-6">Browse categories</h2>
-    <div className="flex justify-evenly gap-4 align-middle  w-full ">
+    <div className="flex justify-evenly gap-4 align-middle  w-full flex-wrap md:flex-nowrap ">
 {categories.map(({name,link,})=>{
     return(
 <Link href={link} className="flex flex-col items-center justify-evenly border-2 p-7 gap-4 w-full hover:bg-red-500 hover:text-white hover:stroke-white">

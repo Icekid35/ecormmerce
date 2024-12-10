@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-zinc-800 text-white py-10 pb-2">
+    <footer className="bg-zinc-800 text-white py-10 pb-2 px-8">
       <div className="container mx-auto grid grid-cols-1 justify-evenly md:grid-cols-[repeat(auto-fit,minmax(200px,200px))] gap-6">
         {/* <div>
           <h3 className="text-lg font-bold mb-4">Exclusive</h3>

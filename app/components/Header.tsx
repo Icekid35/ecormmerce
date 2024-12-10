@@ -18,15 +18,17 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <h1 className="text-xl font-bold">Ice Gadgets</h1>
+        <h1 className="text-xl font-bold">Ice </h1>
         <nav className="space-x-6 hidden md:flex">
           <Link  href="/homepage" className={path=='/homepage' ?" text-red-500":"text-gray-700 hover:text-red-500"}>Home</Link>
           <Link href="/shop" className={path=='/shop' ?" text-red-500":"text-gray-700 hover:text-red-500"}>Store</Link>
           <Link href="/contact" className={path=='/contact' ?" text-red-500":"text-gray-700 hover:text-red-500"}>Contact</Link>
           <Link href="/about" className={path=='/about' ?" text-red-500":"text-gray-700 hover:text-red-500"}>About</Link>
+          {!account.name &&
           <Link href="/signup" className={path=='/signup' ?" text-red-500":"text-gray-700 hover:text-red-500"}>Sign Up</Link>
-        </nav>
-        <div className="flex gap-2 items-center space-x-4">
+                  }
+                          </nav>
+        <div className="flex md:gap-2 items-center md:space-x-4 space-x-2">
        <div
             className="border flex items-center align-middle rounded border-slate-500 bg-slate-50 placeholder:text-slate-500 py-1 px-3 "
             >
@@ -41,7 +43,7 @@ const Header = () => {
           <FontAwesomeIcon icon={faSearch} width={20} className="cursor-pointer hover:scale-90 hover:text-red-500" onClick={search} />
         </div>
         {account.name &&
-          <Link href="/wishlist">
+          <Link href="/wishlist" className="hidden md:block">
           
           <button className={path=='/wishlist' ?" text-red-500":"text-gray-700 hover:text-red-500"}>
             <i className="fas fa-heart"></i>
@@ -49,7 +51,7 @@ const Header = () => {
           </Link>
           }
           {account.name &&
-          <Link href="/account">
+          <Link href="/account" className="hidden md:block">
           <button className={path=='/account' ?" text-red-500":"text-gray-700 hover:text-red-500"}>
           <FontAwesomeIcon icon={faUser} width={20}  />
 

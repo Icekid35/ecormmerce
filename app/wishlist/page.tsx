@@ -13,16 +13,14 @@ const Wishlist = () => {
 const {account,dispatch}=useAccount()
 const wishlists=account.wishlist.map(wid=>fake.find(({id})=>id==wid))
   return (
-    <section className="my-10 mx-10">
+    <section className="my-10 mx-2 md:mx-10">
       <div className="w-full mx-auto mb-24">
         <SectionHeader title="My choices" />
         <div className="flex justify-between capitalize items-center"><h2 className="text-2xl font-bold align-middle ">
           my wishlist
           </h2>
-       <Button cta="add All to cart" />
-
           </div>
-        <div className="grid auto-rows-auto auto-cols-auto grid-cols-[repeat(auto-fit,minmax(230px,1fr))]  items-center justify-center gap-1">
+        <div className="grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] grid auto-rows-auto auto-cols-auto   items-center justify-center gap-1">
           {wishlists.length>0 ? wishlists.reverse().map((item) => {
             if(item){
                 return(
@@ -37,12 +35,12 @@ const wishlists=account.wishlist.map(wid=>fake.find(({id})=>id==wid))
         
              </div>
       <div className="w-full mx-auto">
-        <div className="flex justify-between capitalize items-center"><h2 className="text-2xl font-bold align-middle ">
+        <div className="flex justify-between capitalize items-center"><h2 className="text-2xl font-bold aliggn-middle ">
           Just for you
           </h2>
 
           </div>
-        <div className="grid auto-rows-auto auto-cols-auto grid-cols-[repeat(auto-fit,minmax(230px,1fr))]  items-center justify-center gap-1">
+        <div className="grid auto-rows-auto auto-cols-auto grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]  items-center justify-center gap-1">
           {fake.filter(s=>s.isFeatured).slice(0,fake.filter(s=>s.isFeatured).length<4? fake.filter(s=>s.isFeatured).length - 1 : 4).map((item) => (
             <ProductCard product={item} key={item.id} />
           ))}

@@ -5,7 +5,7 @@ type CardHolderProps = {
 };
 
 export const CardHolder: React.FC<CardHolderProps> = ({ children }) => {
-  return <div className="grid gap-4 p-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">{children}</div>;
+  return <div className="grid md:gap-4 md:p-4 grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] ">{children}</div>;
 };
 
 export const ListCardHolder: React.FC<CardHolderProps> = ({ children }) => {

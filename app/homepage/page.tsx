@@ -9,7 +9,7 @@ import Trustie from "../components/trustie";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col gap-8 p-8 pt-0 ">
+    <div className="flex flex-col gap-8 md:p-8 pt-0 p-2">
       <HeroSection />
       <FlashSales />
       <HomeCategories  />

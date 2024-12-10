@@ -6,7 +6,7 @@ import Button from '../components/button';
 
 function Contact() {
     return (
-        <div className='grid grid-cols-3 capitalize p-10 gap-8'>
+        <div className='grid md:grid-cols-3 capitalize md:p-10 p-2 gap-y-8 md:gap-8'>
             <div className='flex flex-col gap-6 p-8 shadow-lg bg-white rounded'>
                 <div className='flex gap-4 capitalize font-semibold text-3xl'>
                     <FontAwesomeIcon icon={faPhone } width={30}/> <h2>call to us</h2></div>

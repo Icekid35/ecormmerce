@@ -11,7 +11,7 @@ import Button from "./button";
 const slides = [
   {
     id: 1,
-    image: "/images/slide1.jpg",
+    image: "https://m.media-amazon.com/images/I/81N7FmJhbhL._AC_SL150_.jpg",
     title: "iPhone 14 Series",
     subtitle: "Up to 10% off Voucher",
     cta: "Shop Now",
@@ -35,10 +35,10 @@ const slides = [
 const HeroSection = () => {
   const [emblaRef] = useEmblaCarousel({loop:true},[Autoplay(),Fade()])
   return (
-    <div className="relative w-full  p-8 embla" ref={emblaRef}>
+    <div className="relative w-full py-8 md:p-8 embla" ref={emblaRef}>
     
       
-        <div className="embla__container gap-4">
+        <div className="embla__container gap-4 " style={{ textShadow: "2px 2px 4px black" }}        >
 
         {slides.map((slide, index) => (
            <div
@@ -47,8 +47,8 @@ const HeroSection = () => {
          >
           <div
             key={slide.id}
-            className={`w-full flex items-center justify-between bg-cover bg-center h-[400px] text-white rounded-sm`}
-            style={{ backgroundImage: `url(${slide.image})` }}
+            className={`w-full border flex items-center justify-between bg-cover bg-center h-[400px] text-white rounded-sm`}
+            style={{ backgroundImage: `url(${slide.image}) `,backgroundRepeat:"no-repeat",backgroundSize:"100%",objectFit:"cover" }}
           >
             <div className="flex flex-col items-start px-10">
               <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>

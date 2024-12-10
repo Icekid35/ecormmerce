@@ -11,15 +11,6 @@ import { toast } from "react-hot-toast";
 import { CartItem } from "../types/account";
 import { useAccount } from "../layout";
 
-interface Product {
-  id: string;
-  images: string[];
-  title: string;
-  price: number;
-  quantity: number;
-  colors?: string[];
-  sizes?: string[];
-}
 // interface cart {
 //   id: string;
 //   images: string[];
@@ -65,7 +56,7 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
   const { image, title, id, price, quantity, colors = [], sizes = [] } = product;
 
   return (
-    <tr className="hover:bg-gray-100">
+    <tr className="hover:bg-gray-100 ">
       <td
         className="cursor-pointer text-red-500 font-bold"
         onClick={() => dispatch({ type: "REMOVE_FROM_CART", payload: product.id })}
@@ -79,8 +70,8 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
         <div>
           {title}
           </div>
-          <div className="text-xs">{[...new Set(colors)].filter(c=>c!="") ? <>Colors:<span className="opacity-90 text-sm ">{[...new Set(colors)].filter(c=>c!="").join(", ")}</span></>:<></>}</div>
-          <div className="text-xs">{[...new Set(sizes)].filter(c=>c!="") ? <>Sizes:<span className="opacity-90 text-sm ">{[...new Set(sizes)].filter(c=>c!="").join(", ")}</span></>:<></>}</div>
+          <div className="text-xs">{[...new Set(colors)].filter(c=>c!="").length>0 ? <>Colors:<span className="opacity-90 text-sm ">{[...new Set(colors)].filter(c=>c!="").join(", ")}</span></>:<></>}</div>
+          <div className="text-xs">{[...new Set(sizes)].filter(c=>c!="").length>0 ? <>Sizes:<span className="opacity-90 text-sm ">{[...new Set(sizes)].filter(c=>c!="").join(", ")}</span></>:<></>}</div>
         </td>
       <td>
         <FontAwesomeIcon icon={faNairaSign} /> {price}
@@ -137,13 +128,15 @@ const Cart = () => {
     <>
    
       {cart.length < 1 ? (
-        <div className="text-center flex justify-center items-center py-10 text-sm min-h-[80vh]">
+        <div className="text-center flex justify-center items-center py-10 text-sm min-h-[80vh] ">
           <h1 className="text-2xl font-bold">Your Cart is Empty</h1>
         </div>
       ) : (
-        <div className="container mx-auto p-4">
-          <h1 className="text-3xl font-bold mb-6">Cart</h1>
-          <table className="table-auto w-full  border-collapse align-middle border border-gray-200">
+        <div className="container mx-auto p-4 md:text-base text-xs">
+          <h1 className="text-3xl font-bold mb-6  ">Cart</h1>
+          <div className=" overflow-x-scroll max-w-[99vw]">
+
+          <table className="table-auto w-full border-collapse align-middle border  border-gray-200">
             <thead className="bg-gray-100">
               <tr>
                 <th className="p-4">X</th>
@@ -160,6 +153,7 @@ const Cart = () => {
               ))}
             </tbody>
           </table>
+          </div>
           <div className="flex flex-col md:flex-row justify-between items-center mt-6">
             <div className="flex items-center space-x-4">
               <input
@@ -180,7 +174,7 @@ const Cart = () => {
             </button> */}
           </div>
           <div className="mt-8 flex justify-end">
-            <div className="border p-4 rounded w-1/3">
+            <div className="border p-4 rounded md:w-1/3">
               <h2 className="text-xl font-bold mb-4">Cart Totals</h2>
               <div className="flex justify-between mb-2">
                 <span>Subtotal</span>

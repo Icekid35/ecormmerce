@@ -87,7 +87,7 @@ function SignupPage() {
         onScriptLoadSuccess={() => {
         }}
       >
-      <div className="w-full min-w-[300px] h-[400px] bg-slate-500 rounded"></div>
+      <div className="w-full min-w-[300px] h-[400px] bg-slate-500 rounded md:flex hidden"></div>
       <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
         <h2 className="text-3xl capitalize font-semibold">Create an account</h2>
 
