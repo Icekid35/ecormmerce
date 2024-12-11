@@ -292,7 +292,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //@ts-expect-error
+  //@ts-ignore
   const [state, dispatch] = useReducer(accountReducer, user);
 
   return (

@@ -137,7 +137,7 @@ let once=false
 let prev=""
 interface shop {categoryId?:string,productname?:string}
 
-//@ts-expect-error
+//@ts-ignore
 const Shop:React.FC<shop>=({categoryId,productname=""})=> {
     //   const { state } = useContext(DataContext);
     //   const { shopProducts }: { shopProducts: Product[] } = state;
