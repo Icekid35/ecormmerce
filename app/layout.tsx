@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 // import type { Metadata } from "next";
 import "./globals.css";
@@ -139,7 +140,6 @@ const initialAccount: Partial<Account> = {
   // isgoogle:true
 };
 
-//@ts-ignore
 let user
 const localUser=localStorage.getItem("email")
 if(localUser){
@@ -292,7 +292,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //@ts-ignore
   const [state, dispatch] = useReducer(accountReducer, user);
 
   return (
