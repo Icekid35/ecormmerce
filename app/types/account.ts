@@ -1,7 +1,7 @@
 // Account.ts
 export type Account = {
     id: string; // Unique account identifier
-    name: string; // User's full name
+    name: string |null; // User's full name
     email: string; // User's email address
     phone?: string; // Optional phone number
     address: string; // List of saved addresses

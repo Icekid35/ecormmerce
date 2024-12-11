@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 // import type { Metadata } from "next";
 import "./globals.css";
@@ -18,8 +17,16 @@ import { getAccountByEmail, updateAccount } from "./controller/account";
 // };
 
 // Example initial account state
-const initialAccount: Partial<Account> = {
-
+const initialAccount: Account = {
+  id:"",
+  address:"",
+  createdAt:"",
+  email:"",
+  isActive:false,
+  name:null,
+  orders:[],
+  reviews:[],
+  isgoogle:false,
   cart: [],
   wishlist: [],
   // orders: [
@@ -140,10 +147,10 @@ const initialAccount: Partial<Account> = {
   // isgoogle:true
 };
 
-let user
+let user:Account
 const localUser=localStorage.getItem("email")
 if(localUser){
- user=await getAccountByEmail(localUser)
+ user=await getAccountByEmail(localUser) || initialAccount
 }else{
   user=initialAccount
 }
