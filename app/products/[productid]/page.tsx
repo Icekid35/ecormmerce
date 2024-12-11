@@ -17,8 +17,8 @@ const foryou:Product[] = await getProducts()
 
 
 
-function Products({params}:{params:{productid:string}}) {
-    const {productid}=params
+function Products({params}:{params:Promise<{productid:string}>}) {
+    const productid:string=React.use(params)?.productid || "1"
     const product=foryou.find(({id})=>id==productid)
    const {dispatch}=useAccount()
     const [quantity,setquantity]=useState(1)
