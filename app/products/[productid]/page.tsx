@@ -3,8 +3,7 @@
 import React, { MouseEvent, useState } from 'react'
 import Rating from '../../components/rating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faNairaSign } from '@fortawesome/free-solid-svg-icons'
-import { faHeartBroken } from '@fortawesome/free-solid-svg-icons/faHeartBroken'
+import {  faNairaSign } from '@fortawesome/free-solid-svg-icons'
 import SectionHeader from '../../components/sectionHeader'
 import ProductCard from '../../components/ProductCard'
 import { useAccount } from '@/app/layout'
@@ -12,6 +11,7 @@ import toast from 'react-hot-toast'
 import { Product } from '@/app/types/product'
 import getProducts from '@/app/controller/products'
 import confetti from 'canvas-confetti'
+import Image from 'next/image'
 
 const foryou:Product[] = await getProducts()
 
@@ -19,8 +19,8 @@ const foryou:Product[] = await getProducts()
 
 function Products({params}:{params:{productid:string}}) {
     const {productid}=params
-    let product=foryou.find(({id})=>id==productid)
-   const {account,dispatch}=useAccount()
+    const product=foryou.find(({id})=>id==productid)
+   const {dispatch}=useAccount()
     const [quantity,setquantity]=useState(1)
     const [color,setcolor]=useState("")
     const [image,setimage]=useState(product?.images?.[0]||"")
@@ -32,12 +32,12 @@ const reduceQuantity=()=>{
     if(quantity<=1) return
     setquantity(quantity-1)
 }
-const changeQuantity=(e:any)=>{
-    setquantity(e.target.value)
+const changeQuantity=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    setquantity(Number(e.target.value))
 }
  
  
-    const addToCart:any= (e: MouseEvent<HTMLDivElement>) => {
+    const addToCart= (e: MouseEvent<HTMLButtonElement>) => {
         confetti({
           particleCount: 100,
           spread: 10,
@@ -80,13 +80,13 @@ const changeQuantity=(e:any)=>{
                     <div className="md:col-span-1 flex md:flex-col order-2 md:order-1 gap-4 w-full max-h-[500px] h-full justify-center md:justify-start">
                         {product.images.map((img,_) =>
 
-                            <div key={_} onClick={()=>setimage(img)} className={'w-[50px] md:w-[150px] overflow-hidden border border-slate-500  hover:scale-110  bg-slate-500 h-full md:max-h-[150px] max-h-[50px] ' + (image==img ? ' scale-110':'')} ><img src={img} className='object-fill h-[150px] w-full' alt="" /></div>
+                            <div key={_} onClick={()=>setimage(img)} className={'w-[50px] md:w-[150px] overflow-hidden border border-slate-500  hover:scale-110  bg-slate-500 h-full md:max-h-[150px] max-h-[50px] ' + (image==img ? ' scale-110':'')} ><Image src={img} className='object-fill h-[150px] w-full' alt="" /></div>
                         )
 
                         }
                     </div>
                     <div className=" w-full md:col-span-2 ">
-                        <div className='min-w-[150px] border m-auto border-slate-500 overflow-hidden aspect-square  md:min-h-80 md:h-[400px] h-[300px] bg-slate-500'><img src={image} className='object-fill w-full h-[300px] md:h-[400px]' alt="" /></div>
+                        <div className='min-w-[150px] border m-auto border-slate-500 overflow-hidden aspect-square  md:min-h-80 md:h-[400px] h-[300px] bg-slate-500'><Image src={image} className='object-fill w-full h-[300px] md:h-[400px]' alt="" /></div>
                     </div>
                 </div>
                 <div className='flex flex-col gap-4 p-8 '>

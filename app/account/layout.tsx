@@ -2,6 +2,9 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAccount } from "../layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHamburger, faX } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 
 
@@ -12,14 +15,16 @@ export default function AccountLayout({
 }>) {
     const path=usePathname()
     const {account}=useAccount()
+    const [hidden,setHidden]=useState(false)
     const router=useRouter()
     if(!account.name) router.push('/login')
   return (
     
       <div
-        className={`flex p-8 gap-8  `}
+        className={`md:flex p-2 md:p-8 gap-8  `}
       >
-        <div className="rounded flex flex-col gap-3 pl-4 p-8 capitalize text-sm bg-white shadow-lg w-[250px]">
+        <FontAwesomeIcon className="md:hidden" icon={hidden ? faHamburger : faX} onClick={()=>{setHidden(!hidden)}} />
+      {!hidden &&  <div className="rounded  absolute md:relative flex flex-col gap-3 pl-4 p-8 capitalize text-sm bg-white shadow-lg w-[250px]">
             <h2 className="font-semibold ">Manage My Account</h2>
             <div  className="flex flex-col gap-2 pl-4 capitalize ">
                     <Link href="/account" className={path=='/account' ?" text-red-500":"text-gray-700 hover:text-red-500"}>
@@ -38,7 +43,7 @@ export default function AccountLayout({
                     my wishlist</Link>
                 
             </div>
-        </div>
+        </div>}
         {children}
       </div>
   );

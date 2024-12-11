@@ -14,8 +14,8 @@ export type Product = {
     reviewCount: number;
     isFeatured?: boolean;
     isNewArrival?: boolean;
-    creationAt?:string;
-    updatedAt?:string;
+    creationAt:Date;
+    updatedAt?:Date;
     
   };
   

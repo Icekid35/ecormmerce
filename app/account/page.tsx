@@ -10,7 +10,7 @@ interface linput{
     placeholder:string;
     span2?:boolean;
     value:string;
-    onChange:(e:any)=>void
+    onChange:(e:React.ChangeEvent<HTMLInputElement>)=>void
 }
 const LabelledInput=({title,placeholder,span2,onChange,value}:linput)=>{
     return(
@@ -20,7 +20,7 @@ const LabelledInput=({title,placeholder,span2,onChange,value}:linput)=>{
         </div>
     )
 }
-function page() {
+function Page() {
     const { account,dispatch } = useAccount();
     const [fname,setfname]=useState(account.name)
     const [phone,setphone]=useState(account.phone)
@@ -52,16 +52,16 @@ function page() {
         if(email.length <3 || fname.length<2 ){
             return toast.error(" Details is incomplete")
         }
-        if(email==account.email && phone== account.phone && fname==account.name && !oldpassword ){
+        if(address==account.address && email==account.email && phone== account.phone && fname==account.name && !oldpassword ){
             return toast.error("nothing changed")
         }
-        dispatch({ type: "UPDATE_ACCOUNT", payload: { name:fname,phone,email,password:newpassword} });
+        dispatch({ type: "UPDATE_ACCOUNT", payload: { name:fname,phone,email,password:newpassword,address} });
     toast.success("details changed")
     }
   return (
     <div className='p-6 w-full bg-white shadow-lg'>
         <h2 className='text-xl capitalize text-red-500 mb-4'> edit my profile</h2>
-        <div className='grid gap-3 grid-cols-[repeat(auto-fit,minmax(350px,1fr))]'>
+        <div className='grid gap-3 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]'>
             <LabelledInput  placeholder='Md' title='full Name' value={fname} onChange={(e)=>setfname(e.target.value)}/>
             <LabelledInput  placeholder='+234915xxxxx' title='phone'  value={phone||""} onChange={(e)=>setphone(e.target.value)}/>
             <LabelledInput  placeholder='Email' title='Email' value={email} onChange={(e)=>setemail(e.target.value)} />
@@ -75,4 +75,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

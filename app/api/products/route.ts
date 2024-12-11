@@ -12,6 +12,7 @@ const readData = (): Product[] => {
   try{
     fs.existsSync(dataFilePath)
   }catch (err) {
+    console.log(err)
     fs.writeFileSync(dataFilePath, JSON.stringify([]));
   }
   return JSON.parse(fs.readFileSync(dataFilePath, "utf8"));

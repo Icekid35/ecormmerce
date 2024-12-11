@@ -1,59 +1,22 @@
 // pages/cart.tsx
 "use client"
-import { useContext, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-// import Title from "../components/Title";
-// import Seo from "../components/Seo";
-// import { DataContext } from "../context/State";
+import React, { useEffect, useRef, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartArrowDown, faMoneyBill1Wave, faNairaSign } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { CartItem } from "../types/account";
-import { useAccount } from "../layout";
+import { AccountAction, useAccount } from "../layout";
+import Image from "next/image";
 
-// interface cart {
-//   id: string;
-//   images: string[];
-//   title: string;
-//   price: number;
-//   quantity: number;
-//   colors?: string[];
-//   sizes?: string[];
-// }
-// let cart:CartItem[]=[{
-//   id: "string",
-//   image: "string",
-//   title: "string",
-//   price: 500,
-//   quantity: 10,
-//   colors: ["red"],
-//   sizes:["string"],
-// },
-// {
-//   id: "string",
-//   image: "string",
-//   title: "string",
-//   price: 500,
-//   quantity: 10,
-//   colors: ["red"],
-//   sizes:["string"],
-// },
-// {
-//   id: "string",
-//   images: ["string"],
-//   title: "string",
-//   price: 500,
-//   quantity: 10,
-//   colors: ["red"],
-//   sizes:["string"],
-// }]
+
 interface TbodyProps {
   product: CartItem;
-  dispatch: React.Dispatch<any>;
+  dispatch:React.Dispatch<AccountAction>
 }
 
 const Tbody = ({ product, dispatch }: TbodyProps) => {
-  const { image, title, id, price, quantity, colors = [], sizes = [] } = product;
+  const { image, title,  price, quantity, colors = [], sizes = [] } = product;
 
   return (
     <tr className="hover:bg-gray-100 ">
@@ -64,7 +27,7 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
         X
       </td>
       <td>
-        <img src={image} alt={title} className="w-24 h-24 object-cover" />
+        <Image src={image} alt={title} width={96} height={96} className="w-24 h-24 object-cover" />
       </td>
       <td className="text-start">
         <div>
@@ -101,8 +64,8 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
 const Cart = () => {
   // let dispatch=()=>{}
   const { account, dispatch } =useAccount();
-  let cart=account.cart
-  const [off, setOff] = useState(0);
+  const cart=account.cart
+  const [off] = useState(0);
   const couponRef = useRef<HTMLInputElement>(null);
   // const router = useRouter();
 

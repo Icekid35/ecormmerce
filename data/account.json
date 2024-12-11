@@ -18,7 +18,7 @@
     "name": "Bello Habibb",
     "email": "bellohabib682@gmail.com",
     "phone": "123456789",
-    "address": "",
+    "address": "ksk",
     "cart": [
       {
         "id": "2",
@@ -80,7 +80,7 @@
     "reviews": [],
     "createdAt": "2024-12-08T14:59:07.374Z",
     "isActive": true,
-    "updatedAt": "2024-12-10T21:17:07.929Z",
+    "updatedAt": "2024-12-11T08:06:25.193Z",
     "password": ""
   }
 ]

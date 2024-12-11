@@ -4,18 +4,9 @@ import { useAccount } from '@/app/layout';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
-const newArrivals = [
-    { id: 1, rating:3.5,name: "HAUT HF-969 Gamepad", price: 25.00, image: "/images/flash1.jpg", discount: 25,newproduct:true },
-    { id: 2, rating:3,name: "IPS LCD Gaming Monitor", price: 299.00, image: "/images/flash2.jpg", discount: 15,newproduct:true },
-    { id: 3, rating:5,name: "Ergonomic Chair", price: 99.00, image: "/images/flash3.jpg", discount: 20,newproduct:true },
-    { id: 4, rating:5,name: "HAUT HF-969 Gamepad", price: 25.00, image: "/images/flash1.jpg", discount: 25 },
-    { id: 5, rating:4.5,name: "IPS LCD Gaming Monitor", price: 299.00, image: "/images/flash2.jpg", discount: 15 },
-    { id: 6, rating:4,name: "Ergonomic Chair", price: 99.00, image: "/images/flash3.jpg", discount: 20 },
-  ];
-
-function page() {
+function Page() {
   const { account,dispatch } = useAccount();
-  let [rating,setRating]=useState([{id:"",rating:0}])
+  const [rating,setRating]=useState([{id:"",rating:0}])
 
   return (
     <div className='flex flex-col w-full'>
@@ -24,7 +15,7 @@ function page() {
     {account.reviews.filter(r=>r.rating).length>0 ? account.reviews.filter(r=>!r.rating).reverse().map(product=>{
 
         return(
-            <div className='rounded w-full flex align-middle items-center  justify-between p-4 bg-white shadow-lg'>
+            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-white shadow-lg'>
                <div className='flex gap-2 items-center '> 
                 <div className='w-[50px] h-[50px] bg-slate-500 rounded'></div>
                 <div className='text-sm'>{product.title}</div>
@@ -64,7 +55,7 @@ function page() {
   {account.reviews.filter(r=>r.rating).length>0 ?account.reviews.filter(r=>r.rating).reverse().map(product=>{
 
         return(
-            <div className='rounded w-full flex align-middle items-center  justify-between p-4 bg-white shadow-lg'>
+            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-white shadow-lg'>
                <div className='flex gap-2 items-center '> 
                 <div className='w-[50px] h-[50px] bg-slate-500 rounded'></div>
                 <div className='text-sm'>{product.title}</div>
@@ -83,7 +74,7 @@ function page() {
   </div>
             </div>
         )
-    }): <div className='grid p-4 auto-cols-auto  grid-cols-[repeat(auto-fit,minmax(240px,1fr))] w-full'>
+    }): <div className='grid p-4 auto-cols-auto  md:grid-cols-[repeat(auto-fit,minmax(240px,1fr))] w-full'>
     <div className='text-center text-2xl capitalize p-4'> Nothing to see here</div>
     
     </div> }
@@ -92,4 +83,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

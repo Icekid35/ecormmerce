@@ -29,7 +29,7 @@ const HomeCategories = () => {
     <div className="flex justify-evenly gap-4 align-middle  w-full flex-wrap md:flex-nowrap ">
 {categories.map(({name,link,})=>{
     return(
-<Link href={link} className="flex flex-col items-center justify-evenly border-2 p-7 gap-4 w-full hover:bg-red-500 hover:text-white hover:stroke-white">
+<Link href={link} key={name} className="flex flex-col items-center justify-evenly border-2 p-7 gap-4 w-full hover:bg-red-500 hover:text-white hover:stroke-white">
 
 <div className="capitalize font-bold text-center">{name}</div>
 </Link>

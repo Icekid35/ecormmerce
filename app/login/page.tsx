@@ -1,18 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+import {jwtDecode, JwtPayload} from "jwt-decode";
 import Button from "../components/button";
 import Link from "next/link";
-import { login, signup } from "../controller/account";
+import { login} from "../controller/account";
 import toast from "react-hot-toast";
-import { Account } from "../types/account";
 import { useRouter } from "next/navigation";
 import { useAccount } from "../layout";
 
 function LoginPage() {
   // State for form inputs
-  const {account,dispatch}=useAccount()
+  const {dispatch}=useAccount()
   const [formData, setFormData] = useState({
 
     email: "",
@@ -52,13 +51,13 @@ function LoginPage() {
         
       );
 
-    } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      alert(error.message || "Error creating account");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert(error || "Error creating account");
     }
   };
 
-  const googlesu=(cred:any)=>{
+  const googlesu=(cred:{email:string,name:string})=>{
     try {
       const register= login(cred.email.toLowerCase(),true)
       toast.promise(
@@ -77,9 +76,9 @@ function LoginPage() {
         
       );
 
-    } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      alert(error.message || "Error creating account");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert(error || "Error creating account");
     }
   }
   return (
@@ -119,7 +118,7 @@ function LoginPage() {
         />
         <Button cta="Login" />
         <div className="text-sm text-slate-500 text-center capitalize">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/Signup" className="text-red-500">
             Signup here
           </Link>

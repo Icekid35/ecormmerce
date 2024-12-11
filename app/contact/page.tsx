@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage, faPhone, faVoicemail } from '@fortawesome/free-solid-svg-icons';
+import { faMessage, faPhone } from '@fortawesome/free-solid-svg-icons';
 import Button from '../components/button';
 
 function Contact() {

@@ -1,9 +1,9 @@
-import { faCircleDollarToSlot, faContactCard, faEye, faPerson, faShop } from '@fortawesome/free-solid-svg-icons'
+import { faCircleDollarToSlot, faContactCard, faEye, faShop } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import Trustie from '../components/trustie'
 
-function about() {
+function About() {
   return (
     <div  className='flex flex-col  w-full gap-10 pb-10 pt-4 md:pt-14 px-2 md:px-10'>
         <div className='grid gap-6 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]'>
@@ -62,4 +62,4 @@ function about() {
   )
 }
 
-export default about
+export default About

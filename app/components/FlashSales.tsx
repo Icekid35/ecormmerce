@@ -5,7 +5,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from 'embla-carousel-auto-scroll'
 import Button from "./button";
 import SectionHeader from "./sectionHeader";
-import fake from "../asset/fake.json"
 import getProducts from "../controller/products";
 import { Product } from "../types/product";
 
@@ -14,7 +13,7 @@ const flashSales = allproducts.filter(pro=>pro.discountPrice)
 
 
 const FlashSales = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({loop:true}, [
+  const [emblaRef] = useEmblaCarousel({loop:true}, [
     AutoScroll({speed:.5,stopOnMouseEnter:true,stopOnInteraction:false})
   ])
   

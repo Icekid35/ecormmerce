@@ -2,9 +2,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 // import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faThLarge, faSearch, faNairaSign,faArrowLeft,faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Card, ListCard } from "../components/Card";
-import { CardHolder, ListCardHolder } from "../components/CardHolder";
+import { faArrowLeft,faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { CardHolder} from "../components/CardHolder";
 import ProductCard from "../components/ProductCard";
 import { Product } from "../types/product";
 import getProducts from "../controller/products";
@@ -13,19 +12,18 @@ import getProducts from "../controller/products";
 // import { DataContext } from "../context/State";
 
 const productsPerPage = 30;
-const colors = ["red", "black", "white", "blue", "green", "yellow"];
 
 interface sidebar {
-    priceRange: number,
-    setPriceRange: (arg0: number) => void,
+    // priceRange?: number,
+    // setPriceRange?: (arg0: number) => void,
     activeCategory: string,
-    filterByCategory: (arg0: any) => void,
+    filterByCategory: (arg0: string) => void,
     shopProducts: Product[]
     ,
     categories: string[],
     mobile?:boolean
 }
-const SideBar: React.FC<sidebar> = ({ mobile, priceRange, setPriceRange, activeCategory, filterByCategory, shopProducts, categories }) => {
+const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory, shopProducts, categories }) => {
     return (
 
         <div className={`${!mobile &&" col-span-1 hidden"} md:block bg-white w-full text-sm border-2 rounded-md shadow-md`}>
@@ -143,28 +141,28 @@ const Shop:React.FC<shop>=({categoryId,productname=""})=> {
     //   const { shopProducts }: { shopProducts: Product[] } = state;
 
     const [products, setProducts] = useState<Product[]>(shopProducts);
-    const [displayProducts, setDisplayProducts] = useState<Product[]>(shopProducts);
+    // const [displayProducts, setDisplayProducts] = useState<Product[]>(shopProducts);
     const [data, setData] = useState<Product[]>([]);
     const [batch, setBatch] = useState(1);
     const [maxbatch, setmaxBatch] = useState(products.length % productsPerPage <=0 ? Math.floor(products.length/productsPerPage): Math.floor(products.length/productsPerPage) + 1);
-    const [searchTerm, setSearchTerm] = useState("");
+    // const [searchTerm, setSearchTerm] = useState("");
     const [activeCategory, setActiveCategory] = useState("all");
     const [categories] = useState<string[]>(Array.from(new Set(shopProducts.map((p) => p.category))).sort());
     const [sortType, setSortType] = useState("default");
-    const [listMode, setListMode] = useState(false);
-    const [priceRange, setPriceRange] = useState(1);
-    const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
-    const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
-    const searchRef = useRef<HTMLInputElement>(null);
+    // const [listMode, setListMode] = useState(false);
+    // const [priceRange, setPriceRange] = useState(1);
+    // const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
+    // const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
+    // const searchRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        let newdata =[...products].slice((batch - 1) * productsPerPage,((products.length < (productsPerPage * batch) )) ? (productsPerPage * (batch - 1)) + ((products.length) % productsPerPage)  : productsPerPage * batch)
+        const newdata =[...products].slice((batch - 1) * productsPerPage,((products.length < (productsPerPage * batch) )) ? (productsPerPage * (batch - 1)) + ((products.length) % productsPerPage)  : productsPerPage * batch)
         setData(newdata)
         }, [products,batch]);
 
-    const searchProducts = () => {
-        setSearchTerm(searchRef.current?.value || "");
-    };
+    // const searchProducts = () => {
+    //     setSearchTerm(searchRef.current?.value || "");
+    // };
 
     const filterByCategory = (category: string) => {
         const filter=(pro:Product,cat:string)=>{
@@ -179,20 +177,20 @@ const Shop:React.FC<shop>=({categoryId,productname=""})=> {
         handleSort(sortType,filtered)
     };
 
-    const handleSort = (type: string,filtered?:any) => {
-        let sortedProducts =filtered ||  [...products];
+    const handleSort = (type: string,filtered?:Product[]) => {
+        const sortedProducts =filtered ||  [...products];
         switch (type) {
             case "price-asc":
-                sortedProducts.sort((a:any, b:any) => (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price) - (b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price));
+                sortedProducts.sort((a:Product, b:Product) => (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price) - (b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price));
                 break;
             case "price-desc":
-                sortedProducts.sort((a:any, b:any) =>(b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price) - (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price));
+                sortedProducts.sort((a:Product, b:Product) =>(b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price) - (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price));
                 break;
             case "a-z":
-                sortedProducts.sort((a:any, b:any) => a.title.localeCompare(b.title));
+                sortedProducts.sort((a:Product, b:Product) => a.title.localeCompare(b.title));
                 break;
             case "newest":
-                sortedProducts.sort((a:any, b:any) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+                sortedProducts.sort((a:Product, b:Product) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
                 break;
             default:
                 break;
@@ -230,7 +228,7 @@ if(productname !=prev){
             {/* <Seo title="Shop" />
       <Title name="Shop" link="HOME /SHOP" /> */}
             <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
-                <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory} priceRange={priceRange} setPriceRange={setPriceRange} shopProducts={shopProducts} />
+                <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
                 {/* Product Listing */}
                 <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
                     <div className="flex justify-between items-center mb-6">
@@ -269,7 +267,7 @@ if(productname !=prev){
                         </button>
                     </div>
                 </div>
-                <SideBar mobile activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory} priceRange={priceRange} setPriceRange={setPriceRange} shopProducts={shopProducts} />
+                <SideBar mobile activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
 
             </div>
         </>

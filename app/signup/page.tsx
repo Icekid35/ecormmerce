@@ -6,7 +6,6 @@ import Button from "../components/button";
 import Link from "next/link";
 import { signup } from "../controller/account";
 import toast from "react-hot-toast";
-import { Account } from "../types/account";
 import { useRouter } from "next/navigation";
 
 function SignupPage() {
@@ -48,13 +47,13 @@ function SignupPage() {
         
       );
 
-    } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      alert(error.message || "Error creating account");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert("Error creating account");
     }
   };
 
-  const googlesu=(cred:any)=>{
+  const googlesu=(cred:{email:string,name:string})=>{
     try {
       const register= signup(cred.name.toLowerCase(),cred.email.toLowerCase(),true,)
       toast.promise(
@@ -72,9 +71,9 @@ function SignupPage() {
         
       );
 
-    } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      alert(error.message || "Error creating account");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert( "Error creating account");
     }
   }
   return (

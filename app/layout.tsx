@@ -5,9 +5,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "../node_modules/@fortawesome/fontawesome-free/css/all.css"
 
-import React, { createContext, useContext, useReducer, ReactNode, Dispatch } from "react";
-import { Account, CartItem, Review, WishlistItem } from "./types/account"; 
-import toast, { Toaster } from "react-hot-toast";
+import React, { createContext, useContext, useReducer,  Dispatch } from "react";
+import { Account, CartItem, Review} from "./types/account"; 
+import { Toaster } from "react-hot-toast";
 import { getAccountByEmail, updateAccount } from "./controller/account";
 
 
@@ -147,7 +147,7 @@ if(localUser){
   user=initialAccount
 }
 // Define account actions
-type AccountAction =
+ export type AccountAction =
   | { type: "UPDATE_ACCOUNT"; payload: Partial<Account> }
   | { type: "SET_ACCOUNT"; payload: Account }
   | { type: "ADD_TO_CART"; payload: CartItem }
@@ -180,9 +180,9 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
       break;
 
     case "ADD_TO_CART":
-      let prevcart = state.cart.find(({ id }) => id == action.payload.id);
+      const prevcart = state.cart.find(({ id }) => id == action.payload.id);
       if (prevcart) {
-        let ncart: CartItem = {
+        const ncart: CartItem = {
           ...prevcart,
           quantity:
             action.payload.quantity == 1

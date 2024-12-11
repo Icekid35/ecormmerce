@@ -10,7 +10,7 @@ const Header = () => {
   const [searchterm,setSearchterm]=useState("")
   const path=usePathname()
   const router=useRouter()
-  const {account,dispatch}=useAccount()
+  const {account}=useAccount()
   const search=()=>{
     if(searchterm.length<1)return
    router.push("/shop/search/"+searchterm) 

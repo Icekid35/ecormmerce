@@ -7,6 +7,7 @@ import { Order } from "../types/account";
 import { useAccount } from "../layout";
 import toast from "react-hot-toast";
 import confetti from "canvas-confetti";
+import Image from "next/image";
 
 // Define the TypeScript type for the product card props
 type ProductCardProps = {
@@ -16,22 +17,18 @@ forUser?:boolean
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) => {
-  let {
+  const {
     id,
     title,
     price,
     discountPrice,
-    brand,
     images,
-    stock,
-
     rating,
     reviewCount,
-    isFeatured,
     isNewArrival,
     
   }=product
- let onAddToCart:any= (e: MouseEvent<HTMLDivElement>) => {
+ const onAddToCart= (e: MouseEvent<HTMLButtonElement>) => {
   confetti({
     particleCount: 100,
     spread: 10,
@@ -46,13 +43,13 @@ const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) =
   dispatch({type:"ADD_TO_CART",payload:{id,title,price:discountPrice ? Math.round(price-((discountPrice/100)*price)):price,quantity:1,image:images[0],sizes:[""],colors:[""]}})
 toast.success("Sucessfully added to cart") 
 }
- let onWishlist= () => {
+ const onWishlist= () => {
   dispatch({type:"ADD_TO_WISHLIST",payload:product.id})
   toast.success("Sucessfully added to cart") 
   
  }
- let onPreview= () => {}
- let {account,dispatch}=useAccount()
+ const onPreview= () => {}
+ const {dispatch}=useAccount()
   return (
     <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg flex flex-col items-center gap-1 relative hoverable">
       {/* Discount Badge */} 
@@ -70,7 +67,7 @@ toast.success("Sucessfully added to cart")
 
       {/* Product Image */}
       <div className=" w-full max-h-40 md:max-h-64 overflow-hidden rounded-lg flex items-center justify-center ">
-        <img src={images[0]} loading="lazy" alt="Product" className="h-full object-contain" />
+        <Image src={images[0]} loading="lazy" alt="Product" className="h-full object-contain" />
       </div>
 
       {/* Action Buttons */}
@@ -119,23 +116,19 @@ interface extOrder extends Order{
   onDelete?:()=>void
 }
 const OrderProductCard: React.FC<extOrder> = ({ 
-  orderId,
   id,
   image,
   discountPercentage,
   title,
   quantity,
   price,
-  total,
   status,
   isCancellable,
-  placedAt,
   onDelete
 }) => {
 
    
     
- let onPreview= () => {}
   return (
     <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg flex flex-col items-center gap-1 relative hoverable">
        {/* Discount Badge */} 
@@ -149,7 +142,7 @@ const OrderProductCard: React.FC<extOrder> = ({
 
       {/* Product Image */}
       <div className=" w-full max-h-40 md:max-h-64 overflow-hidden rounded-lg flex items-center justify-center ">
-        <img src={image} loading="lazy" alt="Product" className="h-full object-contain" />
+        <Image src={image} loading="lazy" alt="Product" className="h-full object-contain" />
       </div>
 
 
@@ -165,7 +158,6 @@ const OrderProductCard: React.FC<extOrder> = ({
         <Link href={"/products/"+id}>
         
         <button
-          onClick={onPreview}
           className="bg-white items-center flex rounded-full hover:bg-gray-200 p-2"
         >
           <i className="fas fa-eye"></i>

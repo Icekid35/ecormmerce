@@ -1,8 +1,6 @@
 "use client"
 import React from "react";
 import ProductCard from "./ProductCard";
-import useEmblaCarousel from "embla-carousel-react";
-import AutoScroll from 'embla-carousel-auto-scroll'
 import Button from "./button";
 import SectionHeader from "./sectionHeader";
 
@@ -14,13 +12,7 @@ const allproducts:Product[] = await getProducts()
 const newArrivals = allproducts.filter(pro=>pro.isNewArrival)
 
 const NewArrivals = () => {
-//   const [emblaRef, emblaApi] = useEmblaCarousel({loop:true}, [
-//     AutoScroll({speed:1,stopOnMouseEnter:true,})
-//   ])
-  // function continueOnMouseLeave(){
-  //   emblaApi(AutoScroll({active:true})
-  // }
-  // document.addEventListener("mouseleave",continueOnMouseLeave,false)
+
   return (
     <section className="my-10">
       <div className="w-full mx-auto">

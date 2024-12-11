@@ -3,7 +3,6 @@ import React from "react";
 
 import SectionHeader from "../components/sectionHeader";
 import ProductCard from "../components/ProductCard";
-import Button from "../components/button";
 import { useAccount } from "../layout";
 import getProducts from "../controller/products";
 
