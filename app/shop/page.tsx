@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, } from "react";
 // import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft,faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -132,10 +132,12 @@ const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory,
 
 
 
-let shopProducts =await getProducts()
+const shopProducts =await getProducts()
 let once=false
 let prev=""
 interface shop {categoryId?:string,productname?:string}
+
+//@ts-expect-error
 const Shop:React.FC<shop>=({categoryId,productname=""})=> {
     //   const { state } = useContext(DataContext);
     //   const { shopProducts }: { shopProducts: Product[] } = state;

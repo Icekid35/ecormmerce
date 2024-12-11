@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import {jwtDecode, JwtPayload} from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import Button from "../components/button";
 import Link from "next/link";
 import { login} from "../controller/account";

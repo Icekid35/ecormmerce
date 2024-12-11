@@ -23,7 +23,10 @@ export default function AccountLayout({
       <div
         className={`md:flex p-2 md:p-8 gap-8  `}
       >
-        <FontAwesomeIcon className="md:hidden" icon={hidden ? faHamburger : faX} onClick={()=>{setHidden(!hidden)}} />
+        <div  className="md:hidden">
+
+        <FontAwesomeIcon icon={hidden ? faHamburger : faX} onClick={()=>{setHidden(!hidden)}} />
+        </div>
       {!hidden &&  <div className="rounded  absolute md:relative flex flex-col gap-3 pl-4 p-8 capitalize text-sm bg-white shadow-lg w-[250px]">
             <h2 className="font-semibold ">Manage My Account</h2>
             <div  className="flex flex-col gap-2 pl-4 capitalize ">

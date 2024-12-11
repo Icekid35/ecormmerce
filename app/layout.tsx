@@ -139,7 +139,8 @@ const initialAccount: Partial<Account> = {
   // isgoogle:true
 };
 
-let user:any
+//@ts-ignore
+let user
 const localUser=localStorage.getItem("email")
 if(localUser){
  user=await getAccountByEmail(localUser)
@@ -291,6 +292,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  //@ts-expect-error
   const [state, dispatch] = useReducer(accountReducer, user);
 
   return (
