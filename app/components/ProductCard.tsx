@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link";
-import React, { MouseEvent } from "react";
+import React from "react";
 import Rating from "./rating";
 import { Product } from "../types/product";
 import { Order } from "../types/account";

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Rating from "../../components/rating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNairaSign } from "@fortawesome/free-solid-svg-icons";
