@@ -26,7 +26,7 @@ interface sidebar {
 const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory, shopProducts, categories }) => {
     return (
 
-        <div className={`${mobile &&" col-span-1 md:hidden"} md:block bg-header w-full text-sm border-2 rounded-md shadow-md`}>
+        <div className={`${mobile &&" col-span-1 md:hidden"} md:block bg-accent w-full text-sm border-2 rounded-md shadow-md`}>
             <div>
                 {/* <h2 className="text-lg font-bold mb-4">Search Products</h2> */}
                 {/* <div className="flex items-center bg-neutral p-2 rounded">
@@ -231,7 +231,7 @@ let prev=""
 //             <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
 //                 <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
 //                 {/* Product Listing */}
-//                 <div className="md:col-span-4 bg-header border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
+//                 <div className="md:col-span-4 bg-accent border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
 //                     <div className="flex justify-between items-center mb-6">
 //                         <p className="font-semibold capitalize">
 //                             {activeCategory}<span className="text-[10px] opacity-80 italic">({products.length} Products availaible)</span>
@@ -382,7 +382,7 @@ if(productname !=prev){
         filterByCategory={filterByCategory}
         shopProducts={shopProducts}
       />
-      <div className="md:col-span-4 bg-header border-2 md:p-4 p-1 rounded shadow-xl w-[98vw] md:w-full">
+      <div className="md:col-span-4 bg-accent border-2 md:p-4 p-1 rounded shadow-xl w-[98vw] md:w-full">
         <div className="flex justify-between items-center mb-6">
           <p className="font-semibold capitalize">
             {activeCategory} <span className="text-[10px] opacity-80 italic">({products.length} Products)</span>
@@ -390,7 +390,7 @@ if(productname !=prev){
           <select
             onChange={(e) => handleSort(e.target.value)}
             value={sortType}
-            className="border-2 p-2 rounded-md"
+            className="border-2 p-2 rounded-md bg-inherit"
           >
             <option value="default">Default</option>
             <option value="price-asc">Price Ascending</option>
@@ -410,7 +410,7 @@ if(productname !=prev){
           <button
             onClick={prevBatch}
             disabled={batch === 1}
-            className="bg-text text-header p-2 rounded disabled:bg-secondary hover:scale-105"
+            className=" disabled:cursor-not-allowed text-header p-2 rounded disabled:bg-hover bg-secondary hover:scale-105"
           >
             <FontAwesomeIcon icon={faArrowLeft} /> Previous
           </button>
@@ -420,7 +420,7 @@ if(productname !=prev){
           <button
             onClick={nextBatch}
             disabled={batch >= maxBatch}
-            className="hover:scale-105 disabled:bg-secondary bg-text text-header p-2 rounded"
+            className="hover:scale-105 disabled:cursor-not-allowed disabled:bg-hover bg-secondary text-header p-2 rounded"
           >
             Next <FontAwesomeIcon icon={faArrowRight} />
           </button>

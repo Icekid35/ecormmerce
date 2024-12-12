@@ -27,7 +27,7 @@ export default function AccountLayout({
 
         <FontAwesomeIcon icon={hidden ? faHamburger : faX} onClick={()=>{setHidden(!hidden)}} />
         </div>
-      {!hidden &&  <div className="rounded  absolute md:relative flex flex-col gap-3 pl-4 p-8 capitalize text-sm bg-header shadow-lg w-[250px]">
+      {!hidden &&  <div className="rounded  absolute md:relative flex flex-col gap-3 pl-4 p-8 capitalize text-sm bg-accent shadow-lg w-[250px]">
             <h2 className="font-semibold ">Manage My Account</h2>
             <div  className="flex flex-col gap-2 pl-4 capitalize ">
                     <Link href="/account" className={path=='/account' ?" text-primary":"text-gray-700 hover:text-primary"}>

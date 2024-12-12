@@ -15,7 +15,7 @@ function Page() {
     {account.reviews.filter(r=>r.rating).length>0 ? account.reviews.filter(r=>!r.rating).reverse().map(product=>{
 
         return(
-            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-header shadow-lg'>
+            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-accent shadow-lg'>
                <div className='flex gap-2 items-center '> 
                 <div className='w-[50px] h-[50px] bg-secondary rounded'></div>
                 <div className='text-sm'>{product.title}</div>
@@ -55,7 +55,7 @@ function Page() {
   {account.reviews.filter(r=>r.rating).length>0 ?account.reviews.filter(r=>r.rating).reverse().map(product=>{
 
         return(
-            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-header shadow-lg'>
+            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-accent shadow-lg'>
                <div className='flex gap-2 items-center '> 
                 <div className='w-[50px] h-[50px] bg-secondary rounded'></div>
                 <div className='text-sm'>{product.title}</div>

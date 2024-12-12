@@ -51,7 +51,7 @@ toast.success("Sucessfully added to cart")
  const onPreview= () => {}
  const {dispatch}=useAccount()
   return (
-    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg flex flex-col items-center gap-1 relative hoverable">
+    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg  flex flex-col items-center gap-1 relative hoverable">
       {/* Discount Badge */} 
       <div className="flex items-center justify-center w-full bg-hover2 relative min-h-40 max-h-40 md:max-h-64 md:min-h-64 transition-all">
       {(discountPrice && !isNewArrival) && (
@@ -74,13 +74,13 @@ toast.success("Sucessfully added to cart")
       <div className="absolute top-2 right-2 flex flex-col space-y-2 show-on-hover">
       {isWishlist &&  <button
           onClick={isWishlist}
-          className="bg-header items-center flex rounded-full hover:bg-hover2 p-2"
+          className="bg-accent items-center flex rounded-full hover:bg-hover2 p-2"
         >
           <i className="fas fa-trash"></i>
         </button>}
         {!isWishlist && <button
           onClick={onWishlist}
-          className="border border-hover bg-header items-center flex rounded-full hover:bg-hover2 p-2"
+          className="border border-hover bg-accent items-center flex rounded-full hover:bg-hover2 p-2"
         >
           <i className="fas fa-heart"></i>
         </button>}
@@ -88,7 +88,7 @@ toast.success("Sucessfully added to cart")
         
         <button
           onClick={onPreview}
-          className="border border-hover bg-header items-center flex rounded-full hover:bg-hover2 p-2"
+          className="border border-hover bg-accent items-center flex rounded-full hover:bg-hover2 p-2"
         >
           <i className="fas fa-eye"></i>
         </button>
@@ -130,7 +130,7 @@ const OrderProductCard: React.FC<extOrder> = ({
    
     
   return (
-    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg flex flex-col items-center gap-1 relative hoverable">
+    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg  flex flex-col items-center gap-1 relative hoverable">
        {/* Discount Badge */} 
        <div className="flex items-center justify-center w-full bg-hover2 relative min-h-40 max-h-40 md:max-h-64 md:min-h-64 transition-all">
        {(discountPercentage) && (
@@ -150,7 +150,7 @@ const OrderProductCard: React.FC<extOrder> = ({
       <div className="absolute top-2 right-2 flex flex-col space-y-2 show-on-hover">
       {status=="active" && isCancellable &&  <button
           onClick={onDelete}
-          className="bg-header items-center flex rounded-full hover:bg-hover2 p-2"
+          className="bg-accent items-center flex rounded-full hover:bg-hover2 p-2"
         >
           <i className="fas fa-trash"></i>
         </button>}
@@ -158,7 +158,7 @@ const OrderProductCard: React.FC<extOrder> = ({
         <Link href={"/products/"+id}>
         
         <button
-          className="bg-header items-center flex rounded-full hover:bg-hover2 p-2"
+          className="bg-accent items-center flex rounded-full hover:bg-hover2 p-2"
         >
           <i className="fas fa-eye"></i>
         </button>
