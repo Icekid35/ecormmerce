@@ -55,7 +55,7 @@ const productid=React.use(params).productid
     setQuantity(Number(e.target.value));
   };
 
-  const addToCart = (e: MouseEvent<HTMLButtonElement>) => {
+  const addToCart = ( ) => {
     if (!product) return;
 
 

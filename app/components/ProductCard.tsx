@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) =
     isNewArrival,
     
   }=product
- const onAddToCart= (e: MouseEvent<HTMLButtonElement>) => {
+ const onAddToCart= ( ) => {
 
 
   dispatch({type:"ADD_TO_CART",payload:{id,title,price:discountPrice ? Math.round(price-((discountPrice/100)*price)):price,quantity:1,image:images[0],sizes:[""],colors:[""]}})
