@@ -19,9 +19,9 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
   const { image, title,  price, quantity, colors = [], sizes = [] } = product;
 
   return (
-    <tr className="hover:bg-gray-100 ">
+    <tr className="hover:bg-neutral ">
       <td
-        className="cursor-pointer text-red-500 font-bold"
+        className="cursor-pointer text-primary font-bold"
         onClick={() => dispatch({ type: "REMOVE_FROM_CART", payload: product.id })}
       >
         X
@@ -99,8 +99,8 @@ const Cart = () => {
           <h1 className="text-3xl font-bold mb-6  ">Cart</h1>
           <div className=" overflow-x-scroll max-w-[99vw]">
 
-          <table className="table-auto w-full border-collapse align-middle border  border-gray-200">
-            <thead className="bg-gray-100">
+          <table className="table-auto w-full border-collapse align-middle border  border-hover2">
+            <thead className="bg-neutral">
               <tr>
                 <th className="p-4">X</th>
                 <th className="p-4">Image</th>
@@ -127,12 +127,12 @@ const Cart = () => {
               />
               <button
                 onClick={applyCoupon}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-blue-500 text-header px-4 py-2 rounded"
               >
                 Apply Coupon <FontAwesomeIcon icon={faMoneyBill1Wave} />
               </button>
             </div>
-            {/* <button className="bg-red-500 text-white px-4 py-2 rounded mt-4 md:mt-0">
+            {/* <button className="bg-primary text-header px-4 py-2 rounded mt-4 md:mt-0">
               Update Cart
             </button> */}
           </div>
@@ -157,7 +157,7 @@ const Cart = () => {
                 </span>
               </div>
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+                className="bg-blue-600 text-header px-4 py-2 rounded w-full"
                 onClick={() => {
                   // Simulate proceedToCheckout logic
                   toast.success("Proceeding to checkout...");

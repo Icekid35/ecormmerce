@@ -11,7 +11,7 @@ import Button from "./button";
 const slides = [
   {
     id: 1,
-    image: "https://m.media-amazon.com/images/I/81N7FmJhbhL._AC_SL150_.jpg",
+    image: "/images/slide2.jpg",
     title: "iPhone 14 Series",
     subtitle: "Up to 10% off Voucher",
     cta: "Shop Now",
@@ -43,11 +43,11 @@ const HeroSection = () => {
         {slides.map((slide, index) => (
            <div
            key={index}
-           className="embla__slide bg-zinc-800 rounded-md"
+           className="embla__slide bg-footer rounded-md"
          >
           <div
             key={slide.id}
-            className={`w-full border flex items-center justify-between bg-cover bg-center h-[400px] text-white rounded-sm`}
+            className={`w-full border flex items-center justify-between bg-cover bg-center h-[400px] text-header rounded-sm`}
             style={{ backgroundImage: `url(${slide.image}) `,backgroundRepeat:"no-repeat",backgroundSize:"100%",objectFit:"cover" }}
           >
             <div className="flex flex-col items-start px-10">

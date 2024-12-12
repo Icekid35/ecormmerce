@@ -26,10 +26,10 @@ interface sidebar {
 const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory, shopProducts, categories }) => {
     return (
 
-        <div className={`${!mobile &&" col-span-1 hidden"} md:block bg-white w-full text-sm border-2 rounded-md shadow-md`}>
+        <div className={`${mobile &&" col-span-1 md:hidden"} md:block bg-header w-full text-sm border-2 rounded-md shadow-md`}>
             <div>
                 {/* <h2 className="text-lg font-bold mb-4">Search Products</h2> */}
-                {/* <div className="flex items-center bg-gray-100 p-2 rounded">
+                {/* <div className="flex items-center bg-neutral p-2 rounded">
                  <input
                    type="text"
                    placeholder="Search products"
@@ -63,20 +63,20 @@ const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory,
                 <h2 className="text-lg font-bold mb-4 p-4 pb-0">Hot</h2>
                 <ul className="flex flex-col gap-2  text-sm">
                     <li
-                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "discounts" && "font-semibold bg-slate-50 border"}`}
+                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "discounts" && "font-semibold bg--background border"}`}
                         onClick={() => filterByCategory("discounts")}
                     >
                        Discounts <span className="text-xs italic text-opacity-80">({shopProducts.filter((p) => p.discountPrice).length})</span>
                     </li>
                   
                     <li
-                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "newarrival" && "font-semibold bg-slate-50 border"}`}
+                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "newarrival" && "font-semibold bg--background border"}`}
                         onClick={() => filterByCategory("newarrival")}
                     >
                        New Arrivals <span className="text-xs italic text-opacity-80">({shopProducts.filter((p) => p.isNewArrival).length})</span>
                     </li>
                     <li
-                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "featured" && "font-semibold bg-slate-50 border"}`}
+                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "featured" && "font-semibold bg--background border"}`}
                         onClick={() => filterByCategory("featured")}
                     >
                        Featured prooducts <span className="text-xs italic text-opacity-80">({shopProducts.filter((p) => p.isFeatured).length})</span>
@@ -88,7 +88,7 @@ const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory,
                 <h2 className="text-lg font-bold mb-4 p-4 pb-0">Categories</h2>
                 <ul className="flex flex-col gap-2  ">
                     <li
-                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "all" && "font-semibold bg-slate-50 border"}`}
+                        className={`cursor-pointer   w-full pl-5   ${activeCategory === "all" && "font-semibold bg--background border"}`}
                         onClick={() => filterByCategory("all")}
                     >
                         All Categories <span className="text-xs italic text-opacity-80 ">({shopProducts.length}) </span>
@@ -96,7 +96,7 @@ const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory,
                     {categories.map((cat, idx) => (
                         <li
                             key={idx}
-                            className={`cursor-pointer w-full pl-5   ${activeCategory === cat && "font-semibold bg-slate-50 border"}`}
+                            className={`cursor-pointer w-full pl-5   ${activeCategory === cat && "font-semibold bg--background border"}`}
                             onClick={() => filterByCategory(cat)}
                         >
                             {cat} <span className="text-xs italic text-opacity-80">({shopProducts.filter((p) => p.category === cat).length})</span>
@@ -231,7 +231,7 @@ let prev=""
 //             <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
 //                 <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
 //                 {/* Product Listing */}
-//                 <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
+//                 <div className="md:col-span-4 bg-header border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
 //                     <div className="flex justify-between items-center mb-6">
 //                         <p className="font-semibold capitalize">
 //                             {activeCategory}<span className="text-[10px] opacity-80 italic">({products.length} Products availaible)</span>
@@ -257,13 +257,13 @@ let prev=""
 
 //                     </div>
 //                     <div className="flex justify-between mt-8 aria-hidden:hidden" aria-hidden={products.length<productsPerPage}>
-//                         <button onClick={prevBatch} disabled={batch === 1} className="bg-slate-800 text-white p-2 rounded disabled:bg-gray-500 hover:scale-105">
+//                         <button onClick={prevBatch} disabled={batch === 1} className="bg-text text-header p-2 rounded disabled:bg-secondary hover:scale-105">
 //                             <FontAwesomeIcon icon={faArrowLeft} /> Previous
 //                         </button>
 //                         <div>
 //                             (Page <span>{batch}</span> of <span>{maxbatch}</span>)
 //                         </div>
-//                         <button onClick={nextBatch} disabled={batch>=maxbatch} className="hover:scale-105 disabled:bg-gray-500 bg-slate-800 text-white p-2 rounded">
+//                         <button onClick={nextBatch} disabled={batch>=maxbatch} className="hover:scale-105 disabled:bg-secondary bg-text text-header p-2 rounded">
 //                         Next <FontAwesomeIcon icon={faArrowRight} />  
 //                         </button>
 //                     </div>
@@ -382,7 +382,7 @@ if(productname !=prev){
         filterByCategory={filterByCategory}
         shopProducts={shopProducts}
       />
-      <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
+      <div className="md:col-span-4 bg-header border-2 md:p-4 p-1 rounded shadow-xl w-[98vw] md:w-full">
         <div className="flex justify-between items-center mb-6">
           <p className="font-semibold capitalize">
             {activeCategory} <span className="text-[10px] opacity-80 italic">({products.length} Products)</span>
@@ -410,7 +410,7 @@ if(productname !=prev){
           <button
             onClick={prevBatch}
             disabled={batch === 1}
-            className="bg-slate-800 text-white p-2 rounded disabled:bg-gray-500 hover:scale-105"
+            className="bg-text text-header p-2 rounded disabled:bg-secondary hover:scale-105"
           >
             <FontAwesomeIcon icon={faArrowLeft} /> Previous
           </button>
@@ -420,14 +420,14 @@ if(productname !=prev){
           <button
             onClick={nextBatch}
             disabled={batch >= maxBatch}
-            className="hover:scale-105 disabled:bg-gray-500 bg-slate-800 text-white p-2 rounded"
+            className="hover:scale-105 disabled:bg-secondary bg-text text-header p-2 rounded"
           >
             Next <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
       </div>
       <SideBar
-        mobile
+        mobile={true}
         activeCategory={activeCategory}
         categories={categories}
         filterByCategory={filterByCategory}

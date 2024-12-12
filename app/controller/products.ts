@@ -9,8 +9,7 @@ let fetchInProgress: boolean = false;
 // Function to fetch products from the API
 async function fetchProducts(): Promise<Product[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const response = await fetch(baseUrl+"/api/products"); // Adjust API endpoint if necessary
+    const response = await fetch("/api/products"); // Adjust API endpoint if necessary
     if (!response.ok) {
       throw new Error(`Failed to fetch products: ${response.statusText}`);
     }

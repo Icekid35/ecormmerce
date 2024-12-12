@@ -61,7 +61,7 @@ const HomeCategories = () => {
             <Link
               href={link}
               key={name}
-              className="flex flex-col items-center justify-evenly border-2 p-7 gap-4 w-full hover:bg-red-500 hover:text-white hover:stroke-white"
+              className="flex flex-col items-center justify-evenly border-2 p-7 gap-4 w-full hover:bg-primary hover:text-header hover:strokeheader"
             >
               <div className="capitalize font-bold text-center">{name}</div>
             </Link>

@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { Product } from "@/app/types/product";
 import confetti from "canvas-confetti";
 import Image from "next/image";
+import getProducts from "@/app/controller/products";
 
 const Products = ({ params }: { params: Promise<{ productid: string }> }) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,12 +25,9 @@ const productid=React.use(params).productid
   // Fetch products client-side
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        const response = await fetch("/api/products");
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data: Product[] = await response.json();
+ 
+        try{
+        const data: Product[] = await getProducts()
         setProducts(data);
 
         const selectedProduct = data.find(({ id }) => id === productid) || null;
@@ -113,7 +111,7 @@ const productid=React.use(params).productid
               <div
                 key={index}
                 onClick={() => setImage(img)}
-                className={`w-[50px] md:w-[150px] overflow-hidden border border-slate-500 hover:scale-110 bg-slate-500 h-full md:max-h-[150px] max-h-[50px] ${
+                className={`w-[50px] md:w-[150px] overflow-hidden border border-secondary hover:scale-110 bg-secondary h-full md:max-h-[150px] max-h-[50px] ${
                   image === img ? "scale-110" : ""
                 }`}
               >
@@ -127,8 +125,8 @@ const productid=React.use(params).productid
               </div>
             ))}
           </div>
-          <div className="w-full md:col-span-2">
-            <div className="min-w-[150px] border m-auto border-slate-500 overflow-hidden aspect-square md:min-h-80 md:h-[400px] h-[300px] bg-slate-500">
+          <div className="w-full md:col-span-2 md:order-1">
+            <div className="min-w-[150px] border m-auto border-secondary overflow-hidden aspect-square md:min-h-80 md:h-[400px] h-[300px] bg-secondary">
               <Image
                 src={image}
                 className="object-fill w-full h-[300px] md:h-[400px]"
@@ -149,7 +147,7 @@ const productid=React.use(params).productid
             {product.price}
           </div>
           <div className="capitalize">{product.description}</div>
-          <div className="w-full h-[0.5px] bg-slate-500"></div>
+          <div className="w-full h-[0.5px] bg-secondary"></div>
           {product.colors.length > 0 && (
             <div className="flex gap-6 items-center">
               <div className="text-2xl capitalize">Colours:</div>
@@ -174,8 +172,8 @@ const productid=React.use(params).productid
                 {product.sizes.map((size, index) => (
                   <div
                     key={index}
-                    className={`cursor-pointer hover:bg-red-600 hover:text-white border-[1px] border-black p-1 px-2 font-semibold rounded uppercase text-sm ${
-                      selectSize === size ? "text-white border-red-600" : ""
+                    className={`cursor-pointer hover:bg-primary hover:text-header border-[1px] border-addcart p-1 px-2 font-semibold rounded uppercase text-sm ${
+                      selectSize === size ? "text-header border-primary" : ""
                     }`}
                     onClick={() => setSize(size)}
                   >
@@ -186,10 +184,10 @@ const productid=React.use(params).productid
             </div>
           )}
           <div className="flex w-full justify-between gap-6 items-center">
-            <div className="flex border-slate-500 font-semibold border-[1px] text-center text-xl rounded">
+            <div className="flex border-secondary font-semibold border-[1px] text-center text-xl rounded">
               <button
                 onClick={reduceQuantity}
-                className="w-full px-4 rounded-s-sm hover:text-white hover:bg-red-500 text-4xl flex justify-center items-center"
+                className="w-full px-4 rounded-s-sm hover:text-header hover:bg-primary text-4xl flex justify-center items-center"
               >
                 -
               </button>
@@ -197,26 +195,26 @@ const productid=React.use(params).productid
                 type="number"
                 value={quantity}
                 onChange={changeQuantity}
-                className="outline-none w-14 border-x-[1px] pl-3 border-slate-500"
+                className="outline-none w-14 border-x-[1px] pl-3 border-secondary"
                 max={99}
                 min={1}
               />
               <button
                 onClick={addQuantity}
-                className="w-full text-white bg-red-500 text-3xl px-4 flex justify-center items-center"
+                className="w-full text-header bg-primary text-3xl px-4 flex justify-center items-center"
               >
                 +
               </button>
             </div>
             <button
               onClick={addToCart}
-              className="h-[40px] w-full bg-red-500 rounded-sm text-white font-bold capitalize"
+              className="h-[40px] w-full bg-primary rounded-sm px-1 text-xs text-header font-bold capitalize"
             >
               Add to Cart
             </button>
             <div
               onClick={addToWishlist}
-              className="h-fit cursor-pointer p-4 flex justify-center items-center border-[1px] hover:bg-red-500 hover:text-white border-slate-500 rounded"
+              className="h-fit cursor-pointer p-4 flex justify-center items-center border-[1px] hover:bg-primary hover:text-header border-secondary rounded"
             >
               <i className="fas fa-heart"></i>
             </div>

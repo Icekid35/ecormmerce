@@ -86,7 +86,7 @@ function SignupPage() {
         onScriptLoadSuccess={() => {
         }}
       >
-      <div className="w-full min-w-[300px] h-[400px] bg-slate-500 rounded md:flex hidden"></div>
+      <div className="w-full min-w-[300px] h-[400px] bg-secondary rounded md:flex hidden"></div>
       <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
         <h2 className="text-3xl capitalize font-semibold">Create an account</h2>
 
@@ -94,7 +94,7 @@ function SignupPage() {
         <input
           type="text"
           name="fname"
-          className="outline-none p-2 bg-inherit border-b-2 border-slate-500"
+          className="outline-none p-2 bg-inherit border-b-2 border-secondary"
           placeholder="First Name"
           value={formData.fname}
           onChange={handleChange}
@@ -104,7 +104,7 @@ function SignupPage() {
         <input
           type="text"
           name="lname"
-          className="outline-none p-2 bg-inherit border-b-2 border-slate-500"
+          className="outline-none p-2 bg-inherit border-b-2 border-secondary"
           placeholder="Last Name"
           value={formData.lname}
           onChange={handleChange}
@@ -114,7 +114,7 @@ function SignupPage() {
         <input
           type="email"
           name="email"
-          className="outline-none p-2 bg-inherit border-b-2 border-slate-500"
+          className="outline-none p-2 bg-inherit border-b-2 border-secondary"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
@@ -123,7 +123,7 @@ function SignupPage() {
         <input
           type="password"
           name="password"
-          className="outline-none p-2 bg-inherit border-b-2 border-slate-500"
+          className="outline-none p-2 bg-inherit border-b-2 border-secondary"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
@@ -131,9 +131,9 @@ function SignupPage() {
           minLength={3}
         />
         <Button cta="signup" />
-        <div className="text-sm text-slate-500 text-center capitalize">
+        <div className="text-sm text-secondary text-center capitalize">
           Already have an account?{" "}
-          <Link href="/login" className="text-red-500">
+          <Link href="/login" className="text-primary">
             Login here
           </Link>
         </div>

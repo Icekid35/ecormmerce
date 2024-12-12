@@ -19,68 +19,13 @@
     "email": "bellohabib682@gmail.com",
     "phone": "123456789",
     "address": "ksk",
-    "cart": [
-      {
-        "id": "2",
-        "title": "Smart Fitness Watch",
-        "price": 79.99,
-        "quantity": 2,
-        "image": "https://m.media-amazon.com/images/I/81Z5dzbo8rL._AC_SL1500_.jpg",
-        "sizes": [
-          "",
-          ""
-        ],
-        "colors": [
-          "",
-          ""
-        ]
-      },
-      {
-        "id": "9",
-        "title": "Stainless Steel Water Bottle",
-        "price": 24.99,
-        "image": "https://m.media-amazon.com/images/I/81b7aLzFdGL._AC_SL1500_.jpg",
-        "quantity": 2,
-        "colors": [
-          "Black",
-          "Silver"
-        ],
-        "sizes": [
-          "",
-          ""
-        ]
-      },
-      {
-        "id": "0",
-        "title": "Wireless Bluetooth Headphones",
-        "price": 109,
-        "quantity": 5,
-        "image": "https://m.media-amazon.com/images/I/81N7FmJhbhL._AC_SL1500_.jpg",
-        "sizes": [
-          "",
-          "",
-          "",
-          "",
-          ""
-        ],
-        "colors": [
-          "",
-          "",
-          "",
-          "",
-          ""
-        ]
-      }
-    ],
-    "wishlist": [
-      "3",
-      "1"
-    ],
+    "cart": [],
+    "wishlist": [],
     "orders": [],
     "reviews": [],
     "createdAt": "2024-12-08T14:59:07.374Z",
     "isActive": true,
-    "updatedAt": "2024-12-11T09:28:52.424Z",
+    "updatedAt": "2024-12-12T11:05:31.577Z",
     "password": ""
   }
 ]

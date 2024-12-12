@@ -16,7 +16,7 @@ const LabelledInput=({title,placeholder,span2,onChange,value}:linput)=>{
     return(
         <div className={`flex flex-col gap-2 capitalize mb-2 ${span2? "col-span-2":""}`} >
             <div className='font-semibold text-sm'>{title}</div>
-            <input type="text" onChange={onChange} placeholder={placeholder} value={value} disabled={title=='email'} minLength={3} className='p-2 text-sm w-full rounded bg-slate-100 text-slate-500 '/>
+            <input type="text" onChange={onChange} placeholder={placeholder} value={value} disabled={title=='email'} minLength={3} className='p-2 text-sm w-full rounded bg-neutral text-secondary '/>
         </div>
     )
 }
@@ -59,8 +59,8 @@ function Page() {
     toast.success("details changed")
     }
   return (
-    <div className='p-6 w-full bg-white shadow-lg'>
-        <h2 className='text-xl capitalize text-red-500 mb-4'> edit my profile</h2>
+    <div className='p-6 w-full bg-header shadow-lg'>
+        <h2 className='text-xl capitalize text-primary mb-4'> edit my profile</h2>
         <div className='grid gap-3 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]'>
             <LabelledInput  placeholder='Md' title='full Name' value={fname} onChange={(e)=>setfname(e.target.value)}/>
             <LabelledInput  placeholder='+234915xxxxx' title='phone'  value={phone||""} onChange={(e)=>setphone(e.target.value)}/>

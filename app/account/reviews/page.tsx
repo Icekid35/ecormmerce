@@ -15,12 +15,12 @@ function Page() {
     {account.reviews.filter(r=>r.rating).length>0 ? account.reviews.filter(r=>!r.rating).reverse().map(product=>{
 
         return(
-            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-white shadow-lg'>
+            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-header shadow-lg'>
                <div className='flex gap-2 items-center '> 
-                <div className='w-[50px] h-[50px] bg-slate-500 rounded'></div>
+                <div className='w-[50px] h-[50px] bg-secondary rounded'></div>
                 <div className='text-sm'>{product.title}</div>
                 </div>
-                <div className="flex justify-center items-center space-x-1 text-yellow-500">
+                <div className="flex justify-center items-center space-x-1 text-star">
     {Array.from({ length: 5 }, (_, i) =>{ 
       
       return(
@@ -29,7 +29,7 @@ function Page() {
         onClick={()=>{
           setRating([...rating.filter(r=>r.id !=product.id),{id:product.id,rating:i+1}])}}
         style={{transition:`all ${i*0.3}s ease-out  ${i*0.1}s`}}
-        className={`fas fa-star  cursor-pointer ${i < (rating.find(({id})=>id==product.id)?.rating || 0) ? "text-yellow-500" : "text-gray-300"
+        className={`fas fa-star  cursor-pointer ${i < (rating.find(({id})=>id==product.id)?.rating || 0) ? "text-star" : "text-gray-300"
           }`}
       ></i>
     )})}
@@ -55,19 +55,19 @@ function Page() {
   {account.reviews.filter(r=>r.rating).length>0 ?account.reviews.filter(r=>r.rating).reverse().map(product=>{
 
         return(
-            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-white shadow-lg'>
+            <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-header shadow-lg'>
                <div className='flex gap-2 items-center '> 
-                <div className='w-[50px] h-[50px] bg-slate-500 rounded'></div>
+                <div className='w-[50px] h-[50px] bg-secondary rounded'></div>
                 <div className='text-sm'>{product.title}</div>
                 </div>
-                <div className="flex justify-center items-center space-x-1 text-yellow-500">
+                <div className="flex justify-center items-center space-x-1 text-star">
     {Array.from({ length: 5 }, (_, i) =>{ 
       
       return(
       <i
         key={i}
         style={{transition:`all ${i*0.3}s ease-out  ${i*0.1}s`}}
-        className={`fas fa-star  cursor-pointer ${product.rating && i < product.rating ? "text-yellow-500" : "text-gray-300"
+        className={`fas fa-star  cursor-pointer ${product.rating && i < product.rating ? "text-star" : "text-gray-300"
           }`}
       ></i>
     )})}

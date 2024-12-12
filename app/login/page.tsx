@@ -91,7 +91,7 @@ function LoginPage() {
         onScriptLoadSuccess={() => {
         }}
       >
-      <div className="w-full min-w-[300px] h-[400px] bg-slate-500 rounded md:flex hidden"></div>
+      <div className="w-full min-w-[300px] h-[400px] bg-secondary rounded md:flex hidden"></div>
       <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
         <h2 className="text-3xl capitalize font-semibold">Welcome Back</h2>
 
@@ -100,7 +100,7 @@ function LoginPage() {
         <input
           type="email"
           name="email"
-          className="outline-none p-2 bg-inherit border-b-2 border-slate-500"
+          className="outline-none p-2 bg-inherit border-b-2 border-secondary"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
@@ -109,7 +109,7 @@ function LoginPage() {
         <input
           type="password"
           name="password"
-          className="outline-none p-2 bg-inherit border-b-2 border-slate-500"
+          className="outline-none p-2 bg-inherit border-b-2 border-secondary"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
@@ -117,9 +117,9 @@ function LoginPage() {
           minLength={3}
         />
         <Button cta="Login" />
-        <div className="text-sm text-slate-500 text-center capitalize">
+        <div className="text-sm text-secondary text-center capitalize">
           Don&apos;t have an account?{" "}
-          <Link href="/Signup" className="text-red-500">
+          <Link href="/Signup" className="text-primary">
             Signup here
           </Link>
         </div>

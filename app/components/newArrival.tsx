@@ -54,7 +54,7 @@ const NewArrivals = () => {
           <Button cta="View All" link="/shop/newarrival" />
         </div>
         <div className="grid gap-4 justify-items-center grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
-          {newArrivals.map((item) => (
+          {newArrivals.slice(0,Math.min(newArrivals.length - 1,10)).map((item) => (
             <ProductCard product={item} key={item.id} />
           ))}
         </div>

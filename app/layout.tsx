@@ -317,7 +317,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`md:text-base text:sm antialiased text-gray-900 bg-slate-50`}
+        className={`md:text-base text:sm antialiased text-text bg-background `}
       >
         <AccountContext.Provider value={{ account: state, dispatch }}>
         <Header />
