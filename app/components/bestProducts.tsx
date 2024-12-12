@@ -1,17 +1,31 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Button from "./button";
 import SectionHeader from "./sectionHeader";
 import getProducts from "../controller/products";
-
-
-const allproducts = await getProducts()
-const bestProducts = allproducts.filter(pro=>pro.isFeatured)
-
+import { Product } from "../types/product";
 
 
 const BestProducts = () => {
+  const [bestProducts, setBestProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allproducts = await getProducts();
+        setBestProducts(allproducts.filter((pro) => pro.isFeatured));
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <section className="my-10">

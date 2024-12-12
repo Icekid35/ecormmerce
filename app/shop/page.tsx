@@ -132,146 +132,309 @@ const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory,
 
 
 
-const shopProducts =await getProducts()
 let once=false
 let prev=""
-interface shop {categoryId?:string,productname?:string}
+// interface shop {categoryId?:string,productname?:string}
 
-const Shop:React.FC<shop>=({categoryId,productname=""})=> {
-    //   const { state } = useContext(DataContext);
-    //   const { shopProducts }: { shopProducts: Product[] } = state;
+// const Shop:React.FC<shop>=async ({categoryId,productname=""})=> {
+//     //   const { state } = useContext(DataContext);
+//     //   const { shopProducts }: { shopProducts: Product[] } = state;
+//     const shopProducts =await getProducts()
 
-    const [products, setProducts] = useState<Product[]>(shopProducts);
-    // const [displayProducts, setDisplayProducts] = useState<Product[]>(shopProducts);
-    const [data, setData] = useState<Product[]>([]);
-    const [batch, setBatch] = useState(1);
-    const [maxbatch, setmaxBatch] = useState(products.length % productsPerPage <=0 ? Math.floor(products.length/productsPerPage): Math.floor(products.length/productsPerPage) + 1);
-    // const [searchTerm, setSearchTerm] = useState("");
-    const [activeCategory, setActiveCategory] = useState("all");
-    const [categories] = useState<string[]>(Array.from(new Set(shopProducts.map((p) => p.category))).sort());
-    const [sortType, setSortType] = useState("default");
-    // const [listMode, setListMode] = useState(false);
-    // const [priceRange, setPriceRange] = useState(1);
-    // const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
-    // const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
-    // const searchRef = useRef<HTMLInputElement>(null);
+//     const [products, setProducts] = useState<Product[]>(shopProducts);
+//     // const [displayProducts, setDisplayProducts] = useState<Product[]>(shopProducts);
+//     const [data, setData] = useState<Product[]>([]);
+//     const [batch, setBatch] = useState(1);
+//     const [maxbatch, setmaxBatch] = useState(products.length % productsPerPage <=0 ? Math.floor(products.length/productsPerPage): Math.floor(products.length/productsPerPage) + 1);
+//     // const [searchTerm, setSearchTerm] = useState("");
+//     const [activeCategory, setActiveCategory] = useState("all");
+//     const [categories] = useState<string[]>(Array.from(new Set(shopProducts.map((p) => p.category))).sort());
+//     const [sortType, setSortType] = useState("default");
+//     // const [listMode, setListMode] = useState(false);
+//     // const [priceRange, setPriceRange] = useState(1);
+//     // const [selectedColor, setSelectedColor] = useState<string | undefined>(undefined);
+//     // const [selectedSize, setSelectedSize] = useState<string | undefined>(undefined);
+//     // const searchRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        const newdata =[...products].slice((batch - 1) * productsPerPage,((products.length < (productsPerPage * batch) )) ? (productsPerPage * (batch - 1)) + ((products.length) % productsPerPage)  : productsPerPage * batch)
-        setData(newdata)
-        }, [products,batch]);
+//     useEffect(() => {
+//         const newdata =[...products].slice((batch - 1) * productsPerPage,((products.length < (productsPerPage * batch) )) ? (productsPerPage * (batch - 1)) + ((products.length) % productsPerPage)  : productsPerPage * batch)
+//         setData(newdata)
+//         }, [products,batch]);
 
-    // const searchProducts = () => {
-    //     setSearchTerm(searchRef.current?.value || "");
-    // };
+//     // const searchProducts = () => {
+//     //     setSearchTerm(searchRef.current?.value || "");
+//     // };
 
-    const filterByCategory = (category: string) => {
-        const filter=(pro:Product,cat:string)=>{
-            if(cat=="discounts") return pro.discountPrice
-            if(cat=="newarrival") return pro.isNewArrival
-            if(cat=="featured") return pro.isFeatured
-            return pro.category == cat
-        }
-        const filtered = category === "all" ? shopProducts : shopProducts.filter((p) =>filter(p,category));
-        setProducts(filtered);
-        setActiveCategory(category);
-        handleSort(sortType,filtered)
+//     const filterByCategory = (category: string) => {
+//         const filter=(pro:Product,cat:string)=>{
+//             if(cat=="discounts") return pro.discountPrice
+//             if(cat=="newarrival") return pro.isNewArrival
+//             if(cat=="featured") return pro.isFeatured
+//             return pro.category == cat
+//         }
+//         const filtered = category === "all" ? shopProducts : shopProducts.filter((p) =>filter(p,category));
+//         setProducts(filtered);
+//         setActiveCategory(category);
+//         handleSort(sortType,filtered)
+//     };
+
+//     const handleSort = (type: string,filtered?:Product[]) => {
+//         const sortedProducts =filtered ||  [...products];
+//         switch (type) {
+//             case "price-asc":
+//                 sortedProducts.sort((a:Product, b:Product) => (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price) - (b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price));
+//                 break;
+//             case "price-desc":
+//                 sortedProducts.sort((a:Product, b:Product) =>(b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price) - (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price));
+//                 break;
+//             case "a-z":
+//                 sortedProducts.sort((a:Product, b:Product) => a.title.localeCompare(b.title));
+//                 break;
+//             case "newest":
+//                 sortedProducts.sort((a:Product, b:Product) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
+//                 break;
+//             default:
+//                 break;
+//         }
+//         setProducts(sortedProducts);
+//         setSortType(type);
+//         setBatch(1);
+
+// setmaxBatch(sortedProducts.length % productsPerPage <=0 ? Math.floor(sortedProducts.length/productsPerPage): Math.floor(sortedProducts.length/productsPerPage) + 1)
+//     };
+// if(!once){
+//     once=true
+//     if(categoryId) filterByCategory(categoryId)
+      
+// }
+// if(productname !=prev){
+//     // alert(productname)
+//     prev=productname
+//     const newp=shopProducts.filter(pro=>pro.title.toLowerCase().includes(productname?.replaceAll("%20"," ").toLowerCase()))
+//     // alert(newp.length)
+//  setProducts(newp)
+// } 
+//     const nextBatch = () => {
+//         if (batch > maxbatch) return;
+//         setBatch(batch + 1);
+//     };
+
+//     const prevBatch = () => {
+//         if (batch === 1) return;
+//         setBatch(batch - 1);
+//     };
+
+//     return (
+//         <>
+//             {/* <Seo title="Shop" />
+//       <Title name="Shop" link="HOME /SHOP" /> */}
+//             <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
+//                 <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
+//                 {/* Product Listing */}
+//                 <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
+//                     <div className="flex justify-between items-center mb-6">
+//                         <p className="font-semibold capitalize">
+//                             {activeCategory}<span className="text-[10px] opacity-80 italic">({products.length} Products availaible)</span>
+//                         </p>
+//                         <select onChange={(e) => handleSort(e.target.value)} value={sortType} className="border-2 p-2 rounded-md">
+//                             <option value="default">Default</option>
+//                             <option value="price-asc">Price Ascending</option>
+//                             <option value="price-desc">Price Descending</option>
+//                             <option value="a-z">A-Z</option>
+//                             <option value="newest">Newest</option>
+//                         </select>
+
+//                     </div>
+//                     <div>
+
+//                         <CardHolder>
+//                             {data.length>0 ?
+//                             data.map((product) => (
+//                                 // <Card dispatch={() => { }} key={product.id} product={product} selectedColor={selectedColor} selectedSize={selectedSize} />
+//                                 <ProductCard key={product.id} product={product} />
+//                             )): <div className="text-3xl font-semibold capitalize text-center">No Product Available</div>}
+//                         </CardHolder>
+
+//                     </div>
+//                     <div className="flex justify-between mt-8 aria-hidden:hidden" aria-hidden={products.length<productsPerPage}>
+//                         <button onClick={prevBatch} disabled={batch === 1} className="bg-slate-800 text-white p-2 rounded disabled:bg-gray-500 hover:scale-105">
+//                             <FontAwesomeIcon icon={faArrowLeft} /> Previous
+//                         </button>
+//                         <div>
+//                             (Page <span>{batch}</span> of <span>{maxbatch}</span>)
+//                         </div>
+//                         <button onClick={nextBatch} disabled={batch>=maxbatch} className="hover:scale-105 disabled:bg-gray-500 bg-slate-800 text-white p-2 rounded">
+//                         Next <FontAwesomeIcon icon={faArrowRight} />  
+//                         </button>
+//                     </div>
+//                 </div>
+//                 <SideBar mobile activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
+
+//             </div>
+//         </>
+//     );
+// }
+// export default Shop
+
+
+
+
+const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productname?: string }) => {
+  const [shopProducts, setShopProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [data, setData] = useState<Product[]>([]);
+  const [batch, setBatch] = useState(1);
+  const [maxBatch, setMaxBatch] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [categories, setCategories] = useState<string[]>([]);
+  const [sortType, setSortType] = useState("default");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const allProducts = await getProducts();
+        setShopProducts(allProducts);
+        setProducts(allProducts);
+        setCategories(Array.from(new Set(allProducts.map((p) => p.category))).sort());
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
     };
 
-    const handleSort = (type: string,filtered?:Product[]) => {
-        const sortedProducts =filtered ||  [...products];
-        switch (type) {
-            case "price-asc":
-                sortedProducts.sort((a:Product, b:Product) => (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price) - (b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price));
-                break;
-            case "price-desc":
-                sortedProducts.sort((a:Product, b:Product) =>(b.discountPrice ? Math.round(b.price-((b.discountPrice/100)*b.price)):b.price) - (a.discountPrice ? Math.round(a.price-((a.discountPrice/100)*a.price)):a.price));
-                break;
-            case "a-z":
-                sortedProducts.sort((a:Product, b:Product) => a.title.localeCompare(b.title));
-                break;
-            case "newest":
-                sortedProducts.sort((a:Product, b:Product) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
-                break;
-            default:
-                break;
-        }
-        setProducts(sortedProducts);
-        setSortType(type);
-        setBatch(1);
+    fetchProducts();
+  }, []);
 
-setmaxBatch(sortedProducts.length % productsPerPage <=0 ? Math.floor(sortedProducts.length/productsPerPage): Math.floor(sortedProducts.length/productsPerPage) + 1)
+  useEffect(() => {
+    const filteredData = products.slice(
+      (batch - 1) * productsPerPage,
+      Math.min(batch * productsPerPage, products.length)
+    );
+    setData(filteredData);
+    setMaxBatch(Math.ceil(products.length / productsPerPage));
+  }, [products, batch]);
+
+  const filterByCategory = (category: string) => {
+    const filter = (product: Product, cat: string) => {
+      if (cat === "discounts") return product.discountPrice;
+      if (cat === "newarrival") return product.isNewArrival;
+      if (cat === "featured") return product.isFeatured;
+      return product.category === cat;
     };
-if(!once){
+
+    const filtered = category === "all" ? shopProducts : shopProducts.filter((p) => filter(p, category));
+    setProducts(filtered);
+    setActiveCategory(category);
+    handleSort(sortType, filtered);
+    setBatch(1);
+  };
+
+  const handleSort = (type: string, filteredProducts: Product[] = products) => {
+    const sorted = [...filteredProducts];
+    switch (type) {
+      case "price-asc":
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "a-z":
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "newest":
+        sorted.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
+        break;
+      default:
+        break;
+    }
+    setSortType(type);
+    setProducts(sorted);
+    setBatch(1);
+    setMaxBatch(Math.ceil(sorted.length / productsPerPage));
+  };
+
+  const handleSearch = (searchTerm: string) => {
+    const searchedProducts = shopProducts.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setProducts(searchedProducts);
+    setBatch(1);
+  };
+  if(!once){
     once=true
-    if(categoryId)return filterByCategory(categoryId)
+    if(categoryId) filterByCategory(categoryId)
       
 }
 if(productname !=prev){
     // alert(productname)
     prev=productname
-    const newp=shopProducts.filter(pro=>pro.title.toLowerCase().includes(productname?.replaceAll("%20"," ").toLowerCase()))
-    // alert(newp.length)
- setProducts(newp)
+    handleSearch(productname)
 } 
-    const nextBatch = () => {
-        if (batch > maxbatch) return;
-        setBatch(batch + 1);
-    };
 
-    const prevBatch = () => {
-        if (batch === 1) return;
-        setBatch(batch - 1);
-    };
 
-    return (
-        <>
-            {/* <Seo title="Shop" />
-      <Title name="Shop" link="HOME /SHOP" /> */}
-            <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
-                <SideBar activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
-                {/* Product Listing */}
-                <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
-                    <div className="flex justify-between items-center mb-6">
-                        <p className="font-semibold capitalize">
-                            {activeCategory}<span className="text-[10px] opacity-80 italic">({products.length} Products availaible)</span>
-                        </p>
-                        <select onChange={(e) => handleSort(e.target.value)} value={sortType} className="border-2 p-2 rounded-md">
-                            <option value="default">Default</option>
-                            <option value="price-asc">Price Ascending</option>
-                            <option value="price-desc">Price Descending</option>
-                            <option value="a-z">A-Z</option>
-                            <option value="newest">Newest</option>
-                        </select>
+  const nextBatch = () => batch < maxBatch && setBatch(batch + 1);
+  const prevBatch = () => batch > 1 && setBatch(batch - 1);
 
-                    </div>
-                    <div>
+  return (
+    <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
+      <SideBar
+        activeCategory={activeCategory}
+        categories={categories}
+        filterByCategory={filterByCategory}
+        shopProducts={shopProducts}
+      />
+      <div className="md:col-span-4 bg-white border-2 md:p-4 p-1 rounded shadow-xl w-[98vw]">
+        <div className="flex justify-between items-center mb-6">
+          <p className="font-semibold capitalize">
+            {activeCategory} <span className="text-[10px] opacity-80 italic">({products.length} Products)</span>
+          </p>
+          <select
+            onChange={(e) => handleSort(e.target.value)}
+            value={sortType}
+            className="border-2 p-2 rounded-md"
+          >
+            <option value="default">Default</option>
+            <option value="price-asc">Price Ascending</option>
+            <option value="price-desc">Price Descending</option>
+            <option value="a-z">A-Z</option>
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+        <CardHolder>
+          {data.length > 0 ? (
+            data.map((product) => <ProductCard key={product.id} product={product} />)
+          ) : (
+            <div className="text-3xl font-semibold capitalize text-center">No Products Available</div>
+          )}
+        </CardHolder>
+        <div className="flex justify-between mt-8" aria-hidden={products.length < productsPerPage}>
+          <button
+            onClick={prevBatch}
+            disabled={batch === 1}
+            className="bg-slate-800 text-white p-2 rounded disabled:bg-gray-500 hover:scale-105"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} /> Previous
+          </button>
+          <div>
+            (Page <span>{batch}</span> of <span>{maxBatch}</span>)
+          </div>
+          <button
+            onClick={nextBatch}
+            disabled={batch >= maxBatch}
+            className="hover:scale-105 disabled:bg-gray-500 bg-slate-800 text-white p-2 rounded"
+          >
+            Next <FontAwesomeIcon icon={faArrowRight} />
+          </button>
+        </div>
+      </div>
+      <SideBar
+        mobile
+        activeCategory={activeCategory}
+        categories={categories}
+        filterByCategory={filterByCategory}
+        shopProducts={shopProducts}
+      />
+    </div>
+  );
+};
 
-                        <CardHolder>
-                            {data.length>0 ?
-                            data.map((product) => (
-                                // <Card dispatch={() => { }} key={product.id} product={product} selectedColor={selectedColor} selectedSize={selectedSize} />
-                                <ProductCard key={product.id} product={product} />
-                            )): <div className="text-3xl font-semibold capitalize text-center">No Product Available</div>}
-                        </CardHolder>
-
-                    </div>
-                    <div className="flex justify-between mt-8 aria-hidden:hidden" aria-hidden={products.length<productsPerPage}>
-                        <button onClick={prevBatch} disabled={batch === 1} className="bg-slate-800 text-white p-2 rounded disabled:bg-gray-500 hover:scale-105">
-                            <FontAwesomeIcon icon={faArrowLeft} /> Previous
-                        </button>
-                        <div>
-                            (Page <span>{batch}</span> of <span>{maxbatch}</span>)
-                        </div>
-                        <button onClick={nextBatch} disabled={batch>=maxbatch} className="hover:scale-105 disabled:bg-gray-500 bg-slate-800 text-white p-2 rounded">
-                        Next <FontAwesomeIcon icon={faArrowRight} />  
-                        </button>
-                    </div>
-                </div>
-                <SideBar mobile activeCategory={activeCategory} categories={categories} filterByCategory={filterByCategory}  shopProducts={shopProducts} />
-
-            </div>
-        </>
-    );
-}
-export default Shop
+export default Shop;

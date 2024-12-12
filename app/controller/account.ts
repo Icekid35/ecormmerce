@@ -1,6 +1,7 @@
 import { Account } from "../types/account";
 
-const API_BASE_URL = "/api/account";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const API_BASE_URL = baseUrl+"/api/account";
 
 /**
  * Fetches all accounts from the API.

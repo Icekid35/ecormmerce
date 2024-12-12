@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "../node_modules/@fortawesome/fontawesome-free/css/all.css"
 
-import React, { createContext, useContext, useReducer,  Dispatch } from "react";
+import React, { createContext, useContext, useReducer,  Dispatch, useEffect, useState } from "react";
 import { Account, CartItem, Review} from "./types/account"; 
 import { Toaster } from "react-hot-toast";
 import { getAccountByEmail, updateAccount } from "./controller/account";
@@ -147,14 +147,15 @@ const initialAccount: Account = {
   // isgoogle:true
 };
 
-let user:Account
-const localUser=localStorage.getItem("email")
-if(localUser){
- user=await getAccountByEmail(localUser) || initialAccount
-}else{
-  user=initialAccount
-}
-// Define account actions
+// let user:Account
+// //  localStorage=localStorage || {}
+// const localUser=localStorage?.getItem?.("email")
+// if(localUser){
+//  user=await getAccountByEmail(localUser) || initialAccount
+// }else{
+//   user=initialAccount
+// }
+// // Define account actions
  export type AccountAction =
   | { type: "UPDATE_ACCOUNT"; payload: Partial<Account> }
   | { type: "SET_ACCOUNT"; payload: Account }
@@ -299,7 +300,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [user,setUser]=useState(initialAccount)
   const [state, dispatch] = useReducer(accountReducer, user);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const localUser = localStorage.getItem("email");
+      if (localUser) {
+        const account = await getAccountByEmail(localUser);
+        setUser(account || initialAccount);
+        dispatch({ type: "SET_ACCOUNT", payload: account || initialAccount });
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <html lang="en">

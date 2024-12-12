@@ -22,7 +22,7 @@ const LabelledInput=({title,placeholder,span2,onChange,value}:linput)=>{
 }
 function Page() {
     const { account,dispatch } = useAccount();
-    const [fname,setfname]=useState(account.name)
+    const [fname,setfname]=useState(account.name ||"")
     const [phone,setphone]=useState(account.phone)
     const [email,setemail]=useState(account.email)
     const [address,setaddress]=useState(account.address)
