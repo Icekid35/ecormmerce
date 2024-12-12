@@ -119,7 +119,7 @@ function LoginPage() {
         <Button cta="Login" />
         <div className="text-sm text-secondary text-center capitalize">
           Don&apos;t have an account?{" "}
-          <Link href="/Signup" className="text-primary">
+          <Link href="/signup" className="text-primary">
             Signup here
           </Link>
         </div>

@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -17,43 +18,43 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-bold mb-4 capitalize">support</h3>
           <ul className="flex flex-col gap-3">
-            <li><a href="#" className="hover:underline">Bellohabib682@gmail.com</a></li>
-            <li><a href="#" className="hover:underline">+234-815-789-9361</a></li>
-            <li><a href="#" className="hover:underline capitalize">after ceeco hotel kwamba,suleja,niger state</a></li>
+            <li><Link href="#" className="hover:underline">Bellohabib682@gmail.com</Link></li>
+            <li><Link href="#" className="hover:underline">+234-815-789-9361</Link></li>
+            <li><Link href="#" className="hover:underline capitalize">after ceeco hotel kwamba,suleja,niger state</Link></li>
           </ul>
         </div>
         <div >
           <h3 className="text-lg font-bold mb-4">Quick Links</h3>
           <ul className="flex flex-col gap-3">
-            <li><a href="/" className="hover:underline">Home</a></li>
-            <li><a href="/shop" className="hover:underline">Store</a></li>
-            <li><a href="/about" className="hover:underline">About Us</a></li>
-            <li><a href="/contact" className="hover:underline">Contact</a></li>
-            <li><a href="/faq" className="hover:underline">FAQ</a></li>
+            <li><Link href="/" className="hover:underline">Home</Link></li>
+            <li><Link href="/shop" className="hover:underline">Store</Link></li>
+            <li><Link href="/about" className="hover:underline">About Us</Link></li>
+            <li><Link href="/contact" className="hover:underline">Contact</Link></li>
+            <li><Link href="/faq" className="hover:underline">FAQ</Link></li>
           </ul>
         </div>
         <div className="capitalize">
           <h3 className="text-lg font-bold mb-4 capitalize">Account</h3>
           <ul className="flex flex-col gap-3">
-            <li><a href="/account" className="hover:underline">my Account</a></li>
-            <li><a href="/signup" className="hover:underline">signup/login</a></li>
-            <li><a href="/cart" className="hover:underline">cart</a></li>
-            <li><a href="/wishlist" className="hover:underline">wishlist</a></li>
+            <li><Link href="/account" className="hover:underline">my Account</Link></li>
+            <li><Link href="/signup" className="hover:underline">signup/login</Link></li>
+            <li><Link href="/cart" className="hover:underline">cart</Link></li>
+            <li><Link href="/wishlist" className="hover:underline">wishlist</Link></li>
           </ul>
         </div>
         <div>
           <h3 className="text-lg font-bold mb-4 capitalize">Follow Us</h3>
           <p>Connect with us on social media.</p>
           <div className="flex gap-6 py-4">
-            <a href="#">
+            <Link href="#">
               <i className="fas fa-facebook"></i>
-              </a>
-            <a href="#">
+              </Link>
+            <Link href="#">
               <i className="fas fa-instagram"></i>
-              </a>
-            <a href="#">
+              </Link>
+            <Link href="#">
               <i className="fas fa-whatsapp"></i>
-              </a>
+              </Link>
           </div>
         </div>
       </div>

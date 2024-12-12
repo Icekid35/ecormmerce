@@ -25,7 +25,21 @@
     "reviews": [],
     "createdAt": "2024-12-08T14:59:07.374Z",
     "isActive": true,
-    "updatedAt": "2024-12-12T15:06:09.508Z",
+    "updatedAt": "2024-12-12T15:32:31.449Z",
     "password": ""
+  },
+  {
+    "id": "acc-1734018225567",
+    "name": "bello habeeb",
+    "email": "bellohabib6822@gmail.com",
+    "password": "12345",
+    "phone": "",
+    "address": "",
+    "cart": [],
+    "wishlist": [],
+    "orders": [],
+    "reviews": [],
+    "createdAt": "2024-12-12T15:43:45.567Z",
+    "isActive": true
   }
 ]
