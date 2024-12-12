@@ -331,7 +331,7 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
     setBatch(1);
     
   };
-  if(window){
+  if(typeof window !== "undefined"){
     window.scrollTo({behavior:"smooth",top:0})
 }
   const handleSort = (type: string, filteredProducts: Product[] = products) => {
