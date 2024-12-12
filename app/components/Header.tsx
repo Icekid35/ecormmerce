@@ -13,7 +13,6 @@ const Header = () => {
   const {account}=useAccount()
   const search=()=>{
     if(searchterm.length<1)return
-    setSearchterm("")
    router.push("/shop/search/"+searchterm) 
   }
   return (

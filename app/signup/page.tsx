@@ -158,7 +158,7 @@ function SignupPage() {
                       auto_select
                       theme="outline"
                       // width="300"
-                      width={400}
+                      width={300}
 
           />
         </div>

@@ -9,7 +9,6 @@ import ProductCard from "../../components/ProductCard";
 import { useAccount } from "@/app/layout";
 import toast from "react-hot-toast";
 import { Product } from "@/app/types/product";
-import confetti from "canvas-confetti";
 import Image from "next/image";
 import getProducts from "@/app/controller/products";
 
@@ -59,16 +58,6 @@ const productid=React.use(params).productid
   const addToCart = (e: MouseEvent<HTMLButtonElement>) => {
     if (!product) return;
 
-    confetti({
-      particleCount: 100,
-      spread: 10,
-      origin: {
-        y: e.clientY / window.innerHeight,
-        x: e.clientX / window.innerWidth,
-      },
-      startVelocity: 30,
-      shapes: ["star"],
-    });
 
     dispatch({
       type: "ADD_TO_CART",

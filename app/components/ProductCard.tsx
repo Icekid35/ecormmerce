@@ -6,7 +6,6 @@ import { Product } from "../types/product";
 import { Order } from "../types/account";
 import { useAccount } from "../layout";
 import toast from "react-hot-toast";
-import confetti from "canvas-confetti";
 import Image from "next/image";
 
 // Define the TypeScript type for the product card props
@@ -29,23 +28,14 @@ const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) =
     
   }=product
  const onAddToCart= (e: MouseEvent<HTMLButtonElement>) => {
-  confetti({
-    particleCount: 100,
-    spread: 10,
-    origin: {
-      y: e.clientY / window.innerHeight,
-      x: e.clientX / window.innerWidth,
-    },
-    startVelocity: 30,
-    shapes: ["star"],
-  });
+
 
   dispatch({type:"ADD_TO_CART",payload:{id,title,price:discountPrice ? Math.round(price-((discountPrice/100)*price)):price,quantity:1,image:images[0],sizes:[""],colors:[""]}})
 toast.success("Sucessfully added to cart") 
 }
  const onWishlist= () => {
   dispatch({type:"ADD_TO_WISHLIST",payload:product.id})
-  toast.success("Sucessfully added to cart") 
+  toast.success("Sucessfully added to your wishlist") 
   
  }
  const onPreview= () => {}

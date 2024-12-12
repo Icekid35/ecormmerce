@@ -26,7 +26,7 @@ interface sidebar {
 const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory, shopProducts, categories }) => {
     return (
 
-        <div className={`${mobile &&" col-span-1 hidden md:hidden"} md:block bg-accent w-full text-sm border-2 rounded-md  shadow-shadow shadow-md`}>
+        <div className={`${mobile ?" col-span-1 block md:hidden" : "hidden md:block"}  bg-accent w-full text-sm border-2 rounded-md  shadow-shadow shadow-md`}>
             <div>
                 {/* <h2 className="text-lg font-bold mb-4">Search Products</h2> */}
                 {/* <div className="flex items-center bg-neutral p-2 rounded">
@@ -302,9 +302,7 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
     };
 
     fetchProducts();
-    if(window){
-        window.scrollTo({behavior:"smooth",top:0})
-    }
+
   }, []);
 
   useEffect(() => {
@@ -364,19 +362,22 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
     );
     setProducts(searchedProducts);
     setBatch(1);
+    setMaxBatch(Math.ceil(searchedProducts.length / productsPerPage));
+
   };
   if(!once){
     once=true
     if(categoryId) filterByCategory(categoryId)
       
 }
-if(productname !=prev){
-    // alert(productname)
-    prev=productname
-    handleSearch(productname)
-} 
 
 
+  useEffect(()=>{
+    if(productname !=prev && shopProducts.length>0){
+        prev=productname
+        handleSearch(productname)
+    } 
+  },[shopProducts,productname])
   const nextBatch = () => batch < maxBatch && setBatch(batch + 1);
   const prevBatch = () => batch > 1 && setBatch(batch - 1);
 
