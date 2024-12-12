@@ -1,5 +1,5 @@
 "use client"
-import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,12 +13,13 @@ const Header = () => {
   const {account}=useAccount()
   const search=()=>{
     if(searchterm.length<1)return
+    setSearchterm("")
    router.push("/shop/search/"+searchterm) 
   }
   return (
-    <header className="bg-accent shadow-md">
+    <header className="bg-accent  shadow-shadow shadow-md">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <h1 className="text-xl font-bold">Ice </h1>
+        <Link href={'/'} className="text-xl font-bold flex items-center  gap-2">{path!="/" && <FontAwesomeIcon icon={faHome} />}Ice </Link>
         <nav className="space-x-6 hidden md:flex">
           <Link  href="/homepage" className={path=='/homepage' ?" text-primary":"text-text hover:text-primary"}>Home</Link>
           <Link href="/shop" className={path=='/shop' ?" text-primary":"text-text hover:text-primary"}>Store</Link>

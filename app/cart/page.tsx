@@ -19,7 +19,7 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
   const { image, title,  price, quantity, colors = [], sizes = [] } = product;
 
   return (
-    <tr className="hover:bg-neutral ">
+    <tr className=" bg-accent ">
       <td
         className="cursor-pointer text-primary font-bold"
         onClick={() => dispatch({ type: "REMOVE_FROM_CART", payload: product.id })}
@@ -43,7 +43,7 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
         <input
           type="number"
           min={1}
-          className="w-16 p-2 border rounded"
+          className="w-16 p-2 border bg-inherit rounded"
           value={quantity}
           onChange={(e) =>
             dispatch({
@@ -97,10 +97,10 @@ const Cart = () => {
       ) : (
         <div className="container mx-auto p-4 md:text-base text-xs">
           <h1 className="text-3xl font-bold mb-6  ">Cart</h1>
-          <div className=" overflow-x-scroll max-w-[99vw]">
+          <div className=" overflow-x-scroll md:overflow-hidden max-w-[99vw]">
 
           <table className="table-auto w-full border-collapse align-middle border  border-hover2">
-            <thead className="bg-neutral">
+            <thead className="bg-inherit">
               <tr>
                 <th className="p-4">X</th>
                 <th className="p-4">Image</th>

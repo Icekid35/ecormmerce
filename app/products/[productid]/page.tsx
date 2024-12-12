@@ -187,7 +187,7 @@ const productid=React.use(params).productid
             <div className="flex border-secondary font-semibold border-[1px] text-center text-xl rounded">
               <button
                 onClick={reduceQuantity}
-                className="w-full px-4 rounded-s-sm hover:text-header hover:bg-primary text-4xl flex justify-center items-center"
+                className="w-full px-2 md:px-4 rounded-s-sm hover:text-header hover:bg-primary text-4xl flex justify-center items-center"
               >
                 -
               </button>
@@ -195,26 +195,26 @@ const productid=React.use(params).productid
                 type="number"
                 value={quantity}
                 onChange={changeQuantity}
-                className="outline-none w-14 border-x-[1px] pl-3 border-secondary"
+                className="outline-none w-14 border-x-[1px] pl-3 border-secondary bg-inherit"
                 max={99}
                 min={1}
               />
               <button
                 onClick={addQuantity}
-                className="w-full text-header bg-primary text-3xl px-4 flex justify-center items-center"
+                className="w-full text-header bg-primary text-3xl px-2 md:px-4 flex justify-center items-center"
               >
                 +
               </button>
             </div>
             <button
               onClick={addToCart}
-              className="h-[40px] w-full bg-primary rounded-sm px-1 text-xs text-header font-bold capitalize"
+              className="h-[40px] w-full bg-primary min-w-[70px] rounded-sm px-1 text-xs text-header font-bold capitalize"
             >
               Add to Cart
             </button>
             <div
               onClick={addToWishlist}
-              className="h-fit cursor-pointer p-4 flex justify-center items-center border-[1px] hover:bg-primary hover:text-header border-secondary rounded"
+              className="h-fit cursor-pointer p-2 md:p-4 flex justify-center items-center border-[1px] hover:bg-primary hover:text-header border-secondary rounded"
             >
               <i className="fas fa-heart"></i>
             </div>

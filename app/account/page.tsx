@@ -59,7 +59,7 @@ function Page() {
     toast.success("details changed")
     }
   return (
-    <div className='p-6 w-full bg-accent shadow-lg'>
+    <div className='p-6 w-full bg-accent  shadow-shadow shadow-lg'>
         <h2 className='text-xl capitalize text-primary mb-4'> edit my profile</h2>
         <div className='grid gap-3 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]'>
             <LabelledInput  placeholder='Md' title='full Name' value={fname} onChange={(e)=>setfname(e.target.value)}/>

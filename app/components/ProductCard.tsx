@@ -51,7 +51,7 @@ toast.success("Sucessfully added to cart")
  const onPreview= () => {}
  const {dispatch}=useAccount()
   return (
-    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg  flex flex-col items-center gap-1 relative hoverable">
+    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-shadow shadow-lg  flex flex-col items-center gap-1 relative hoverable">
       {/* Discount Badge */} 
       <div className="flex items-center justify-center w-full bg-hover2 relative min-h-40 max-h-40 md:max-h-64 md:min-h-64 transition-all">
       {(discountPrice && !isNewArrival) && (
@@ -130,7 +130,7 @@ const OrderProductCard: React.FC<extOrder> = ({
    
     
   return (
-    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg  flex flex-col items-center gap-1 relative hoverable">
+    <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-lg  shadow-shadow  flex flex-col items-center gap-1 relative hoverable">
        {/* Discount Badge */} 
        <div className="flex items-center justify-center w-full bg-hover2 relative min-h-40 max-h-40 md:max-h-64 md:min-h-64 transition-all">
        {(discountPercentage) && (

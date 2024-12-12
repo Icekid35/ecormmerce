@@ -22,6 +22,7 @@ export default {
         footer: "var(--footer)",
         green: "var(--green)",
         star: "var(--star)",
+        shadow: "var(--shadow)",
       },
     },
   },

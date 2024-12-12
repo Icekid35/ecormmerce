@@ -18,6 +18,8 @@
   --footer:#27272a;/* zinc-800*/
   --green: #22c55e;/*green-500 */
   --star:#eab308;/* yellow-500*/ 
+  --shadow: rgba(0, 0, 0, 0.3); /* Soft shadow for dark backgrounds */
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,17 +30,19 @@
   :root {
     --background: #1a1a2e; /* rich dark blue-gray */
     --text: #eaeaea; /* off-white */
-    --primary: #ff6b6b; /* vibrant coral red */
+    --primary: #c74646; /* vibrant coral red */
     --secondary: #4e5d78; /* muted blue-gray */
     --accent: #0f172a; /* deep slate */
-    --addcart: #10b981; /* emerald green */
+    --addcart: #0c6b48; /* emerald green */
     --hover: #334155; /* cool slate */
     --hover2: #64748b; /* softer slate */
     --neutral: #d1d5db; /* light gray */
     --header: #d2d9e7; /* deep slate */
     --footer: #1e293b; /* darker slate */
-    --green: #34d399; /* neon mint green */
+    --green: #0c6b48; /* neon mint green */
     --star: #facc15; /* golden yellow */
+    --shadow:rgba(45, 45, 55, 0.4); /* Slightly warm gray */
+
   }
   
   

@@ -7,7 +7,7 @@ import Button from '../components/button';
 function Contact() {
     return (
         <div className='grid md:grid-cols-3 capitalize md:p-10 p-2 gap-y-8 md:gap-8'>
-            <div className='flex flex-col gap-6 p-8 shadow-lg bg-accent rounded'>
+            <div className='flex flex-col gap-6 p-8  shadow-shadow shadow-lg bg-accent rounded'>
                 <div className='flex gap-4 capitalize font-semibold text-3xl'>
                     <FontAwesomeIcon icon={faPhone } width={30}/> <h2>call to us</h2></div>
                     <div className='flex flex-col gap-3'>
@@ -39,7 +39,7 @@ function Contact() {
                         </div>
                 </div>
             </div>
-<div className='col-span-2 p-4 bg-accent shadow-lg flex flex-col gap-4'>
+<div className='col-span-2 p-4 bg-accent  shadow-shadow shadow-lg flex flex-col gap-4'>
 <div className='grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 w-full'>
     <input type="text" required placeholder='Your Name*' name='fname' className='bg-neutral min-w-[200px] w-full rounded-sm p-3 ' />
     <input type="text" required placeholder='Your Phone Number*' className='bg-neutral min-w-[200px] w-full rounded-sm p-3 ' />

@@ -26,7 +26,7 @@ interface sidebar {
 const SideBar: React.FC<sidebar> = ({ mobile,  activeCategory, filterByCategory, shopProducts, categories }) => {
     return (
 
-        <div className={`${mobile &&" col-span-1 md:hidden"} md:block bg-accent w-full text-sm border-2 rounded-md shadow-md`}>
+        <div className={`${mobile &&" col-span-1 hidden md:hidden"} md:block bg-accent w-full text-sm border-2 rounded-md  shadow-shadow shadow-md`}>
             <div>
                 {/* <h2 className="text-lg font-bold mb-4">Search Products</h2> */}
                 {/* <div className="flex items-center bg-neutral p-2 rounded">
@@ -302,6 +302,9 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
     };
 
     fetchProducts();
+    if(window){
+        window.scrollTo({behavior:"smooth",top:0})
+    }
   }, []);
 
   useEffect(() => {
@@ -326,8 +329,11 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
     setActiveCategory(category);
     handleSort(sortType, filtered);
     setBatch(1);
+    
   };
-
+  if(window){
+    window.scrollTo({behavior:"smooth",top:0})
+}
   const handleSort = (type: string, filteredProducts: Product[] = products) => {
     const sorted = [...filteredProducts];
     switch (type) {
@@ -382,7 +388,7 @@ if(productname !=prev){
         filterByCategory={filterByCategory}
         shopProducts={shopProducts}
       />
-      <div className="md:col-span-4 bg-accent border-2 md:p-4 p-1 rounded shadow-xl w-[98vw] md:w-full">
+      <div className="md:col-span-4 bg-accent border-2 md:p-4 p-1 rounded  shadow-shadow shadow-xl w-[98vw] md:w-full">
         <div className="flex justify-between items-center mb-6">
           <p className="font-semibold capitalize">
             {activeCategory} <span className="text-[10px] opacity-80 italic">({products.length} Products)</span>
@@ -392,11 +398,11 @@ if(productname !=prev){
             value={sortType}
             className="border-2 p-2 rounded-md bg-inherit"
           >
-            <option value="default">Default</option>
-            <option value="price-asc">Price Ascending</option>
-            <option value="price-desc">Price Descending</option>
-            <option value="a-z">A-Z</option>
-            <option value="newest">Newest</option>
+            <option value="default" className="bg-accent">Default</option>
+            <option value="price-asc" className="bg-accent">Price Ascending</option>
+            <option value="price-desc" className="bg-accent">Price Descending</option>
+            <option value="a-z" className="bg-accent">A-Z</option>
+            <option value="newest" className="bg-accent">Newest</option>
           </select>
         </div>
         <CardHolder>
