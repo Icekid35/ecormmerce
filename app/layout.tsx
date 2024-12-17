@@ -239,6 +239,7 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
           ],
         };
       }catch(err){
+        console.log(err)
         newState = {
           ...state
         };
