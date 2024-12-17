@@ -135,17 +135,17 @@ export async function PATCH(req: Request) {
       id,
       name,
       email,
-      phone='',
-      address='',
-      cart=[],
-      wishlist=[],
-      orders=[],
-      reviews=[],
+      phone = '',
+      address = '',
+      cart = [],
+      wishlist = [],
+      orders = [],
+      reviews = [],
       isActive,
-      isgoogle=false,
+      isgoogle = false,
       password,
     } = body;
-console.log(body)
+    console.log(body)
     if (!id) return new NextResponse("ID is required", { status: 400 });
 
     // Ensure the account exists
@@ -160,7 +160,7 @@ console.log(body)
     });
 
     if (!existingAccount) {
-      return  NextResponse.json("Account not found", { status: 404 });
+      return NextResponse.json("Account not found", { status: 404 });
     }
 
     // Update account fields
@@ -175,7 +175,7 @@ console.log(body)
     };
 
     // Handle nested cart updates
-    if(cart.length>0){
+    if (cart.length > 0) {
 
       const cartUpdates = cart.map((item: CartItem) => ({
         id: item.id,
@@ -186,39 +186,39 @@ console.log(body)
         sizes: item.sizes,
         colors: item.colors,
       }));
-  
+
       // Delete existing cart items and re-create (simpler than partial updates)
       await prismadb.cartItem.deleteMany({
         where: { accountId: id },
       });
       await prismadb.cartItem.createMany({
-        data: cartUpdates.map((item:CartItem) => ({
+        data: cartUpdates.map((item: CartItem) => ({
           ...item,
           accountId: id,
         })),
       });
     }
+    if (wishlist.length > 0) {
+      // Handle nested wishlist updates
+      const wishlistUpdates = wishlist.map((item: WishlistItem) => ({
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        image: item.image,
+        addedAt: new Date(item.addedAt || Date.now()),
+      }));
 
-    // Handle nested wishlist updates
-    const wishlistUpdates = wishlist.map((item: WishlistItem) => ({
-      id: item.id,
-      title: item.title,
-      price: item.price,
-      image: item.image,
-      addedAt: new Date(item.addedAt || Date.now()),
-    }));
-
-    // Delete existing wishlist items and re-create
-    await prismadb.wishlistItem.deleteMany({
-      where: { accountId: id },
-    });
-    wishlistUpdates.length> 0 && await prismadb.wishlistItem.createMany({
-      data: wishlistUpdates.map((item:WishlistItem) => ({
-        ...item,
-        accountId: id,
-      })),
-    });
-
+      // Delete existing wishlist items and re-create
+      await prismadb.wishlistItem.deleteMany({
+        where: { accountId: id },
+      });
+      await prismadb.wishlistItem.createMany({
+        data: wishlistUpdates.map((item: WishlistItem) => ({
+          ...item,
+          accountId: id,
+        })),
+      });
+    }
     // Handle nested orders updates
     const orderUpdates = orders.map((item: Order) => ({
       id: item.id,
@@ -233,38 +233,39 @@ console.log(body)
       isCancellable: item.isCancellable,
       placedAt: new Date(item.placedAt),
     }));
+    if (orderUpdates.length > 0) {
+      // Delete existing orders and re-create
+      await prismadb.order.deleteMany({
+        where: { accountId: id },
+      });
+      await prismadb.order.createMany({
+        data: orderUpdates.map((item: Order) => ({
+          ...item,
+          accountId: id,
+        })),
+      });
+    }
+    if (reviews.length > 0) {
+      // Handle nested reviews updates
+      const reviewUpdates = reviews.map((item: Review) => ({
+        id: item.id,
+        title: item.title,
+        rating: item.rating,
+        image: item.image,
+        reviewedAt: new Date(item.reviewedAt || Date.now()),
+      }));
 
-    // Delete existing orders and re-create
-   await prismadb.order.deleteMany({
-      where: { accountId: id },
-    });
-    orderUpdates.length> 0 && await prismadb.order.createMany({
-      data: orderUpdates.map((item:Order) => ({
-        ...item,
-        accountId: id,
-      })),
-    });
-
-    // Handle nested reviews updates
-    const reviewUpdates = reviews.map((item: Review) => ({
-      id: item.id,
-      title: item.title,
-      rating: item.rating,
-      image: item.image,
-      reviewedAt: new Date(item.reviewedAt || Date.now()),
-    }));
-
-    // Delete existing reviews and re-create
-    await prismadb.review.deleteMany({
-      where: { accountId: id },
-    });
-    reviewUpdates.length> 0 && await prismadb.review.createMany({
-      data: reviewUpdates.map((item:Review) => ({
-        ...item,
-        accountId: id,
-      })),
-    });
-
+      // Delete existing reviews and re-create
+      await prismadb.review.deleteMany({
+        where: { accountId: id },
+      });
+      await prismadb.review.createMany({
+        data: reviewUpdates.map((item: Review) => ({
+          ...item,
+          accountId: id,
+        })),
+      });
+    }
     // Update the account in the database
     const updatedAccount = await prismadb.account.update({
       where: { id },
@@ -280,64 +281,64 @@ console.log(body)
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { 
-      name, email, phone = '', address = '', 
-      cart = [], wishlist = [], orders = [], reviews = [], 
-      isgoogle = false, password 
+    const {
+      name, email, phone = '', address = '',
+      cart = [], wishlist = [], orders = [], reviews = [],
+      isgoogle = false, password
     } = body;
 
-    if (!email) return  NextResponse.json({error:"Email is required"}, { status: 400 });
+    if (!email) return NextResponse.json({ error: "Email is required" }, { status: 400 });
     const accountExist = await prismadb.account.findUnique({
       where: { email },
     });
-    if (accountExist) return NextResponse.json({error:"Email already exist"}, { status: 400 });
+    if (accountExist) return NextResponse.json({ error: "Email already exist" }, { status: 400 });
     // Transform and validate data
     const cartItems = Array.isArray(cart)
       ? cart.filter(item => item && item.id).map(item => ({
-          id: item.id,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.image,
-          sizes: item.sizes,
-          colors: item.colors,
-        }))
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image,
+        sizes: item.sizes,
+        colors: item.colors,
+      }))
       : [];
 
     const wishlistItems = Array.isArray(wishlist)
       ? wishlist.filter(item => item && item.id).map(item => ({
-          id: item.id,
-          title: item.title,
-          price: item.price,
-          image: item.image,
-          addedAt: new Date(),
-        }))
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        image: item.image,
+        addedAt: new Date(),
+      }))
       : [];
 
     const orderItems = Array.isArray(orders)
       ? orders.filter(item => item && item.id).map(item => ({
-          id: item.id,
-          orderId: item.orderId,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.image,
-          total: item.price * item.quantity,
-          discountPercentage: item.discountPercentage || 0,
-          status: item.status,
-          isCancellable: item.isCancellable,
-          placedAt: item.placedAt ? new Date(item.placedAt) :new Date(),
-        }))
+        id: item.id,
+        orderId: item.orderId,
+        title: item.title,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image,
+        total: item.price * item.quantity,
+        discountPercentage: item.discountPercentage || 0,
+        status: item.status,
+        isCancellable: item.isCancellable,
+        placedAt: item.placedAt ? new Date(item.placedAt) : new Date(),
+      }))
       : [];
 
     const reviewItems = Array.isArray(reviews)
       ? reviews.filter(item => item && item.id).map(item => ({
-          id: item.id,
-          title: item.title,
-          rating: item.rating,
-          image: item.image,
-          reviewedAt:item?.reviewedAt ? new Date(item?.reviewedAt):new Date(),
-        }))
+        id: item.id,
+        title: item.title,
+        rating: item.rating,
+        image: item.image,
+        reviewedAt: item?.reviewedAt ? new Date(item?.reviewedAt) : new Date(),
+      }))
       : [];
 
     console.log("Validated Data:", { cartItems, wishlistItems, orderItems, reviewItems });
@@ -361,7 +362,7 @@ export async function POST(req: Request) {
     return NextResponse.json(account);
   } catch (error) {
     console.error("Error creating account:", error);
-    return NextResponse.json({error:"Internal Server Error"}, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -371,7 +372,7 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-console.log(id)
+    console.log(id)
     if (!id) return new NextResponse("ID is required", { status: 400 });
 
     // Fetch account with relations
@@ -398,7 +399,7 @@ console.log(id)
       isgoogle: account.isgoogle,
       password: account.password,
       createdAt: account.createdAt,
-      cart: account.cart.map((item:CartItem) => ({
+      cart: account.cart.map((item: CartItem) => ({
         id: item.id,
         title: item.title,
         price: item.price,
@@ -408,14 +409,14 @@ console.log(id)
         colors: item.colors,
       })),
 
-      wishlist: account.wishlist.map((item:WishlistItem) => ({
+      wishlist: account.wishlist.map((item: WishlistItem) => ({
         id: item.id,
         title: item.title,
         price: item.price,
         image: item.image,
         addedAt: item.addedAt,
       })),
-      orders: account.orders.map((item:Order) => ({
+      orders: account.orders.map((item: Order) => ({
         id: item.id,
         orderId: item.orderId,
         title: item.title,
@@ -428,7 +429,7 @@ console.log(id)
         isCancellable: item.isCancellable,
         placedAt: item.placedAt,
       })),
-      reviews: account.reviews.map((item:Review) => ({
+      reviews: account.reviews.map((item: Review) => ({
         id: item.id,
         title: item.title,
         rating: item.rating,

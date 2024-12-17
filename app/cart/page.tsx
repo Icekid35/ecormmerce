@@ -88,7 +88,7 @@ const Cart = () => {
   };
 
   const proceedToCheckout=()=>{
-   for(let product of cart){
+   for(const product of cart){
     
     dispatch({
       type: "ADD_REVIEW",
