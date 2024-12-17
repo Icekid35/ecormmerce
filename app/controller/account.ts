@@ -1,4 +1,5 @@
 import { Account } from "../types/account";
+import getProducts from "./products";
 
 const API_BASE_URL = "/api/account";
 
@@ -125,15 +126,16 @@ export async function updateAccount(
     if (!email || !updates) {
       throw new Error("Email and updates are required.");
     }
-  
-    try {
+
+  try {
+      const products=await getProducts()
       // alert("doing...")
       const response = await fetch(endpoint, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({...updates }),
+        body: JSON.stringify({...updates,wishlist:updates.wishlist ?updates.wishlist.map(w=>products.find(p=>p.id==w)) :[]}),
       });
   // alert("done")
       if (!response.ok) {
