@@ -79,7 +79,7 @@ function SignupPage() {
   return (
     <div className="flex gap-x-8 p-10">
             <GoogleOAuthProvider
-        clientId={'145842574317-u05jd1fnqru3ogfuc25tgcqh6gp6btv9.apps.googleusercontent.com'}
+        clientId={'1073974436615-vqc69cj96mp2id27j280qu69r9tuj3u7.apps.googleusercontent.com'}
         onScriptLoadError={() => {
      
         }}
