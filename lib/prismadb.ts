@@ -4,12 +4,12 @@ const globalForPrisma = globalThis as unknown as {
   prismaClient: PrismaClient | undefined;
 };
 
-let prismadb: PrismaClient;
+// let prismadb: PrismaClient;
 
 if (!globalForPrisma.prismaClient) {
   globalForPrisma.prismaClient = new PrismaClient();
 }
 
-prismadb = globalForPrisma.prismaClient;
+const prismadb: PrismaClient = globalForPrisma.prismaClient;
 
 export default prismadb;
