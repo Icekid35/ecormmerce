@@ -57,7 +57,7 @@ toast.success("Sucessfully added to cart")
 
       {/* Product Image */}
       <div className=" w-full max-h-40 md:max-h-64 overflow-hidden rounded-lg flex items-center justify-center ">
-        <img src={images[0]}  loading="lazy" alt="Product" className="h-full object-contain" />
+        <img src={images[0]}  loading="lazy" alt="Product" className="h-40 md:h-64 w-full object-cover" />
       </div>
 
       {/* Action Buttons */}
@@ -96,7 +96,7 @@ toast.success("Sucessfully added to cart")
 
       {/* Price and Rating */}
       <div className="text-center space-y-2 ">
-        <p className="text-primary text-sm">{discountPrice ? (<>N{Math.round(price - (price*((discountPrice||0)/100)))} <span className="text-secondary line-through italic">N{price}</span></>):"N"+price}</p>
+        <p className="text-primary text-sm">{discountPrice ? (<>N{Math.round(price - (price*((discountPrice||0)/100))).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{price.toLocaleString('en-US')}</span></>):"N"+price.toLocaleString('en-US')}</p>
       <Rating rating={rating} ratingCount={reviewCount}  />
       </div>
     </div>
@@ -160,7 +160,7 @@ const OrderProductCard: React.FC<extOrder> = ({
 
       {/* Price and Rating */}
       <div className="text-center space-y-2 ">
-        <p className="text-primary text-sm">{discountPercentage ? (<>N{(price - (price*((discountPercentage||0)/100))) *quantity} <span className="text-secondary line-through italic">N{price*quantity}</span></>):"N"+price}</p>
+        <p className="text-primary text-sm">{discountPercentage ? (<>N{((price - (price*((discountPercentage||0)/100))) *quantity).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{(price*quantity).toLocaleString('en-US')}</span></>):"N"+price}</p>
       </div>
     </div>
   );

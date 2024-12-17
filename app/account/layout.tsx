@@ -17,7 +17,10 @@ export default function AccountLayout({
     const {account}=useAccount()
     const [hidden,setHidden]=useState(false)
     const router=useRouter()
-    if(!account.name) router.push('/login')
+    if(!account.name && account.isLoaded) router.push('/login')
+      if(!account.isLoaded) return(
+        <div className="text-center text-3xl font-semibold py-[30vh] text-text">LOADING...</div>
+      )
   return (
     
       <div

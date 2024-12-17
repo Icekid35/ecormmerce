@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+   id String @id @default(uuid()) @map("_id") @db.String
+  name      String?  // User's full name (nullable)
+  email     String   @unique
+  phone     String?  // Optional phone number
+  address   String?
+  cart      CartItem[] @relation("AccountCartItems") // Relation to CartItem
+  wishlist  WishlistItem[] // List of product IDs
+  orders    Order[]  @relation("AccountOrders")     // Relation to Order
+  reviews   Review[] @relation("AccountReviews")    // Relation to Review
+  createdAt DateTime @default(now())
+  isActive  Boolean  @default(true)
+  isgoogle  Boolean? // Whether the account was created using Google
+  password  String?  // Password field (nullable)
+}
+
+model CartItem {
+  id String @id @default(uuid()) @map("_id") @db.String
+  accountId String  @db.String()  // Foreign key to Account
+  title    String   // Name of the product
+  price    Float    // Price per unit
+  quantity Int      // Quantity in the cart
+  image    String   // Product image URL
+  sizes    String[] // Available sizes
+  colors   String[] // Available colors
+
+  account  Account  @relation("AccountCartItems", fields: [accountId], references: [id])
+
+}
+
+model WishlistItem {
+  id String @id @default(uuid()) @map("_id") @db.String
+  accountId String    @db.String() // Foreign key to Account
+  title    String   // Name of the product
+  price    Float    // Price of the product
+  image    String   // Product image URL
+  addedAt  DateTime // Date and time the product was added
+  account  Account  @relation(fields: [accountId], references: [id])
+}
+
+model Order {
+  id String @id @default(uuid()) @map("_id") @db.String
+  account  Account  @relation("AccountOrders", fields: [accountId], references: [id])
+  accountId String    @db.String() // Foreign key to Account
+  orderId  String   // Unique order ID
+  image    String   // Product image URL
+  discountPercentage Float? // Optional discount percentage
+  title    String   // Name of the product
+  quantity Int      // Quantity ordered
+  price    Float    // Price per unit
+  total    Float    // Total price (price * quantity)
+  status   String   // Order status ("active", "delivered")
+  isCancellable Boolean // Whether the order can be cancelled
+  placedAt DateTime // Date and time the order was placed
+}
+
+model Review {
+  id String @id @default(uuid()) @map("_id") @db.String
+  account  Account  @relation("AccountReviews", fields: [accountId], references: [id])
+  accountId String    @db.String()  // Foreign key to Account
+  title    String   // Name of the product
+  rating   Float?   // Rating given by the user (1-5)
+  image    String   // Product image URL
+  reviewedAt DateTime? // Date the review was completed
+}

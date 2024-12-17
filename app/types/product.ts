@@ -18,4 +18,38 @@ export type Product = {
     updatedAt?:Date;
     
   };
-  
+  // Input types
+export type Image = {
+  id: string;
+  productId: string;
+  createdAt: string;
+  url: string;
+  updatedAt: string;
+};
+
+export type Category = {
+  id: string;
+  storeId: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type InputProduct = {
+  id: string;
+  storeId: string;
+  categoryId: string;
+  name: string;
+  price: number;
+  description: string;
+  discount: number | null;
+  sizes: string[];
+  colors: string[];
+  isFeatured: boolean;
+  isArchived: boolean;
+  createdAt: string;
+  updatedAt: string;
+  images: Image[];
+  ratings:number[];
+  category?: Category; // Optional to handle cases where it's missing
+};

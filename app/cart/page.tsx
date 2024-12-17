@@ -37,7 +37,7 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
           <div className="text-xs">{[...new Set(sizes)].filter(c=>c!="").length>0 ? <>Sizes:<span className="opacity-90 text-sm ">{[...new Set(sizes)].filter(c=>c!="").join(", ")}</span></>:<></>}</div>
         </td>
       <td>
-        <FontAwesomeIcon icon={faNairaSign} /> {price}
+        <FontAwesomeIcon icon={faNairaSign} /> {price.toLocaleString('en-US')}
       </td>
       <td>
         <input
@@ -55,7 +55,7 @@ const Tbody = ({ product, dispatch }: TbodyProps) => {
         />
       </td>
       <td>
-        <FontAwesomeIcon icon={faNairaSign} /> {price * quantity}
+        <FontAwesomeIcon icon={faNairaSign} /> {(price * quantity).toLocaleString('en-US')}
       </td>
     </tr>
   );
@@ -87,6 +87,20 @@ const Cart = () => {
     toast("Coupons are not currently available");
   };
 
+  const proceedToCheckout=()=>{
+   for(let product of cart){
+    
+    dispatch({
+      type: "ADD_REVIEW",
+      payload: { id: product.id,title:product.title,image:product.image},
+    });
+  
+    toast.success("adding...");
+  }
+    toast.success("Proceeding to checkout...");
+    // router.push("/checkout");
+
+  }
   return (
     <>
    
@@ -142,7 +156,7 @@ const Cart = () => {
               <div className="flex justify-between mb-2">
                 <span>Subtotal</span>
                 <span>
-                  <FontAwesomeIcon icon={faNairaSign} /> {cartTotal}
+                  <FontAwesomeIcon icon={faNairaSign} /> {cartTotal.toLocaleString('en-US')}
                 </span>
               </div>
               <div className="flex justify-between mb-2">
@@ -153,15 +167,15 @@ const Cart = () => {
                 <span>Total</span>
                 <span>
                   <FontAwesomeIcon icon={faNairaSign} />{" "}
-                  {Math.round(cartTotal - (cartTotal * off) / 100)}
+                  {Math.round(cartTotal - (cartTotal * off) / 100).toLocaleString('en-US')}
                 </span>
               </div>
               <button
                 className="bg-blue-600 text-header px-4 py-2 rounded w-full"
-                onClick={() => {
+                onClick={async () => {
                   // Simulate proceedToCheckout logic
-                  toast.success("Proceeding to checkout...");
-                  // router.push("/checkout");
+                  proceedToCheckout()
+
                 }}
               >
                 Proceed to Checkout <FontAwesomeIcon icon={faCartArrowDown} />

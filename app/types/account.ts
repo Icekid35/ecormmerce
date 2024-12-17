@@ -12,7 +12,8 @@ export type Account = {
     createdAt: string; // Account creation date
     isActive: boolean; // Is the account active?
     isgoogle?:boolean;
-    password?:string
+    password?:string;
+    isLoaded?:boolean;
 };
   
 
@@ -32,30 +33,30 @@ export type Account = {
     title: string; // Name of the product
     price: number; // Price of the product
     image: string; // Product image URL
-    addedAt: string; // Date and time the product was added to the wishlist
+    addedAt: Date|string; // Date and time the product was added to the wishlist
   };
   
   export type Order = {
     orderId: string; // Unique order ID
     id: string; // Associated product ID
     image:string;
-    discountPercentage?:number;
+    discountPercentage?:number|null|undefined;
     title: string; // Name of the product
     quantity: number; // Quantity ordered
     price: number; // Price per unit
     total: number; // Total price (price * quantity)
-    status: "active" |  "delivered"; // Order status
+    status: string; // Order status
     isCancellable: boolean; // Can the order be cancelled?
-    placedAt: string; // Date and time the order was placed
+    placedAt: Date; // Date and time the order was placed
   };
   
 
   export type Review = {
     id: string; // Associated product ID
     title: string; // Name of the product
-    rating?: number; // Rating given by the user (1-5)
+    rating?: number|null| undefined; // Rating given by the user (1-5)
     image:string;
 
-    reviewedAt?: string; // Date the review was completed
+    reviewedAt?: Date|null; // Date the review was completed
   };
   

@@ -1,5 +1,6 @@
 "use client"
 import Button from '@/app/components/button';
+import { uploadReview } from '@/app/controller/products';
 import { useAccount } from '@/app/layout';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
@@ -12,7 +13,7 @@ function Page() {
     <div className='flex flex-col w-full'>
     <h2 className='font-semibold capitalize'>Pending Reviews</h2>
 <div className='flex flex-col p-4 w-full gap-4'>
-    {account.reviews.filter(r=>r.rating).length>0 ? account.reviews.filter(r=>!r.rating).reverse().map(product=>{
+    {account.reviews.filter(r=>!r.rating).length>0 ? account.reviews.filter(r=>!r.rating).reverse().map(product=>{
 
         return(
             <div key={product.id} className='rounded w-full flex align-middle items-center  justify-between p-4 bg-accent  shadow-shadow shadow-lg'>
@@ -34,8 +35,10 @@ function Page() {
       ></i>
     )})}
   </div>
-   <Button cta='Upload review' disabled={!rating.find(({id})=>id==product.id)} action={()=>{
+   <Button cta='Upload review' disabled={!rating.find(({id})=>id==product.id)} action={async()=>{
     if(!rating.find(({id})=>id==product.id)?.rating) return toast.error('Please click a star to review')
+     await uploadReview(product.id,product.rating ||5)
+
     dispatch({ type: "ADD_REVIEW", payload:{...product,rating:(rating.find(({id})=>id==product.id)?.rating)} });
    toast.success("Thanks for the review")
    }}/>

@@ -21,8 +21,8 @@ export const fetchAllAccounts = async (): Promise<Account[]> => {
  * Fetches a specific account by email.
  * @param email - The email of the account to fetch.
  */
-export const getAccountByEmail = async (email: string): Promise<Account | null> => {
-  const response = await fetch(`${API_BASE_URL}?email=${encodeURIComponent(email)}`, {
+export const getAccountById = async (id: string): Promise<Account | null> => {
+  const response = await fetch(`${API_BASE_URL}?id=${id}`, {
     method: "GET",
   });
 
@@ -60,9 +60,10 @@ export const signup = async (name: string, email: string,isgoogle?:boolean, pass
     const error = await response.json();
     throw new Error(error.error || "Failed to sign up");
   }
-  localStorage.setItem("email",email)
+  const ans=await response.json()
+  localStorage.setItem("id",ans.id)
 
-  return response.json();
+  return ans;
 };
 
 /**
@@ -89,8 +90,10 @@ export const login = async (email: string,isgoogle?:boolean, password?: string):
     throw new Error(error.error || "Failed to log in");
   }
 
-  localStorage.setItem("email",email)
-  return response.json();
+  const ans=await response.json()
+  localStorage.setItem("id",ans.id)
+
+  return ans;
 };
 
 /**
@@ -124,14 +127,15 @@ export async function updateAccount(
     }
   
     try {
+      // alert("doing...")
       const response = await fetch(endpoint, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, updates }),
+        body: JSON.stringify({...updates }),
       });
-  
+  // alert("done")
       if (!response.ok) {
         const error = await response.json();
         return { error: error.error || "Failed to update the account." };
@@ -140,6 +144,7 @@ export async function updateAccount(
       const updatedAccount = await response.json();
       return updatedAccount;
     } catch (error) {
+      alert("error occured")
       console.error("Error updating account:", error);
       return { error: "An unexpected error occurred." };
     }

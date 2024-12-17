@@ -7,8 +7,9 @@ import "../node_modules/@fortawesome/fontawesome-free/css/all.css"
 
 import React, { createContext, useContext, useReducer,  Dispatch, useEffect, useState } from "react";
 import { Account, CartItem, Review} from "./types/account"; 
-import { Toaster } from "react-hot-toast";
-import { getAccountByEmail, updateAccount } from "./controller/account";
+import toast, { Toaster } from "react-hot-toast";
+import { getAccountById, updateAccount } from "./controller/account";
+// import { uploadReview } from "./controller/products";
 
 
 // export const metadata: Metadata = {
@@ -29,6 +30,7 @@ const initialAccount: Account = {
   isgoogle:false,
   cart: [],
   wishlist: [],
+  isLoaded:false
   // orders: [
   //   { 
   //     orderId:"1",
@@ -177,19 +179,21 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
       break;
 
     case "SET_ACCOUNT":
-      if (state.name) {
+      if (state.cart?.length<1|| state.wishlist?.length<1) {
         newState = { ...action.payload };
+        // console.log("active..",state,action)
       } else {
+        console.log("inactive..",state,action)
         newState = {
           ...action.payload,
-          cart: state.cart,
-          wishlist: state.wishlist,
+          cart: [...state.cart,...action.payload.cart],
+          wishlist: [...state.wishlist,...action.payload.wishlist],
         };
       }
       break;
 
     case "ADD_TO_CART":
-      const prevcart = state.cart.find(({ id }) => id == action.payload.id);
+      const prevcart = state.cart?.find?.(({ id }) => id == action.payload.id);
       if (prevcart) {
         const ncart: CartItem = {
           ...prevcart,
@@ -203,11 +207,11 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
         newState = {
           ...state,
           cart: [
-            ...state.cart.filter((r) => r.id != action.payload.id),
+            ...state.cart?.filter?.((r) => r.id != action.payload.id)||{},
             ncart,
           ],
           wishlist: [
-            ...state.wishlist.filter((id) => action.payload.id !== id),
+            ...state.wishlist?.filter?.((id) => action.payload.id !== id)||{},
           ],
         };
       } else {
@@ -226,26 +230,33 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
       break;
 
     case "ADD_REVIEW":
-      newState = {
-        ...state,
-        reviews: [
-          ...state.reviews.filter((r) => r.id != action.payload.id),
-          action.payload,
-        ],
-      };
+      try{
+        newState = {
+          ...state,
+          reviews: [
+            ...state.reviews?.filter?.((r) => r.id != action.payload.id),
+            action.payload,
+          ],
+        };
+      }catch(err){
+        newState = {
+          ...state
+        };
+        toast.error("error uploading rating..")
+      }
       break;
 
     case "REMOVE_FROM_CART":
       newState = {
         ...state,
-        cart: state.cart.filter((item) => item.id !== action.payload),
+        cart: state.cart?.filter?.((item) => item.id !== action.payload),
       };
       break;
 
     case "REMOVE_FROM_ORDER":
       newState = {
         ...state,
-        orders: state.orders.filter((item) => item.id !== action.payload),
+        orders: state.orders?.filter?.((item) => item.id !== action.payload),
       };
       break;
 
@@ -253,7 +264,7 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
       newState = {
         ...state,
         wishlist: [
-          ...state.wishlist.filter((id) => action.payload !== id),
+          ...state.wishlist?.filter?.((id) => action.payload !== id),
           action.payload,
         ],
       };
@@ -262,7 +273,7 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
     case "REMOVE_FROM_WISHLIST":
       newState = {
         ...state,
-        wishlist: state.wishlist.filter((item) => item !== action.payload),
+        wishlist: state.wishlist?.filter?.((item) => item !== action.payload),
       };
       break;
 
@@ -272,8 +283,9 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
   }
   if(newState.email){
     try{
-
+      // alert("updating")
       updateAccount(newState.email,newState); // Call the external function with the updated state
+      // alert("finished updating")
     }catch(err){
       console.log(err)
     }
@@ -304,11 +316,12 @@ export default function RootLayout({
   const [state, dispatch] = useReducer(accountReducer, user);
   useEffect(() => {
     const fetchUser = async () => {
-      const localUser = localStorage.getItem("email");
+      const localUser = localStorage.getItem("id");
       if (localUser) {
-        const account = await getAccountByEmail(localUser);
+        console.log(localUser)
+        const account = await getAccountById(localUser);
         setUser(account || initialAccount);
-        dispatch({ type: "SET_ACCOUNT", payload: account || initialAccount });
+        dispatch({ type: "SET_ACCOUNT", payload:(account && {...account,isLoaded:true}) || {...initialAccount,isLoaded:true} });
       }
     };
     fetchUser();

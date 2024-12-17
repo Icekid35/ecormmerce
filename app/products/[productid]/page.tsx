@@ -129,11 +129,11 @@ const productid=React.use(params).productid
         <div className="flex flex-col gap-4 p-8">
           <h2 className="capitalize font-bold text-3xl">{product.title}</h2>
           <div className="flex">
-            <Rating rating={4} ratingCount={199} />
+            <Rating rating={product.rating} ratingCount={product.reviewCount} />
           </div>
           <div className="text-xl">
             <FontAwesomeIcon icon={faNairaSign} />
-            {product.price}
+            {product.discountPrice ? (<>N{Math.round(product.price - (product.price*((product.discountPrice||0)/100))).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{product.price.toLocaleString('en-US')}</span></>):"N"+product.price.toLocaleString('en-US')}
           </div>
           <div className="capitalize">{product.description}</div>
           <div className="w-full h-[0.5px] bg-secondary"></div>
@@ -210,17 +210,18 @@ const productid=React.use(params).productid
           </div>
         </div>
       </div>
-      <div className="w-full my-24 md:mx-6">
+    {products
+            .filter((p) =>( p.category === product.category) && p.id!=product.id).length>0 &&   <div className="w-full my-24 md:mx-6">
         <SectionHeader title="Related Products" />
         <div className="grid row-auto w-full col-auto md:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] mb-16 gap-3 justify-center">
           {products
-            .filter((p) => p.category === product.category)
+            .filter((p) =>( p.category === product.category) && p.id!=product.id)
             .slice(0, 4)
             .map((relatedProduct) => (
               <ProductCard key={relatedProduct.id} product={relatedProduct} />
             ))}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };
