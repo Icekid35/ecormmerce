@@ -140,7 +140,7 @@ export async function updateAccount(
 
   try {
     
-    const products = await getProducts()
+    // const products = await getProducts()
     // alert("doing...")
     const response = await fetch(endpoint, {
       method: "PATCH",
