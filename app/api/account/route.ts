@@ -340,6 +340,7 @@ export async function POST(req: Request) {
         ...(orderItems.length > 0 && { orders: { create: orderItems } }),
         ...(reviewItems.length > 0 && { reviews: { create: reviewItems } }),
       },
+      include:{cart:true,orders:true,reviews:true,wishlist:true,}
     });
 
     return NextResponse.json(account);
@@ -445,6 +446,7 @@ export async function PUT(req: Request) {
     // Find the account by email
     const account = await prismadb.account.findUnique({
       where: { email },
+      include:{cart:true,orders:true,reviews:true,wishlist:true,}
     });
 
     // Validate account existence and credentials

@@ -9,8 +9,10 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import signupIcon from "../asset/signup.svg";
+import { useAccount } from "../layout";
 
 function SignupPage() {
+    const {dispatch}=useAccount()
   // State for form inputs
   const [formData, setFormData] = useState({
     fname: "",
@@ -38,7 +40,8 @@ function SignupPage() {
         register,
         {
           loading: 'Loading',
-          success: () => {
+          success: (acc) => {
+            dispatch({type:"SET_ACCOUNT",payload:acc})
             setTimeout(() => {
               
               router.push('/shop')

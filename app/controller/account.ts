@@ -56,7 +56,7 @@ export const signup = async (name: string, email: string, isgoogle?: boolean, pa
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, email, password, isgoogle }),
+    body: JSON.stringify({ name, email, password, isgoogle,}),
   });
 
   if (response.status == 400) {
