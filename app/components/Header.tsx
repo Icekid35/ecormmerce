@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useAccount } from "../layout";
+// import Image from "next/image";
+// import favico from "../favicon.ico"
 
 const Header = () => {
   const [searchterm,setSearchterm]=useState("")
@@ -20,7 +22,7 @@ const Header = () => {
   return (
     <header className="bg-accent  shadow-shadow shadow-md">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <Link href={'/'} className="text-xl font-bold flex items-center  gap-2">{path!="/" && <FontAwesomeIcon icon={faHome} />}Ice </Link>
+        <Link href={'/'} className="text-xl font-bold flex items-center  gap-2">{path!="/" && <FontAwesomeIcon icon={faHome} />}ICE </Link>
         <nav className="space-x-6 hidden md:flex">
           <Link  href="/homepage" className={path=='/homepage' ?" text-primary":"text-text hover:text-primary"}>Home</Link>
           <Link href="/shop" className={path=='/shop' ?" text-primary":"text-text hover:text-primary"}>Store</Link>
@@ -39,6 +41,11 @@ const Header = () => {
            onChange={(e)=>setSearchterm(e.target.value)}
             type="text"
             value={searchterm}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+         search()
+              }
+            }}
             placeholder="What are you looking for?"
             className="border-none text-sm w-fit active:border-none active:outline-none focus:border-none focus:outline-none  border-secondary bg--background placeholder:text-secondary py-1 pr-3 bg-inherit "
           />

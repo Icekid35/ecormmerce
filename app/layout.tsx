@@ -201,8 +201,8 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
             action.payload.quantity == 1
               ? prevcart?.quantity + 1
               : action.payload.quantity,
-          sizes: [...prevcart.sizes, ...action.payload.sizes],
-          colors: [...prevcart.colors, ...action.payload.colors],
+          sizes: [...prevcart.sizes, ...action.payload.sizes.filter(s=>s==" ")],
+          colors: [...prevcart.colors, ...action.payload.colors.filter(s=>s==" ")],
         };
         newState = {
           ...state,
@@ -221,8 +221,8 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
             ...state.cart,
             {
               ...action.payload,
-              sizes: action.payload.sizes || " ",
-              colors: action.payload.colors || " ",
+              sizes: action.payload.sizes || "",
+              colors: action.payload.colors || "",
             },
           ],
         };
@@ -284,6 +284,7 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
   }
   if(newState.email){
     try{
+
       // alert("updating")
       updateAccount(newState.email,newState); // Call the external function with the updated state
       // alert("finished updating")
@@ -307,7 +308,8 @@ const AccountContext = createContext<{
 
 
 
-
+// export const revalidate = 60
+// false | 0 | number
 export default function RootLayout({
   children,
 }: Readonly<{

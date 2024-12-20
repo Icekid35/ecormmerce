@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Button from '../components/button';
 import { useAccount } from '../layout';
 import { toast } from "react-hot-toast";
+import { updating } from '../controller/account';
 
 
 interface linput{
@@ -55,8 +56,10 @@ function Page() {
         if(address==account.address && email==account.email && phone== account.phone && fname==account.name && !oldpassword ){
             return toast.error("nothing changed")
         }
+        if(updating)return toast.custom("Pls wait")
+        
         dispatch({ type: "UPDATE_ACCOUNT", payload: { name:fname,phone,email,password:newpassword,address} });
-    toast.success("details changed")
+    // toast.success("details changed")
     }
   return (
     <div className='p-6 w-full bg-accent  shadow-shadow shadow-lg'>

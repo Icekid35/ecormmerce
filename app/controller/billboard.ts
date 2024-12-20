@@ -1,4 +1,5 @@
 import { Billboard, initialBillboards } from "../types/billboard";
+import { ownerStoreid } from "./owner";
 
 function convertToBillboardType(initialBillboards: initialBillboards[]): Billboard[] {
     console.log(initialBillboards)
@@ -18,7 +19,7 @@ let billboardsCache: Billboard[] | null = null;
 let fetchBillboardsInProgress: boolean = false;
 
 // Define the API host
-const adminhost = "https://iceadmin.vercel.app/api/143cc3b9-0bfb-4034-859a-09a877623866";
+const adminhost=process.env.NODE_ENV =="production"? "https://iceadmin.vercel.app/api/"+ownerStoreid:"http://localhost:3001/api/"+ownerStoreid
 
 // Function to fetch billboards from the API
 async function fetchBillboards(): Promise<Billboard[]> {

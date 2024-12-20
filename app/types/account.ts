@@ -38,9 +38,12 @@ export type Account = {
   
   export type Order = {
     orderId: string; // Unique order ID
-    id: string; // Associated product ID
+    id:string;
+    productId: string; // Associated product ID
     image:string;
     discountPercentage?:number|null|undefined;
+    sizes?:string[];
+    colors?:string[];
     title: string; // Name of the product
     quantity: number; // Quantity ordered
     price: number; // Price per unit
@@ -56,6 +59,7 @@ export type Account = {
     title: string; // Name of the product
     rating?: number|null| undefined; // Rating given by the user (1-5)
     image:string;
+    productId: string
 
     reviewedAt?: Date|null; // Date the review was completed
   };

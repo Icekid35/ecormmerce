@@ -1,49 +1,49 @@
-"use client";
+// "use client";
 
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Button from "./button";
 import SectionHeader from "./sectionHeader";
 import { Product } from "../types/product";
-import getProducts from "../controller/products";
+// import getProducts from "../controller/products";
 
-const NewArrivals = () => {
-  const [newArrivals, setNewArrivals] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const NewArrivals = ({newArrivals}:{newArrivals:Product[]}) => {
+  // const [newArrivals, setNewArrivals] = useState<Product[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const allProducts: Product[] = await getProducts();
-        const filteredProducts = allProducts.filter((product) => product.isNewArrival);
-        setNewArrivals(filteredProducts);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-        setError("Failed to load new arrivals.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const allProducts: Product[] = await getProducts();
+  //       const filteredProducts = allProducts.filter((product) => product.isNewArrival);
+  //       setNewArrivals(filteredProducts);
+  //     } catch (err) {
+  //       console.error("Error fetching products:", err);
+  //       setError("Failed to load new arrivals.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchProducts();
-  }, []);
+  //   fetchProducts();
+  // }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <p>Loading new arrivals...</p>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-[200px]">
+  //       <p>Loading new arrivals...</p>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <p>{error}</p>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-[200px]">
+  //       <p>{error}</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <section className="my-10">

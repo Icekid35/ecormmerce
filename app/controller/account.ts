@@ -1,5 +1,10 @@
-import { Account } from "../types/account";
+import { Dispatch } from "react";
+import { Account, CartItem } from '../types/account';
 import getProducts from "./products";
+import { AccountAction } from "../layout";
+import toast from "react-hot-toast";
+import { ownerStoreid } from "./owner";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const API_BASE_URL = "/api/account";
 
@@ -17,12 +22,13 @@ export const fetchAllAccounts = async (): Promise<Account[]> => {
 
   return response.json();
 };
-
+// let fetching=false
 /**
  * Fetches a specific account by email.
  * @param email - The email of the account to fetch.
  */
 export const getAccountById = async (id: string): Promise<Account | null> => {
+  //  fetching=true
   const response = await fetch(`${API_BASE_URL}?id=${id}`, {
     method: "GET",
   });
@@ -44,25 +50,25 @@ export const getAccountById = async (id: string): Promise<Account | null> => {
  * @param email - The email of the user.
  * @param password - The password for the account.
  */
-export const signup = async (name: string, email: string,isgoogle?:boolean, password?: string): Promise<Account> => {
+export const signup = async (name: string, email: string, isgoogle?: boolean, password?: string): Promise<Account> => {
   const response = await fetch(API_BASE_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, email, password,isgoogle }),
+    body: JSON.stringify({ name, email, password, isgoogle }),
   });
 
-  if(response.status==400){
-      const error = await response.json();
-      throw new Error(error.error || "email already exists");
+  if (response.status == 400) {
+    const error = await response.json();
+    throw new Error(error.error || "email already exists");
   }
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.error || "Failed to sign up");
   }
-  const ans=await response.json()
-  localStorage.setItem("id",ans.id)
+  const ans = await response.json()
+  localStorage.setItem("id", ans.id)
 
   return ans;
 };
@@ -72,14 +78,14 @@ export const signup = async (name: string, email: string,isgoogle?:boolean, pass
  * @param email - The email of the user.
  * @param password - The password for the account.
  */
-export const login = async (email: string,isgoogle?:boolean, password?: string): Promise<Account> => {
- 
-    const response = await fetch(API_BASE_URL, {
+export const login = async (email: string, isgoogle?: boolean, password?: string): Promise<Account> => {
+
+  const response = await fetch(API_BASE_URL, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password,isgoogle }),
+    body: JSON.stringify({ email, password, isgoogle }),
   });
 
   if (response.status === 401) {
@@ -91,8 +97,8 @@ export const login = async (email: string,isgoogle?:boolean, password?: string):
     throw new Error(error.error || "Failed to log in");
   }
 
-  const ans=await response.json()
-  localStorage.setItem("id",ans.id)
+  const ans = await response.json()
+  localStorage.setItem("id", ans.id)
 
   return ans;
 };
@@ -117,38 +123,78 @@ export const deleteAccountById = async (id: string): Promise<void> => {
 
 };
 
+let updating = false
 export async function updateAccount(
-    email: string,
-    updates: Partial<Account>
-  ): Promise<Account | { error: string }> {
-    const endpoint = "/api/account"; // Replace with the actual API route if different.
-  
-    if (!email || !updates) {
-      throw new Error("Email and updates are required.");
-    }
+  email: string,
+  updates: Partial<Account>,
+  toaster?:string
+): Promise<Account | { error: string }> {
+  const endpoint = "/api/account"; // Replace with the actual API route if different.
+  if (updating){
+    return { error: "" }}
+  updating = true
+  if (!email || !updates) {
+    throw new Error("Email and updates are required.");
+  }
+  const toastid=toaster || toast.loading("")
 
   try {
-      const products=await getProducts()
-      // alert("doing...")
-      const response = await fetch(endpoint, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...updates,wishlist:updates.wishlist ?updates.wishlist.map(w=>products.find(p=>p.id==w)) :[]}),
-      });
-  // alert("done")
-      if (!response.ok) {
-        const error = await response.json();
-        return { error: error.error || "Failed to update the account." };
-      }
-  
-      const updatedAccount = await response.json();
-      return updatedAccount;
-    } catch (error) {
-      alert("error occured")
-      console.error("Error updating account:", error);
-      return { error: "An unexpected error occurred." };
+    
+    const products = await getProducts()
+    // alert("doing...")
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...updates, wishlist: updates.wishlist ? updates.wishlist.map(w => products.find(p => p.id == w)) : [] }),
+    });
+    // alert("done")
+    if (!response.ok) {
+      const error = await response.json();
+      return { error: error.error || "Failed to update the account." };
     }
+// console.log("first")
+    const updatedAccount = await response.json();
+    // console.log("secoun",updatedAccount)
+    updating = false
+    toast.success("",{id:toastid})
+    return updatedAccount;
+  } catch (error) {
+    toast.error("",{id:toastid})
+    // alert("error occured")
+    console.error("Error updating account:", error);
+    updating = false
+    return { error: "An unexpected error occurred." };
   }
+}
+const adminhost=process.env.NODE_ENV =="production"? "https://iceadmin.vercel.app/api/"+ownerStoreid:"http://localhost:3001/api/"+ownerStoreid
+
+export async function AddOrder(orders: CartItem[], orderId: string, account: Account, dispatch: Dispatch<AccountAction>,router:AppRouterInstance) {
+  const toastid=toast.loading("Adding to Que")
+  const  orderItems= orders.map(or => { 
+    return ({ ...or,id:Date.now().toString(),productId:or.id, isCancellable: false, orderId, placedAt: (new Date(Date.now())), status: "active",sizes:or.sizes ||[],colors:or.colors||[], total: or.price * or.quantity }) }) 
+
+try {
+    dispatch({type:"UPDATE_ACCOUNT",payload:{ ...account,
+       cart: [], 
+       orders:[...account.orders,...orderItems],
+       reviews:[...account.reviews,...orders.map(product=> {return({ id:Date.now().toString(),productId:product.id,title:product.title,image:product.image})})],
+  }})
+  await fetch(`${adminhost}/checkout`,{method:"POST",body:JSON.stringify({
+    orders:orderItems,
+    phone:account.phone,
+    email:account.email,
+    address:account.address,
+    name:account.name,
   
+  })})
+  router.push('/checkout')
+  toast.success("Added to que",{id:toastid})
+} catch (error) {
+  console.log(error)
+  toast.error("error occured, pls try again",{id:toastid})
+}
+}
+
+export {updating}

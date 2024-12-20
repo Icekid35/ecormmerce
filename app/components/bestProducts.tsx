@@ -1,31 +1,31 @@
 "use client"
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Button from "./button";
 import SectionHeader from "./sectionHeader";
-import getProducts from "../controller/products";
+// import getProducts from "../controller/products";
 import { Product } from "../types/product";
 
 
-const BestProducts = () => {
-  const [bestProducts, setBestProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+const BestProducts = ({bestProducts}:{bestProducts:Product[]}) => {
+  // const [bestProducts, setBestProducts] = useState<Product[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allproducts = await getProducts();
-        setBestProducts(allproducts.filter((pro) => pro.isFeatured));
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const allproducts = await getProducts();
+  //       setBestProducts(allproducts.filter((pro) => pro.isFeatured));
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <div>Loading...</div>;
 
   return (
     <section className="my-10">

@@ -1,6 +1,7 @@
 
 import Link from "next/link";
 import React from "react";
+import { OwnerAddress, OwnerEmail, ownerfacebook, ownerInsta, OwnerPhone1, ownerWhatapp } from "../controller/owner";
 
 const Footer = () => {
   return (
@@ -18,9 +19,9 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-bold mb-4 capitalize">support</h3>
           <ul className="flex flex-col gap-3">
-            <li><Link href="#" className="hover:underline">Bellohabib682@gmail.com</Link></li>
-            <li><Link href="#" className="hover:underline">+234-815-789-9361</Link></li>
-            <li><Link href="#" className="hover:underline capitalize">after ceeco hotel kwamba,suleja,niger state</Link></li>
+            <li><Link href={"mailto:"+OwnerEmail} className="hover:underline">{OwnerEmail}</Link></li>
+            <li><Link href={"#"} className="hover:underline">{OwnerPhone1}</Link></li>
+            <li><Link href="#" className="hover:underline capitalize">{OwnerAddress}</Link></li>
           </ul>
         </div>
         <div >
@@ -30,7 +31,6 @@ const Footer = () => {
             <li><Link href="/shop" className="hover:underline">Store</Link></li>
             <li><Link href="/about" className="hover:underline">About Us</Link></li>
             <li><Link href="/contact" className="hover:underline">Contact</Link></li>
-            <li><Link href="/faq" className="hover:underline">FAQ</Link></li>
           </ul>
         </div>
         <div className="capitalize">
@@ -46,14 +46,14 @@ const Footer = () => {
           <h3 className="text-lg font-bold mb-4 capitalize">Follow Us</h3>
           <p>Connect with us on social media.</p>
           <div className="flex gap-6 py-4">
-            <Link href="#">
-              <i className="fas fa-facebook"></i>
+            <Link href={ownerfacebook}>
+            <i className="fa-brands fa-facebook"></i>
               </Link>
-            <Link href="#">
-              <i className="fas fa-instagram"></i>
+            <Link href={ownerInsta}>
+              <i className="fa-brands fa-instagram"></i>
               </Link>
-            <Link href="#">
-              <i className="fas fa-whatsapp"></i>
+            <Link href={ownerWhatapp}>
+              <i className="fa-brands fa-whatsapp"></i>
               </Link>
           </div>
         </div>

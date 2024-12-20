@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^6.7.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.1",
     "@fortawesome/free-regular-svg-icons": "^6.7.1",
@@ -19,6 +20,7 @@
     "@react-oauth/google": "^0.12.1",
     "@types/canvas-confetti": "^1.6.4",
     "canvas-confetti": "^1.9.3",
+    "dotenv": "^16.4.7",
     "embla-carousel-auto-scroll": "^8.5.1",
     "embla-carousel-autoplay": "^8.5.1",
     "embla-carousel-fade": "^8.5.1",
@@ -27,7 +29,8 @@
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "react-monnify-ts": "^0.0.4"
   },
   "devDependencies": {
     "@types/node": "^20",

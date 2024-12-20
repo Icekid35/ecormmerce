@@ -1,152 +1,27 @@
-// import fs from "fs";
-// import path from "path";
-// import { NextResponse } from "next/server";
-// import { Account } from "../../types/account";
-
-// // Path to the local data file
-// const dataPath = path.join(process.cwd(), "data", "account.json");
-
-// // Helper functions to read and write account data
-// const readAccounts = (): Account[] => {
-//   if (!fs.existsSync(dataPath)) fs.writeFileSync(dataPath, JSON.stringify([]));
-//   const data = fs.readFileSync(dataPath, "utf-8");
-//   return JSON.parse(data || "[]");
-// };
-
-// const writeAccounts = (accounts: Account[]) => {
-//   fs.writeFileSync(dataPath, JSON.stringify(accounts, null, 2));
-// };
-
-// // Handle GET request
-// export async function GET(req: Request) {
-//   const url = new URL(req.url);
-//   const email = url.searchParams.get("email");
-//   const accounts = readAccounts();
-
-//   if (email) {
-//     const account = accounts.find((acc) => acc.email === email);
-//     if (account) {
-//       return NextResponse.json(account);
-//     }
-//     return NextResponse.json({ error: "Account not found" }, { status: 404 });
-//   }
-
-//   return NextResponse.json(accounts);
-// }
-
-// // Handle POST request (Signup)
-// export async function POST(req: Request) {
-//   const accounts = readAccounts();
-//   const { name, email, password, isgoogle } = await req.json();
-
-//   if (!name || !email || (!password && !isgoogle)) {
-//     return NextResponse.json(
-//       { error: "Name, email, and password are required" },
-//       { status: 400 }
-//     );
-//   }
-
-//   const existingAccount = accounts.find((acc) => acc.email === email);
-//   if (existingAccount) {
-//     return NextResponse.json({ error: "Email already exists" }, { status: 400 });
-//   }
-
-//   const newAccount: Account = {
-//     id: `acc-${Date.now()}`,
-//     name,
-//     email,
-//     password,
-//     phone: "",
-//     address: "",
-//     cart: [],
-//     wishlist: [],
-//     orders: [],
-//     reviews: [],
-//     createdAt: new Date().toISOString(),
-//     isActive: true,
-//   };
-
-//   accounts.push(newAccount);
-//   writeAccounts(accounts);
-
-//   return NextResponse.json(newAccount, { status: 201 });
-// }
-
-// // Handle PUT request (Login)
-// export async function PUT(req: Request) {
-//   const accounts = readAccounts();
-//   const { email, password, isgoogle } = await req.json();
-
-//   if (!email || (!password && !isgoogle)) {
-//     return NextResponse.json(
-//       { error: "Email and password are required" },
-//       { status: 400 }
-//     );
-//   }
-
-//   const account = accounts.find(
-//     (acc) => acc.email === email && (acc.password === password || isgoogle)
-//   );
-
-//   if (account) {
-//     return NextResponse.json(account);
-//   }
-
-//   return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
-// }
-
-// // Handle PATCH request (Update account)
-// export async function PATCH(req: Request) {
-//   const accounts = readAccounts();
-//   const { email, updates } = await req.json();
-// console.log(updates)
-//   if (!email || !updates) {
-//     return NextResponse.json(
-//       { error: "Email and updates are required" },
-//       { status: 400 }
-//     );
-//   }
-
-//   const accountIndex = accounts.findIndex((acc) => acc.email === email);
-
-//   if (accountIndex === -1) {
-//     return NextResponse.json({ error: "Account not found" }, { status: 404 });
-//   }
-
-//   // Update the account with the new data
-//   accounts[accountIndex] = {
-//     ...accounts[accountIndex],
-//     ...updates,
-//     updatedAt: new Date().toISOString(), // Optionally track updates
-//   };
-
-//   writeAccounts(accounts);
-
-//   return NextResponse.json(accounts[accountIndex]);
-// }
 import { CartItem, Order, Review, WishlistItem } from "@/app/types/account";
+import { Product } from "@/app/types/product";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 export async function PATCH(req: Request) {
+  const body = await req.json();
+  const {
+    id,
+    name,
+    email,
+    phone = '',
+    address = '',
+    cart = [],
+    wishlist = [],
+    orders = [],
+    reviews = [],
+    isActive,
+    isgoogle = false,
+    password,
+  } = body;
+  console.log(body)
+  if (!id) return new NextResponse("ID is required", { status: 400 });
   try {
-    const body = await req.json();
-    const {
-      id,
-      name,
-      email,
-      phone = '',
-      address = '',
-      cart = [],
-      wishlist = [],
-      orders = [],
-      reviews = [],
-      isActive,
-      isgoogle = false,
-      password,
-    } = body;
-    console.log(body)
-    if (!id) return new NextResponse("ID is required", { status: 400 });
 
     // Ensure the account exists
     const existingAccount = await prismadb.account.findUnique({
@@ -163,6 +38,123 @@ export async function PATCH(req: Request) {
       return NextResponse.json("Account not found", { status: 404 });
     }
 
+    // Handle nested cart updates
+  // Delete existing cart items and re-create (simpler than partial updates)
+  await prismadb.cartItem.deleteMany({
+    where: { accountId: id },
+  });
+  const cartUpdates = cart.map((item: CartItem) => ({
+    id: item.id,
+    title: item.title,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.image,
+    sizes: item.sizes?.filter?.(i=>i!="")||[],
+    colors: item.colors?.filter?.(i=>i!="")||[],
+  }));
+//       if (cart.length > 0) {
+
+//       // console.log("running...")
+// try{
+// // console.log(cartUpdates)
+
+//   // console.log("first passed")
+//   try{
+
+//     await prismadb.cartItem.createMany({
+//       data: cartUpdates.map((item: CartItem) => ({
+//         ...item,
+//         accountId: id,
+//       })),
+//     });
+//   }catch(error){
+//     console.log(error)
+//   }
+//   // console.log("passed second")
+// }catch(err){
+//   console.log("error from cart",err)
+//   return NextResponse.json(updatedAccount);
+
+// }
+// }
+await prismadb.wishlistItem.deleteMany({
+  where: { accountId: id },
+});
+const wishlistUpdates = wishlist.map((item: Product) => ({
+  id: item.id,
+  title: item.title,
+  price: item.price,
+  image: item.images[0],
+  addedAt: new Date(Date.now()),
+}));
+    // if (wishlist.length > 0) {
+    //   // Handle nested wishlist updates
+    //   try {
+    //     await updatewishlists(wishlist, id);
+    //   } catch (error) {
+    //    console.log("error from wishlists",error) 
+    //   }
+    // }
+    await prismadb.order.deleteMany({
+      where: { accountId: id },
+    });
+    const orderUpdates = orders.map((item: Order) => ({
+      id: item.id,
+      productId: item.productId,
+      orderId: item.orderId,
+      title: item.title,
+      price: item.price,
+      quantity: item.quantity,
+      image: item.image,
+      total: item.total,
+      discountPercentage: item.discountPercentage,
+      sizes:item.sizes,
+      colors:item.colors,
+      status: item.status,
+      isCancellable: item.isCancellable,
+      placedAt: new Date(item.placedAt),
+    }));
+    // if (orders.length > 0) {
+    //   // Handle nested orders updates
+    //   try {
+        
+    //     await updateorders(orders, id);
+    //   } catch (error) {
+    //     console.log("order error: ",error)
+    //   }
+    // }
+    await prismadb.review.deleteMany({
+      where: { accountId: id },
+    });
+    const reviewUpdates = reviews.map((item: Review) => ({
+      id: item.id,
+      title: item.title,
+      rating: item.rating || undefined,
+      image: item.image,
+  productId :item.productId,
+
+      reviewedAt: new Date(item.reviewedAt || Date.now()),
+    }));
+//        if (reviews.length > 0) {
+//       // Handle nested reviews updates
+// try {
+//         await updatereview(reviews, id);
+// } catch (error) {
+//   console.log("error from review",error)
+// }
+//     }
+    // Update the account in the database
+    // const updatedAccount = await prismadb.account.update({
+    //   where: { id },
+    //   data: accountData,
+    //   include: {
+    //     cart: true,
+    //     wishlist: true,
+    //     orders: true,
+    //     reviews: true,
+    //   },
+    // });
+    
     // Update account fields
     const accountData = {
       name,
@@ -172,111 +164,98 @@ export async function PATCH(req: Request) {
       isActive,
       isgoogle,
       password,
+      ...(cartUpdates.length > 0 && { cart: { create: cartUpdates } }),
+      ...(wishlistUpdates.length > 0 && { wishlist: { create: wishlistUpdates } }),
+      ...(orderUpdates.length > 0 && { orders: { create: orderUpdates } }),
+      ...(reviewUpdates.length > 0 && { reviews: { create: reviewUpdates } }),
     };
-
-    // Handle nested cart updates
-    if (cart.length > 0) {
-
-      const cartUpdates = cart.map((item: CartItem) => ({
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        quantity: item.quantity,
-        image: item.image,
-        sizes: item.sizes,
-        colors: item.colors,
-      }));
-
-      // Delete existing cart items and re-create (simpler than partial updates)
-      await prismadb.cartItem.deleteMany({
-        where: { accountId: id },
-      });
-      await prismadb.cartItem.createMany({
-        data: cartUpdates.map((item: CartItem) => ({
-          ...item,
-          accountId: id,
-        })),
-      });
-    }
-    if (wishlist.length > 0) {
-      // Handle nested wishlist updates
-      const wishlistUpdates = wishlist.map((item: WishlistItem) => ({
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        image: item.image,
-        addedAt: new Date(item.addedAt || Date.now()),
-      }));
-
-      // Delete existing wishlist items and re-create
-      await prismadb.wishlistItem.deleteMany({
-        where: { accountId: id },
-      });
-      await prismadb.wishlistItem.createMany({
-        data: wishlistUpdates.map((item: WishlistItem) => ({
-          ...item,
-          accountId: id,
-        })),
-      });
-    }
-    // Handle nested orders updates
-    const orderUpdates = orders.map((item: Order) => ({
-      id: item.id,
-      orderId: item.orderId,
-      title: item.title,
-      price: item.price,
-      quantity: item.quantity,
-      image: item.image,
-      total: item.total,
-      discountPercentage: item.discountPercentage,
-      status: item.status,
-      isCancellable: item.isCancellable,
-      placedAt: new Date(item.placedAt),
-    }));
-    if (orderUpdates.length > 0) {
-      // Delete existing orders and re-create
-      await prismadb.order.deleteMany({
-        where: { accountId: id },
-      });
-      await prismadb.order.createMany({
-        data: orderUpdates.map((item: Order) => ({
-          ...item,
-          accountId: id,
-        })),
-      });
-    }
-    if (reviews.length > 0) {
-      // Handle nested reviews updates
-      const reviewUpdates = reviews.map((item: Review) => ({
-        id: item.id,
-        title: item.title,
-        rating: item.rating,
-        image: item.image,
-        reviewedAt: new Date(item.reviewedAt || Date.now()),
-      }));
-
-      // Delete existing reviews and re-create
-      await prismadb.review.deleteMany({
-        where: { accountId: id },
-      });
-      await prismadb.review.createMany({
-        data: reviewUpdates.map((item: Review) => ({
-          ...item,
-          accountId: id,
-        })),
-      });
-    }
-    // Update the account in the database
     const updatedAccount = await prismadb.account.update({
       where: { id },
       data: accountData,
+      include: {
+        cart: true,
+        wishlist: true,
+        orders: true,
+        reviews: true,
+      },
     });
-
+    // console.log("updated ",updatedAccount)
     return NextResponse.json(updatedAccount);
   } catch (error) {
     console.error(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json({body}, { status: 201 });
   }
+
+//   async function updatereview(reviews: any, id: any) {
+//     const reviewUpdates = reviews.map((item: Review) => ({
+//       id: item.id,
+//       title: item.title,
+//       rating: item.rating || undefined,
+//       image: item.image,
+//       reviewedAt: new Date(item.reviewedAt || Date.now()),
+//     }));
+
+//     await prismadb.review.createMany({
+//       data: reviewUpdates.map((item: Review) => ({
+//         ...item,
+//         accountId: id,
+//       })),
+//     });
+//   }
+
+//   async function updatewishlists(wishlist: any, id: any) {
+//     const wishlistUpdates = wishlist.map((item: WishlistItem) => ({
+//       id: item.id,
+//       title: item.title,
+//       price: item.price,
+//       image: item.image,
+//       addedAt: new Date(item.addedAt || Date.now()),
+//     }));
+
+//     // Delete existing wishlist items and re-create
+//    try {
+
+//      await prismadb.wishlistItem.createMany({
+//        data: wishlistUpdates.map((item: WishlistItem) => ({
+//          ...item,
+//          accountId: id,
+//        })),
+//      });
+//    } catch (error) {
+//     console.log("error from wishlist",error)
+//    }
+//   }
+
+//   async function updateorders(orders: any, id: any) {
+//     const orderUpdates = orders.map((item: Order) => ({
+//       id: item.id,
+//       orderId: item.orderId,
+//       title: item.title,
+//       price: item.price,
+//       quantity: item.quantity,
+//       image: item.image,
+//       total: item.total,
+//       discountPercentage: item.discountPercentage,
+//       sizes:item.sizes,
+//       colors:item.colors,
+//       status: item.status,
+//       isCancellable: item.isCancellable,
+//       placedAt: new Date(item.placedAt),
+//     }));
+//     // Delete existing orders and re-create
+//  try {
+
+//      await prismadb.order.createMany({
+//        data: orderUpdates.map((item: Order) => ({
+//          ...item,
+//          accountId: id,
+//        })),
+//      });
+//  } catch (error) {
+//   console.log("error from orders",error)
+  
+//  }
+//   }
 }
 export async function POST(req: Request) {
   try {
@@ -318,10 +297,13 @@ export async function POST(req: Request) {
     const orderItems = Array.isArray(orders)
       ? orders.filter(item => item && item.id).map(item => ({
         id: item.id,
+        productId: item.id,
         orderId: item.orderId,
         title: item.title,
         price: item.price,
         quantity: item.quantity,
+        colors: item.colors,
+        sizes: item.sizes,
         image: item.image,
         total: item.price * item.quantity,
         discountPercentage: item.discountPercentage || 0,
@@ -337,6 +319,7 @@ export async function POST(req: Request) {
         title: item.title,
         rating: item.rating,
         image: item.image,
+        productId:item.productId,
         reviewedAt: item?.reviewedAt ? new Date(item?.reviewedAt) : new Date(),
       }))
       : [];
@@ -418,11 +401,14 @@ export async function GET(req: Request) {
       })),
       orders: account.orders.map((item: Order) => ({
         id: item.id,
+        productId: item.productId,
         orderId: item.orderId,
         title: item.title,
         price: item.price,
         quantity: item.quantity,
         image: item.image,
+        colors:item.colors,
+        sizes:item.sizes,
         total: item.total,
         discountPercentage: item.discountPercentage,
         status: item.status,
@@ -434,6 +420,7 @@ export async function GET(req: Request) {
         title: item.title,
         rating: item.rating,
         image: item.image,
+        productId: item.productId,
         reviewedAt: item.reviewedAt,
       })),
     };

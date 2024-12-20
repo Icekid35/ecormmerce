@@ -7,6 +7,8 @@ import Link from "next/link";
 import { signup } from "../controller/account";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import signupIcon from "../asset/signup.svg";
 
 function SignupPage() {
   // State for form inputs
@@ -79,14 +81,17 @@ function SignupPage() {
   return (
     <div className="flex gap-x-8 p-10">
             <GoogleOAuthProvider
-        clientId={'1073974436615-vqc69cj96mp2id27j280qu69r9tuj3u7.apps.googleusercontent.com'}
+            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENTID||""}
+
         onScriptLoadError={() => {
      
         }}
         onScriptLoadSuccess={() => {
         }}
       >
-      <div className="w-full min-w-[300px] h-[400px] bg-secondary rounded md:flex hidden"></div>
+      <div className="w-full min-w-[300px] h-[400px]  rounded md:flex hidden">
+        <Image alt="signup" src={signupIcon}/>
+      </div>
       <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
         <h2 className="text-3xl capitalize font-semibold">Create an account</h2>
 

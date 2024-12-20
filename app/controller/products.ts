@@ -1,4 +1,5 @@
 import { InputProduct, Product } from "../types/product";
+import { ownerStoreid } from "./owner";
 
 // Utility function to calculate if a product is a new arrival
 function isNewArrival(createdAt:string) {
@@ -40,7 +41,7 @@ let productsCache: Product[] | null = null;
 
 // Flag to indicate if a fetch is in progress
 let fetchInProgress: boolean = false;
-const adminhost="https://iceadmin.vercel.app/api/143cc3b9-0bfb-4034-859a-09a877623866"
+const adminhost=process.env.NODE_ENV =="production"? "https://iceadmin.vercel.app/api/"+ownerStoreid:"http://localhost:3001/api/"+ownerStoreid
 // Function to fetch products from the API
 async function fetchProducts(): Promise<Product[]> {
   try {

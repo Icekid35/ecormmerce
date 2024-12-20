@@ -6,7 +6,10 @@ import { Product } from "../types/product";
 import { Order } from "../types/account";
 import { useAccount } from "../layout";
 import toast from "react-hot-toast";
-import Image from "next/image";
+import { updating } from "../controller/account";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faNairaSign } from "@fortawesome/free-solid-svg-icons";
+// import Image from "next/image";
 
 // Define the TypeScript type for the product card props
 type ProductCardProps = {
@@ -29,13 +32,16 @@ const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) =
   }=product
  const onAddToCart= ( ) => {
 
+  if(updating)return toast.custom("Pls wait")
 
   dispatch({type:"ADD_TO_CART",payload:{id,title,price:discountPrice ? Math.round(price-((discountPrice/100)*price)):price,quantity:1,image:images[0],sizes:[""],colors:[""]}})
-toast.success("Sucessfully added to cart") 
+// toast.success("Sucessfully added to cart") 
 }
  const onWishlist= () => {
+if(updating)return toast.custom("Pls wait")
+
   dispatch({type:"ADD_TO_WISHLIST",payload:product.id})
-  toast.success("Sucessfully added to your wishlist") 
+  // toast.success("Sucessfully added to your wishlist") 
   
  }
  const onPreview= () => {}
@@ -57,7 +63,9 @@ toast.success("Sucessfully added to cart")
 
       {/* Product Image */}
       <div className=" w-full max-h-40 md:max-h-64 overflow-hidden rounded-lg flex items-center justify-center ">
-        <img src={images[0]}  loading="lazy" alt="Product" className="h-40 md:h-64 w-full object-cover" />
+        <img src={images[0]}  
+                style={{width:"100%",height:"100%"}}
+                loading="lazy" alt="Product" className=" w-full object-cover" />
       </div>
 
       {/* Action Buttons */}
@@ -96,7 +104,7 @@ toast.success("Sucessfully added to cart")
 
       {/* Price and Rating */}
       <div className="text-center space-y-2 ">
-        <p className="text-primary text-sm">{discountPrice ? (<>N{Math.round(price - (price*((discountPrice||0)/100))).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{price.toLocaleString('en-US')}</span></>):"N"+price.toLocaleString('en-US')}</p>
+        <p className="text-primary text-sm"> <FontAwesomeIcon icon={faNairaSign} />{discountPrice ? (<>{Math.round(price - (price*((discountPrice||0)/100))).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{price.toLocaleString('en-US')}</span></>):price.toLocaleString('en-US')}</p>
       <Rating rating={rating} ratingCount={reviewCount}  />
       </div>
     </div>
@@ -112,9 +120,11 @@ const OrderProductCard: React.FC<extOrder> = ({
   title,
   quantity,
   price,
-  status,
-  isCancellable,
-  onDelete
+  colors,
+  sizes,
+  // status,
+  // isCancellable,
+  // onDelete
 }) => {
 
    
@@ -132,18 +142,18 @@ const OrderProductCard: React.FC<extOrder> = ({
 
       {/* Product Image */}
       <div className=" w-full max-h-40 md:max-h-64 overflow-hidden rounded-lg flex items-center justify-center ">
-        <Image src={image} loading="lazy" alt="Product" className="h-full object-contain" />
+        <img src={image} loading="lazy" alt="Product" className="h-full object-contain" />
       </div>
 
 
       {/* Action Buttons */}
       <div className="absolute top-2 right-2 flex flex-col space-y-2 show-on-hover">
-      {status=="active" && isCancellable &&  <button
+      {/* {status=="active" && isCancellable &&  <button
           onClick={onDelete}
           className="bg-accent items-center flex rounded-full hover:bg-hover2 p-2"
         >
           <i className="fas fa-trash"></i>
-        </button>}
+        </button>} */}
      
         <Link href={"/products/"+id}>
         
@@ -157,10 +167,11 @@ const OrderProductCard: React.FC<extOrder> = ({
    
       </div>
 <Link href={"/products/"+id} className="capitalize text-center font-bold">{quantity} {title}</Link>
-
+{colors && colors.length>0 && <div className="text-xs text-left w-full capitalize">color: {colors?.join(",")}</div>}
+{sizes && sizes.length>0 && <div className="text-xs text-left w-full capitalize">color: {sizes?.join(",")}</div>}
       {/* Price and Rating */}
       <div className="text-center space-y-2 ">
-        <p className="text-primary text-sm">{discountPercentage ? (<>N{((price - (price*((discountPercentage||0)/100))) *quantity).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{(price*quantity).toLocaleString('en-US')}</span></>):"N"+price}</p>
+        <p className="text-primary text-sm"> <FontAwesomeIcon icon={faNairaSign} />{discountPercentage ? (<>{((price - (price*((discountPercentage||0)/100))) *quantity).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{(price*quantity).toLocaleString('en-US')}</span></>):price.toLocaleString('en-US')}</p>
       </div>
     </div>
   );

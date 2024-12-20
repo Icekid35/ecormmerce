@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { Product } from "@/app/types/product";
 import Image from "next/image";
 import getProducts from "@/app/controller/products";
+import { updating } from "@/app/controller/account";
 
 const Products = ({ params }: { params: Promise<{ productid: string }> }) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,6 +20,7 @@ const Products = ({ params }: { params: Promise<{ productid: string }> }) => {
   const [color, setColor] = useState("");
   const [image, setImage] = useState("");
   const [selectSize, setSize] = useState("");
+  const [loading, setLoading] = useState(true);
   const { dispatch } = useAccount();
 const productid=React.use(params).productid
   // Fetch products client-side
@@ -26,6 +28,7 @@ const productid=React.use(params).productid
     const fetchProducts = async () => {
  
         try{
+          setLoading(true)
         const data: Product[] = await getProducts()
         setProducts(data);
 
@@ -37,6 +40,8 @@ const productid=React.use(params).productid
       } catch (error) {
         console.error("Error fetching products:", error);
         toast.error("Unable to load products.");
+      }finally{
+        setLoading(false)
       }
     };
 
@@ -57,6 +62,7 @@ const productid=React.use(params).productid
 
   const addToCart = ( ) => {
     if (!product) return;
+    if(updating)return toast.custom("Pls wait")
 
 
     dispatch({
@@ -73,13 +79,15 @@ const productid=React.use(params).productid
         sizes: [selectSize],
       },
     });
-    toast.success("Added to cart successfully");
+    // toast.success("Added to cart successfully");
   };
 
   const addToWishlist = () => {
     if (product) {
+if(updating)return toast.custom("Pls wait")
+
       dispatch({ type: "ADD_TO_WISHLIST", payload: product.id });
-      toast.success("Added to wishlist successfully");
+      // toast.success("Added to wishlist successfully");
     }
   };
 
@@ -90,7 +98,10 @@ const productid=React.use(params).productid
       </div>
     );
   }
-
+  if(loading)return(
+    <div className="text-center text-3xl font-semibold py-[30vh] text-text">LOADING...</div>
+  
+  )
   return (
     <div className="flex flex-col gap-8 p-2 md:px-8">
       <div className="flex md:flex-row flex-col md:p-8 pt-4 gap-4">
@@ -110,6 +121,7 @@ const productid=React.use(params).productid
                   alt="Product Thumbnail"
                   width={150}
                   height={150}
+                  style={{width:"100%",height:"100%"}}
                 />
               </div>
             ))}
@@ -122,6 +134,8 @@ const productid=React.use(params).productid
                 alt="Product Image"
                 width={400}
                 height={400}
+                style={{width:"100%",height:"100%"}}
+
               />
             </div>
           </div>
@@ -133,7 +147,7 @@ const productid=React.use(params).productid
           </div>
           <div className="text-xl">
             <FontAwesomeIcon icon={faNairaSign} />
-            {product.discountPrice ? (<>N{Math.round(product.price - (product.price*((product.discountPrice||0)/100))).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{product.price.toLocaleString('en-US')}</span></>):"N"+product.price.toLocaleString('en-US')}
+            {product.discountPrice ? (<>{Math.round(product.price - (product.price*((product.discountPrice||0)/100))).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{product.price.toLocaleString('en-US')}</span></>):"N"+product.price.toLocaleString('en-US')}
           </div>
           <div className="capitalize">{product.description}</div>
           <div className="w-full h-[0.5px] bg-secondary"></div>

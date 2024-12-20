@@ -1,14 +1,19 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import Fade from "embla-carousel-fade";
 import Button from "./button";
-import getBillboards from "../controller/billboard";
 import { Billboard } from "../types/billboard";
 
-
+const demoslide={
+      id: 2,
+    image: "",
+    title: "Exclusive Deals",
+    subtitle: "Discover the best deals",
+    cta: "Explore Now",
+}
 // Dummy data for hero section slides
 // const slides = [
 //   {
@@ -34,42 +39,42 @@ import { Billboard } from "../types/billboard";
 //   },
 // ];
 
-const HeroSection = () => {
-  const [loading, setLoading] = useState(true);
-  const [slides, setSlide] = useState<Billboard[] |[]>([]);
-  const [error, setError] = useState<string | null>(null);
+const HeroSection = ({slides}:{slides:Billboard[]}) => {
+  // const [loading, setLoading] = useState(true);
+  // const [slides, setSlide] = useState<Billboard[] |[]>([]);
+  // const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const billboard: Billboard[] = await getBillboards();
-        setSlide(billboard);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-        setError("Failed to load billlboards");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const billboard: Billboard[] = await getBillboards();
+  //       setSlide(billboard);
+  //     } catch (err) {
+  //       console.error("Error fetching products:", err);
+  //       setError("Failed to load billlboards");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchProducts();
-  }, []);
+  //   fetchProducts();
+  // }, []);
   const [emblaRef] = useEmblaCarousel({loop:true},[Autoplay(),Fade()])
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <p>Loading Billboards...</p>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-[200px]">
+  //       <p>Loading Billboards...</p>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <p>{error}</p>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-[200px]">
+  //       <p>{error}</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="relative w-full py-8 md:p-8 embla" ref={emblaRef}>
@@ -77,7 +82,7 @@ const HeroSection = () => {
       
         <div className="embla__container gap-4 " style={{ textShadow: "2px 2px 4px black" }}        >
 
-        {slides.map((slide, index) => (
+        {slides && slides.length>0 ? slides.map((slide, index) => (
            <div
            key={index}
            className="embla__slide bg-footer rounded-md"
@@ -90,11 +95,25 @@ const HeroSection = () => {
             <div className="flex flex-col items-start px-10">
               <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-lg mb-6">{slide.subtitle}</p>
-             <Button cta={slide.cta} pill={true} link={"/shop"}/>
+             <Button cta={slide.cta} pill={true} link={`/shop/${slide.category}`}/>
             </div>
           </div>
           </div>
-        ))}
+        )):
+        <div
+        className="embla__slide bg-footer rounded-md"
+      >
+       <div
+         className={`w-full border bg-footer flex items-center justify-between bg-cover bg-center h-[400px] text-header rounded-sm`}
+       >
+         <div className="flex flex-col items-start px-10">
+           <h2 className="text-4xl font-bold mb-4">{demoslide.title}</h2>
+           <p className="text-lg mb-6">{demoslide.subtitle}</p>
+          <Button cta={demoslide.cta} pill={true} link={"/shop"}/>
+         </div>
+       </div>
+       </div>
+       }
       </div>
     </div>
   );

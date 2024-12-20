@@ -288,16 +288,20 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
   const [activeCategory, setActiveCategory] = useState("all");
   const [categories, setCategories] = useState<string[]>([]);
   const [sortType, setSortType] = useState("default");
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setloading(true)
         const allProducts = await getProducts();
         setShopProducts(allProducts);
         setProducts(allProducts);
         setCategories(Array.from(new Set(allProducts.map((p) => p.category))).sort());
+        setloading(false)
       } catch (error) {
         console.error("Failed to fetch products:", error);
+        setloading(false)
       }
     };
 
@@ -380,7 +384,10 @@ const Shop = ({ categoryId, productname = "" }: { categoryId?: string; productna
   },[shopProducts,productname])
   const nextBatch = () => batch < maxBatch && setBatch(batch + 1);
   const prevBatch = () => batch > 1 && setBatch(batch - 1);
+if(loading)return(
+  <div className="text-center text-3xl font-semibold py-[30vh] text-text">LOADING...</div>
 
+)
   return (
     <div className="grid text-xs md:text-base md:grid-cols-5 gap-4 mt-12 mb-8 md:px-12 justify-center">
       <SideBar

@@ -55,7 +55,10 @@ model Order {
   account  Account  @relation("AccountOrders", fields: [accountId], references: [id])
   accountId String    @db.String() // Foreign key to Account
   orderId  String   // Unique order ID
+  productId  String   // Unique order ID
   image    String   // Product image URL
+  colors   String[]
+  sizes   String[]
   discountPercentage Float? // Optional discount percentage
   title    String   // Name of the product
   quantity Int      // Quantity ordered
@@ -73,5 +76,6 @@ model Review {
   title    String   // Name of the product
   rating   Float?   // Rating given by the user (1-5)
   image    String   // Product image URL
+  productId String
   reviewedAt DateTime? // Date the review was completed
 }

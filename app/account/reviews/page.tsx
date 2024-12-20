@@ -37,10 +37,10 @@ function Page() {
   </div>
    <Button cta='Upload review' disabled={!rating.find(({id})=>id==product.id)} action={async()=>{
     if(!rating.find(({id})=>id==product.id)?.rating) return toast.error('Please click a star to review')
-     await uploadReview(product.id,rating.find(({id})=>id==product.id)?.rating ||5)
+     await uploadReview(product.productId,rating.find(({id})=>id==product.id)?.rating ||5)
 
     dispatch({ type: "ADD_REVIEW", payload:{...product,rating:(rating.find(({id})=>id==product.id)?.rating)} });
-   toast.success("Thanks for the review")
+  //  toast.success("Thanks for the review")
    }}/>
             </div>
         )
