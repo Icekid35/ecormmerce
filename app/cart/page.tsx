@@ -207,7 +207,7 @@ const paytoast=toast.loading("processing...")
   
     if (loading || !account.name ) {
       return (
-        <div className="flex justify-center items-center min-h-[200px]">
+        <div className="flex justify-center items-center min-h-[70vh]">
           <p>Loading cart...</p>
         </div>
       );

@@ -28,7 +28,7 @@ const Header = () => {
           <Link href="/shop" className={path=='/shop' ?" text-primary":"text-text hover:text-primary"}>Store</Link>
           <Link href="/contact" className={path=='/contact' ?" text-primary":"text-text hover:text-primary"}>Contact</Link>
           <Link href="/about" className={path=='/about' ?" text-primary":"text-text hover:text-primary"}>About</Link>
-          {!account.name && account.isLoaded &&
+          {!account.name && 
           <Link href="/signup" className={path=='/signup' ?" text-primary":"text-text hover:text-primary"}>Sign Up</Link>
                   }
                           </nav>

@@ -81,7 +81,7 @@ function SignupPage() {
   return (
     <div className="flex gap-x-8 p-10">
             <GoogleOAuthProvider
-            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENTID||""}
+            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENTID||process.env.GOOGLE_CLIENTID||""}
 
         onScriptLoadError={() => {
      
