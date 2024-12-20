@@ -17,7 +17,7 @@ model Account {
   phone     String?  // Optional phone number
   address   String?
   cart      CartItem[] @relation("AccountCartItems") // Relation to CartItem
-  wishlist  WishlistItem[] // List of product IDs
+  wishlist  String[] // List of product IDs
   orders    Order[]  @relation("AccountOrders")     // Relation to Order
   reviews   Review[] @relation("AccountReviews")    // Relation to Review
   createdAt DateTime @default(now())
@@ -40,15 +40,15 @@ model CartItem {
 
 }
 
-model WishlistItem {
-  id String @id @default(uuid()) @map("_id") @db.String
-  accountId String    @db.String() // Foreign key to Account
-  title    String   // Name of the product
-  price    Float    // Price of the product
-  image    String   // Product image URL
-  addedAt  DateTime // Date and time the product was added
-  account  Account  @relation(fields: [accountId], references: [id])
-}
+// model WishlistItem {
+//   id String @id @default(uuid()) @map("_id") @db.String
+//   accountId String    @db.String() // Foreign key to Account
+//   title    String   // Name of the product
+//   price    Float    // Price of the product
+//   image    String   // Product image URL
+//   addedAt  DateTime // Date and time the product was added
+//   account  Account  @relation(fields: [accountId], references: [id])
+// }
 
 model Order {
   id String @id @default(uuid()) @map("_id") @db.String

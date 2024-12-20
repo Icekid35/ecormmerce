@@ -26,12 +26,11 @@ export async function PATCH(req: Request) {
     // Ensure the account exists
     const existingAccount = await prismadb.account.findUnique({
       where: { id },
-      include: {
-        cart: true,
-        wishlist: true,
-        orders: true,
-        reviews: true,
-      },
+      // include: {
+      //   cart: true,
+      //   orders: true,
+      //   reviews: true,
+      // },
     });
 
     if (!existingAccount) {
@@ -77,16 +76,16 @@ export async function PATCH(req: Request) {
 
 // }
 // }
-await prismadb.wishlistItem.deleteMany({
-  where: { accountId: id },
-});
-const wishlistUpdates = wishlist.map((item: Product) => ({
-  id: item.id,
-  title: item.title,
-  price: item.price,
-  image: item.images[0],
-  addedAt: new Date(Date.now()),
-}));
+// await prismadb.wishlistItem.deleteMany({
+//   where: { accountId: id },
+// });
+// const wishlistUpdates = wishlist.map((item: Product) => ({
+//   id: item.id,
+//   title: item.title,
+//   price: item.price,
+//   image: item.images[0],
+//   addedAt: new Date(Date.now()),
+// }));
     // if (wishlist.length > 0) {
     //   // Handle nested wishlist updates
     //   try {
@@ -164,8 +163,9 @@ const wishlistUpdates = wishlist.map((item: Product) => ({
       isActive,
       isgoogle,
       password,
+      wishlist,
       ...(cartUpdates.length > 0 && { cart: { create: cartUpdates } }),
-      ...(wishlistUpdates.length > 0 && { wishlist: { create: wishlistUpdates } }),
+      // ...(wishlistUpdates.length > 0 && { wishlist: { create: wishlistUpdates } }),
       ...(orderUpdates.length > 0 && { orders: { create: orderUpdates } }),
       ...(reviewUpdates.length > 0 && { reviews: { create: reviewUpdates } }),
     };
@@ -174,7 +174,7 @@ const wishlistUpdates = wishlist.map((item: Product) => ({
       data: accountData,
       include: {
         cart: true,
-        wishlist: true,
+        // wishlist: true,
         orders: true,
         reviews: true,
       },
@@ -284,15 +284,15 @@ export async function POST(req: Request) {
       }))
       : [];
 
-    const wishlistItems = Array.isArray(wishlist)
-      ? wishlist.filter(item => item && item.id).map(item => ({
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        image: item.image,
-        addedAt: new Date(),
-      }))
-      : [];
+    // const wishlistItems = Array.isArray(wishlist)
+    //   ? wishlist.filter(item => item && item.id).map(item => ({
+    //     id: item.id,
+    //     title: item.title,
+    //     price: item.price,
+    //     image: item.image,
+    //     addedAt: new Date(),
+    //   }))
+    //   : [];
 
     const orderItems = Array.isArray(orders)
       ? orders.filter(item => item && item.id).map(item => ({
@@ -324,7 +324,7 @@ export async function POST(req: Request) {
       }))
       : [];
 
-    console.log("Validated Data:", { cartItems, wishlistItems, orderItems, reviewItems });
+    console.log("Validated Data:", { cartItems,  orderItems, reviewItems });
 
     // Prisma account creation
     const account = await prismadb.account.create({
@@ -335,12 +335,13 @@ export async function POST(req: Request) {
         address,
         isgoogle,
         password,
+        wishlist,
         ...(cartItems.length > 0 && { cart: { create: cartItems } }),
-        ...(wishlistItems.length > 0 && { wishlist: { create: wishlistItems } }),
+        // ...(wishlistItems.length > 0 && { wishlist: { create: wishlistItems } }),
         ...(orderItems.length > 0 && { orders: { create: orderItems } }),
         ...(reviewItems.length > 0 && { reviews: { create: reviewItems } }),
       },
-      include:{cart:true,orders:true,reviews:true,wishlist:true,}
+      include:{cart:true,orders:true,reviews:true,}
     });
 
     return NextResponse.json(account);
@@ -364,7 +365,6 @@ export async function GET(req: Request) {
       where: { id },
       include: {
         cart: true,
-        wishlist: true,
         orders: true,
         reviews: true,
       },
@@ -383,6 +383,7 @@ export async function GET(req: Request) {
       isgoogle: account.isgoogle,
       password: account.password,
       createdAt: account.createdAt,
+      wishlist: account?.wishlist,
       cart: account.cart.map((item: CartItem) => ({
         id: item.id,
         title: item.title,
@@ -393,13 +394,13 @@ export async function GET(req: Request) {
         colors: item.colors,
       })),
 
-      wishlist: account.wishlist.map((item: WishlistItem) => ({
-        id: item.id,
-        title: item.title,
-        price: item.price,
-        image: item.image,
-        addedAt: item.addedAt,
-      })),
+      // wishlist: account.wishlist.map((item: WishlistItem) => ({
+      //   id: item.id,
+      //   title: item.title,
+      //   price: item.price,
+      //   image: item.image,
+      //   addedAt: item.addedAt,
+      // })),
       orders: account.orders.map((item: Order) => ({
         id: item.id,
         productId: item.productId,
@@ -446,7 +447,7 @@ export async function PUT(req: Request) {
     // Find the account by email
     const account = await prismadb.account.findUnique({
       where: { email },
-      include:{cart:true,orders:true,reviews:true,wishlist:true,}
+      include:{cart:true,orders:true,reviews:true,}
     });
 
     // Validate account existence and credentials

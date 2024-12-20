@@ -201,8 +201,8 @@ const accountReducer =  (state: Account, action: AccountAction): Account => {
             action.payload.quantity == 1
               ? prevcart?.quantity + 1
               : action.payload.quantity,
-          sizes: [...prevcart.sizes, ...action.payload.sizes.filter(s=>s==" ")],
-          colors: [...prevcart.colors, ...action.payload.colors.filter(s=>s==" ")],
+          sizes: [...prevcart.sizes, ...action.payload.sizes.filter(s=>s!=" ")],
+          colors: [...prevcart.colors, ...action.payload.colors.filter(s=>s!=" ")],
         };
         newState = {
           ...state,

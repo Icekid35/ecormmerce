@@ -147,7 +147,7 @@ export async function updateAccount(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...updates, wishlist: updates.wishlist ? updates.wishlist.map(w => products.find(p => p.id == w)) : [] }),
+      body: JSON.stringify({ ...updates}),
     });
     // alert("done")
     if (!response.ok) {

@@ -75,8 +75,8 @@ const productid=React.use(params).productid
           : product.price,
         image: product.images[0],
         quantity,
-        colors: [color],
-        sizes: [selectSize],
+        colors:Array(quantity).fill(color),
+        sizes: Array(quantity).fill(selectSize),
       },
     });
     // toast.success("Added to cart successfully");
