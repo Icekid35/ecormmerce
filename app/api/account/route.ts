@@ -1,5 +1,4 @@
 import { CartItem, Order, Review } from "@/app/types/account";
-import { Product } from "@/app/types/product";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
