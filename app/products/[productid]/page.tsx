@@ -91,6 +91,10 @@ if(updating)return toast.custom("Pls wait")
     }
   };
 
+  if(loading)return(
+    <div className="text-center text-3xl font-semibold py-[30vh] text-text">LOADING...</div>
+  
+  )
   if (!product) {
     return (
       <div className="flex w-full min-h-[80vh] justify-center items-center">
@@ -98,10 +102,6 @@ if(updating)return toast.custom("Pls wait")
       </div>
     );
   }
-  if(loading)return(
-    <div className="text-center text-3xl font-semibold py-[30vh] text-text">LOADING...</div>
-  
-  )
   return (
     <div className="flex flex-col gap-8 p-2 md:px-8">
       <div className="flex md:flex-row flex-col md:p-8 pt-4 gap-4">

@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import React from "react";
-import { OwnerAddress, OwnerEmail, ownerfacebook, ownerInsta, OwnerPhone1, ownerWhatapp } from "../controller/owner";
+import { OwnerAddress, OwnerEmail, ownerfacebook, ownerInsta, OwnerPhone1, ownerWhatapp, appname } from '../controller/owner';
 
 const Footer = () => {
   return (
@@ -16,14 +16,7 @@ const Footer = () => {
             className="mt-4 px-4 py-2 rounded-lg w-full text-black"
           />
         </div> */}
-        <div>
-          <h3 className="text-lg font-bold mb-4 capitalize">support</h3>
-          <ul className="flex flex-col gap-3">
-            <li><Link href={"mailto:"+OwnerEmail} className="hover:underline">{OwnerEmail}</Link></li>
-            <li><Link href={"#"} className="hover:underline">{OwnerPhone1}</Link></li>
-            <li><Link href="#" className="hover:underline capitalize">{OwnerAddress}</Link></li>
-          </ul>
-        </div>
+      
         <div >
           <h3 className="text-lg font-bold mb-4">Quick Links</h3>
           <ul className="flex flex-col gap-3">
@@ -43,6 +36,14 @@ const Footer = () => {
           </ul>
         </div>
         <div>
+          <h3 className="text-lg font-bold mb-4 capitalize">support</h3>
+          <ul className="flex flex-col gap-3">
+            <li><Link href={"mailto:"+OwnerEmail} className="hover:underline">{OwnerEmail}</Link></li>
+            <li><Link href={"#"} className="hover:underline">{OwnerPhone1}</Link></li>
+            <li><Link href="#" className="hover:underline capitalize">{OwnerAddress}</Link></li>
+          </ul>
+        </div>
+        <div>
           <h3 className="text-lg font-bold mb-4 capitalize">Follow Us</h3>
           <p>Connect with us on social media.</p>
           <div className="flex gap-6 py-4">
@@ -58,7 +59,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <p className="text-center mt-10">© 2024 Exclusive. All Rights Reserved.</p>
+      <p className="text-center mt-10">© 2025 {appname}. All Rights Reserved.</p>
     </footer>
   );
 };

@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useAccount } from "../layout";
 // import Image from "next/image";
 // import favico from "../favicon.ico"
+import { appname } from '../controller/owner';
 
 const Header = () => {
   const [searchterm,setSearchterm]=useState("")
@@ -22,7 +23,7 @@ const Header = () => {
   return (
     <header className="bg-accent  shadow-shadow shadow-md">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <Link href={'/'} className="text-xl font-bold flex items-center  gap-2">{path!="/" && <FontAwesomeIcon icon={faHome} />}ICE </Link>
+        <Link href={'/shop'} className="text-xl font-bold flex items-center  gap-2">{path!="/" && <FontAwesomeIcon icon={faHome} />}{appname} </Link>
         <nav className="space-x-6 hidden md:flex">
           <Link  href="/homepage" className={path=='/homepage' ?" text-primary":"text-text hover:text-primary"}>Home</Link>
           <Link href="/shop" className={path=='/shop' ?" text-primary":"text-text hover:text-primary"}>Store</Link>

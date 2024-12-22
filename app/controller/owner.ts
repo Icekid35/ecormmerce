@@ -1,4 +1,4 @@
-export const appname="ice"
+export const appname="ICE"
 export const OwnerEmail="bellohabib682@gmail.com"
 export const OwnerPhone1="08157899261"
 export const OwnerPhone2="07032958327"

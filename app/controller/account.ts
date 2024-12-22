@@ -189,7 +189,7 @@ try {
     name:account.name,
   
   })})
-  router.push('/checkout')
+  router.push('/ordercompleted?orderid='+orderId)
   toast.success("Added to que",{id:toastid})
 } catch (error) {
   console.log(error)
