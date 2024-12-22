@@ -12,6 +12,7 @@ import { Product } from "@/app/types/product";
 import Image from "next/image";
 import getProducts from "@/app/controller/products";
 import { updating } from "@/app/controller/account";
+import { useRouter } from "next/navigation";
 
 const Products = ({ params }: { params: Promise<{ productid: string }> }) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,8 +22,9 @@ const Products = ({ params }: { params: Promise<{ productid: string }> }) => {
   const [image, setImage] = useState("");
   const [selectSize, setSize] = useState("");
   const [loading, setLoading] = useState(true);
-  const { dispatch } = useAccount();
+  const { account,dispatch } = useAccount();
 const productid=React.use(params).productid
+const router=useRouter()
   // Fetch products client-side
   useEffect(() => {
     const fetchProducts = async () => {
@@ -63,7 +65,10 @@ const productid=React.use(params).productid
   const addToCart = ( ) => {
     if (!product) return;
     if(updating)return toast.custom("Pls wait")
-
+      if(account.name) {
+        toast.error("Pls signup to comtinue")
+        return router.push("/signup")
+      }
 
     dispatch({
       type: "ADD_TO_CART",
@@ -85,7 +90,10 @@ const productid=React.use(params).productid
   const addToWishlist = () => {
     if (product) {
 if(updating)return toast.custom("Pls wait")
-
+  if(account.name) {
+    toast.error("Pls signup to comtinue")
+    return router.push("/signup")
+  }
       dispatch({ type: "ADD_TO_WISHLIST", payload: product.id });
       // toast.success("Added to wishlist successfully");
     }

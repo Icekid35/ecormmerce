@@ -47,7 +47,7 @@ export default function AccountLayout({
                     My cart</Link>
                     <Link href="/wishlist" className="text-secondary text-sm hover:text-primary">
                     my wishlist</Link>
-                    <Link href="/Logout" className="text-red-500 text-sm hover:text-primary">
+                    <Link href="/logout" className="text-red-500 text-sm hover:text-primary">
                     Logout</Link>
                 
             </div>

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 *,*::before,*::after{
-  transition: all 200ms ease-out;
+  transition: all 50ms ease-out;
 }
 :root {
   --background:#f8fafc; /*slate-50 */

@@ -13,10 +13,10 @@ function convertToBillboardType(initialBillboards: initialBillboards[]): Billboa
   }));
 }
 // Singleton cache for billboards
-let billboardsCache: Billboard[] | null = null;
+// let billboardsCache: Billboard[] | null = null;
 
 // Flag to indicate if a fetch is in progress
-let fetchBillboardsInProgress: boolean = false;
+// let fetchBillboardsInProgress: boolean = false;
 
 // Define the API host
 const adminhost=process.env.NODE_ENV =="production"? "https://iceadmin.vercel.app/api/"+ownerStoreid:"http://localhost:3001/api/"+ownerStoreid
@@ -41,28 +41,29 @@ async function fetchBillboards(): Promise<Billboard[]> {
 // Controller to get billboards with caching
 export default async function getBillboards(): Promise<Billboard[]> {
   // If billboards are cached, return the cache
-  if (billboardsCache) {
-    return billboardsCache;
-  }
+  // if (billboardsCache) {
+  //   return billboardsCache;
+  // }
 
-  // If a fetch is already in progress, wait for it to complete
-  if (fetchBillboardsInProgress) {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (!fetchBillboardsInProgress && billboardsCache) {
-          clearInterval(interval);
-          resolve(billboardsCache);
-        }
-      }, 100); // Poll every 100ms
-    });
-  }
+  // // If a fetch is already in progress, wait for it to complete
+  // if (fetchBillboardsInProgress) {
+  //   return new Promise((resolve) => {
+  //     const interval = setInterval(() => {
+  //       if (!fetchBillboardsInProgress && billboardsCache) {
+  //         clearInterval(interval);
+  //         resolve(billboardsCache);
+  //       }
+  //     }, 100); // Poll every 100ms
+  //   });
+  // }
 
   // Fetch and cache the billboards
-  fetchBillboardsInProgress = true;
+  // fetchBillboardsInProgress = true;
   try {
-    billboardsCache = await fetchBillboards();
+   const res = await fetchBillboards();
+  return res;
+
 } finally {
-    fetchBillboardsInProgress = false;
+    // fetchBillboardsInProgress = false;
   }
-  return billboardsCache;
 }

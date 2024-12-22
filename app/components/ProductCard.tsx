@@ -10,6 +10,7 @@ import { updating } from "../controller/account";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNairaSign } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 // import Image from "next/image";
 
 // Define the TypeScript type for the product card props
@@ -20,6 +21,7 @@ forUser?:boolean
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) => {
+  
   const {
     id,
     title,
@@ -31,22 +33,29 @@ const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) =
     isNewArrival,
     
   }=product
+  const router=useRouter()
  const onAddToCart= ( ) => {
 
   if(updating)return toast.custom("Pls wait")
-
+if(account.name) {
+  toast.error("Pls signup to comtinue")
+  return router.push("/signup")
+}
   dispatch({type:"ADD_TO_CART",payload:{id,title,price:discountPrice ? Math.round(price-((discountPrice/100)*price)):price,quantity:1,image:images[0],sizes:[""],colors:[""]}})
 // toast.success("Sucessfully added to cart") 
 }
  const onWishlist= () => {
 if(updating)return toast.custom("Pls wait")
-
+  if(account.name) {
+    toast.error("Pls signup to comtinue")
+    return router.push("/signup")
+  }
   dispatch({type:"ADD_TO_WISHLIST",payload:product.id})
   // toast.success("Sucessfully added to your wishlist") 
   
  }
  const onPreview= () => {}
- const {dispatch}=useAccount()
+ const {account,dispatch}=useAccount()
   return (
     <div className="embla__slide  w-[150px] max-w-[150px] md:max-w-[220px]  md:w-[220px]  m-3 pb-3 rounded-lg shadow-shadow shadow-lg  flex flex-col items-center gap-1 relative hoverable">
       {/* Discount Badge */} 
