@@ -15,7 +15,7 @@ const OrderCompleted: React.FC = () => {
       <div className="max-w-xl text-center bg-accent shadow-shadow shadow-lg rounded-lg p-8">
         <h1 className="text-3xl font-bold text-text mb-4">Order Completed!</h1>
         <p className="text-text mb-6">
-          Thank you for your purchase! Your order has been placed successfully.
+          Thank you for your purchase! Your order has been placed successfully.Our agent will reachout to you soon via whatsapp
         </p>
         <div className='capitalize w-full text-left'>your orderID: {orderid}</div>
         <div className="flex justify-center gap-4 mt-6">
