@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { updating } from "../controller/account";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNairaSign } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 // import Image from "next/image";
 
 // Define the TypeScript type for the product card props
@@ -63,9 +64,10 @@ if(updating)return toast.custom("Pls wait")
 
       {/* Product Image */}
       <div className=" w-full max-h-40 md:max-h-64 overflow-hidden rounded-lg flex items-center justify-center ">
-        <img src={images[0]}  
+        <Image src={images[0]}  
+        alt={title}
                 style={{width:"100%",height:"100%"}}
-                loading="lazy" alt="Product" className=" w-full object-cover" />
+                loading="lazy" className=" w-full object-cover" />
       </div>
 
       {/* Action Buttons */}

@@ -1,10 +1,10 @@
 "use client"
-import React from 'react';
+import React, { Suspense } from 'react';
 import Button from '../components/button';
 import Link from 'next/link';
 import {  useSearchParams } from 'next/navigation';
 
-const OrderCompleted: React.FC = () => {
+const Completed: React.FC = () => {
 
   const [router] = useSearchParams();
   const orderid  = router[1]; // Extract orderId from the query
@@ -44,4 +44,12 @@ const OrderCompleted: React.FC = () => {
   );
 };
 
+export function OrderCompleted() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <Completed />
+    </Suspense>
+  )
+}
 export default OrderCompleted;
