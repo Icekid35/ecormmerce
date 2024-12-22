@@ -44,12 +44,14 @@ const Completed: React.FC = () => {
   );
 };
 
-export function OrderCompleted() {
+function OrderCompleted() {
   return (
-    // You could have a loading skeleton as the `fallback` too
-    <Suspense>
+<>
+
+   <Suspense>
       <Completed />
     </Suspense>
+</> 
   )
 }
 export default OrderCompleted;
