@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({product,isWishlist,forUser}) =
  const onAddToCart= ( ) => {
 
   if(updating)return toast.custom("Pls wait")
-if(account.name) {
+if(!account.name) {
   toast.error("Pls signup to comtinue")
   return router.push("/signup")
 }
@@ -46,7 +46,7 @@ if(account.name) {
 }
  const onWishlist= () => {
 if(updating)return toast.custom("Pls wait")
-  if(account.name) {
+  if(!account.name) {
     toast.error("Pls signup to comtinue")
     return router.push("/signup")
   }

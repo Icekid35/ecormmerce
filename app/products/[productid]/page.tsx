@@ -65,7 +65,7 @@ const router=useRouter()
   const addToCart = ( ) => {
     if (!product) return;
     if(updating)return toast.custom("Pls wait")
-      if(account.name) {
+      if(!account.name) {
         toast.error("Pls signup to comtinue")
         return router.push("/signup")
       }
@@ -90,7 +90,7 @@ const router=useRouter()
   const addToWishlist = () => {
     if (product) {
 if(updating)return toast.custom("Pls wait")
-  if(account.name) {
+  if(!account.name) {
     toast.error("Pls signup to comtinue")
     return router.push("/signup")
   }
