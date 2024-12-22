@@ -230,6 +230,7 @@ if(updating)return toast.custom("Pls wait")
         <div className="grid row-auto w-full col-auto md:grid-cols-[repeat(auto-fit,minmax(230px,1fr))] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] mb-16 gap-3 justify-center">
           {products
             .filter((p) =>( p.category === product.category) && p.id!=product.id)
+            .sort((a, b) => b.reviewCount - a.reviewCount).sort((a, b) => b.rating - a.rating)
             .slice(0, 4)
             .map((relatedProduct) => (
               <ProductCard key={relatedProduct.id} product={relatedProduct} />

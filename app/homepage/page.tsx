@@ -46,7 +46,7 @@ const HomePage =async () => {
         <HeroSection slides={billboards}/>
         <FlashSales flashSales={products.filter((pro) => pro.discountPrice)}/>
         <HomeCategories categories={uniqueCategories.slice(0, Math.min(uniqueCategories.length, 5))} />
-        <BestProducts bestProducts={products.filter((pro) => pro.isFeatured)}/>
+        <BestProducts bestProducts={products.sort((a, b) => b.reviewCount - a.reviewCount).sort((a, b) => b.rating - a.rating)}/>
         <NewArrivals newArrivals={products.filter((product) => product.isNewArrival)} />
         <Trustie />
       </div>

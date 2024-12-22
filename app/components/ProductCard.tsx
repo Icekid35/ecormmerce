@@ -169,8 +169,8 @@ const OrderProductCard: React.FC<extOrder> = ({
    
       </div>
 <Link href={"/products/"+id} className="capitalize text-center font-bold">{quantity} {title}</Link>
-{colors && colors.length>0 && <div className="text-xs text-left w-full capitalize">color: {colors?.join(",")}</div>}
-{sizes && sizes.length>0 && <div className="text-xs text-left w-full capitalize">color: {sizes?.join(",")}</div>}
+{colors && colors.filter(c=>c!="").length>0 && <div className="text-xs text-left w-full capitalize">color: {colors?.join(" ,")}</div>}
+{sizes && sizes.filter(c=>c!="").length>0 && <div className="text-xs text-left w-full capitalize">sizes: {sizes?.join(",")}</div>}
       {/* Price and Rating */}
       <div className="text-center space-y-2 ">
         <p className="text-primary text-sm"> <FontAwesomeIcon icon={faNairaSign} />{discountPercentage ? (<>{((price - (price*((discountPercentage||0)/100))) *quantity).toLocaleString('en-US')} <span className="text-secondary line-through italic">N{(price*quantity).toLocaleString('en-US')}</span></>):price.toLocaleString('en-US')}</p>

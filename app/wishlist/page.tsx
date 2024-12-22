@@ -52,9 +52,8 @@ const Wishlist: React.FC = () => {
           <h2 className="text-2xl font-bold align-middle">Just for you</h2>
         </div>
         <div className="grid auto-rows-auto auto-cols-auto grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] items-center justify-center gap-1">
-          {products
-            .filter((s) => s.isFeatured)
-            .slice(0, products.filter((s) => s.isFeatured).length < 4 ? products.filter((s) => s.isFeatured).length : 4)
+          {
+            products.sort((a, b) => b.reviewCount - a.reviewCount).sort((a, b) => b.rating - a.rating).slice(0,Math.min(products.sort((a, b) => b.reviewCount - a.reviewCount).sort((a, b) => b.rating - a.rating).length,4))
             .map((item) => (
               <ProductCard product={item} key={item.id} />
             ))}
