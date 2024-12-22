@@ -70,7 +70,7 @@ export const signup = async (name: string, email: string, isgoogle?: boolean, pa
   const ans = await response.json()
   localStorage.setItem("id", ans.id)
 
-  return ans;
+  return {...ans,isLoaded:true};
 };
 
 /**
@@ -100,7 +100,8 @@ export const login = async (email: string, isgoogle?: boolean, password?: string
   const ans = await response.json()
   localStorage.setItem("id", ans.id)
 
-  return ans;
+  return {...ans,isLoaded:true};
+
 };
 
 /**
