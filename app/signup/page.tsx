@@ -65,11 +65,13 @@ function SignupPage() {
         register,
         {
           loading: 'Loading',
-          success: () => {
+          success: (acc) => {
+            dispatch({type:"SET_ACCOUNT",payload:acc})
             setTimeout(() => {
               
               router.push('/shop')
             }, 1000);
+         
             return `Signup sucessful, Welcome`},
           error: (err) => `${err.toString()}`,
         },
